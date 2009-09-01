@@ -1,0 +1,10 @@
+<html>
+	<head>
+		<title>Inicio</title>
+    </head>
+	<body>
+		<h1>Inicio</h1>
+        <a href="importComponents.htm" title="Importar el listado de componentes">
+			Haga click aqu&iacute para importar el listado de componentes</a>
+    </body>
+</html>	

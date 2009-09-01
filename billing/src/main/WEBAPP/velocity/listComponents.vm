@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title>Listado de componentes actualizado</title>
+    </head>
+	<body>
+		<h1>Lista de componentes actualizada en la base de datos</h1>
+        <p>Las propiedades del fichero que ha usado para actualizar la base
+		de datos de componentes son</p>
+		<ul>
+			<li>Size: $!{file.size}</li>
+            <li>Name: $!{file.originalFilename}</li>
+        </ul>
+    </body>
+</html>

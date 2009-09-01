@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- HANDLER MAPPINGS -->
+
+	<bean id="handlerMapping" 
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+	<!-- CONTROLLERS -->
+
+	<bean name="/home.htm" 
+			class="com.carlos.projects.billing.ui.controllers.HomeController">
+		<property name="viewName" value="home" />
+	</bean>
+
+    <bean name="/importComponents.htm" 
+			class="com.carlos.projects.billing.ui.controllers.ImportComponentsController">
+        <property name="commandClass" 
+        	value="com.carlos.projects.billing.domain.FileUpload"/>
+        <property name="formView" value="importComponents"/>
+        <property name="successView" value="storeComponents"/>
+    </bean>
+	
+	
+	<bean name="/storeComponents.htm" 
+			class="com.carlos.projects.billing.ui.controllers.ShowComponentsController">
+		<property name="viewName" value="storeComponents" />
+	</bean>	
+
+	<!-- RESOLVERS -->
+	<bean id="multipartResolver"
+    		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>	
+	
+	<!-- VELOCITY CONFIGURATION -->
+	
+	<bean id="velocityConfig" 
+			class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="velocity"/>
+	</bean>
+	
+	<bean id="viewResolver" 
+			class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="cache" value="true"/>
+		<property name="suffix" value=".vm"/>
+	</bean>
+
+</beans>
