@@ -22,13 +22,13 @@
         <property name="commandClass" 
         	value="com.carlos.projects.billing.domain.FileUpload"/>
         <property name="formView" value="importComponents"/>
-        <property name="successView" value="storeComponents"/>
+        <property name="successView" value="showComponents"/>
     </bean>
 	
 	
-	<bean name="/storeComponents.htm" 
+	<bean name="/showComponents.htm" 
 			class="com.carlos.projects.billing.ui.controllers.ShowComponentsController">
-		<property name="viewName" value="storeComponents" />
+		<property name="viewName" value="showComponents" />
 	</bean>	
 
 	<!-- RESOLVERS -->
