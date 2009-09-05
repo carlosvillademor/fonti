@@ -22,7 +22,6 @@
         <property name="commandClass" 
         	value="com.carlos.projects.billing.domain.FileUpload"/>
         <property name="formView" value="importComponents"/>
-        <property name="successView" value="showComponents"/>
     </bean>
 	
 	

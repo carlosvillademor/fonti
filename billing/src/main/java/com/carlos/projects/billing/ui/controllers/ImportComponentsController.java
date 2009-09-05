@@ -35,7 +35,7 @@ public class ImportComponentsController extends SimpleFormController {
 		MultipartFile file = bean.getFile();
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("file", file);
-		return new ModelAndView("storeComponents", model);
+		return new ModelAndView("showComponents", model);
 	}
 
 }
