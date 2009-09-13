@@ -28,12 +28,10 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  * @date 11 Jul 2009
  * 
- * Class that defines a company to use the billing application
+ * Representation of company. Name is needed and must be unique
  *
  */
 public class Company {
-	
-	private Long id;
 	
 	private String name;
 	
@@ -49,20 +47,6 @@ public class Company {
 	
 	public Company () {
 		super();
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/**
@@ -163,7 +147,6 @@ public class Company {
 		}
 		Company otherCompany = (Company) obj;
 		return new EqualsBuilder()
-		.append(id, otherCompany.getId())
 		.append(name, otherCompany.getName())
 		.append(nationalInsuranceNumber, 
 				otherCompany.getNationalInsuranceNumber())
@@ -180,7 +163,6 @@ public class Company {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
-			.append(id)
 			.append(name)
 			.append(nationalInsuranceNumber)
 			.append(phoneNumber)
@@ -196,7 +178,6 @@ public class Company {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-		.append(id)
 		.append(name)
 		.append(nationalInsuranceNumber)
 		.append(phoneNumber)

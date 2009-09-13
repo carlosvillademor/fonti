@@ -31,11 +31,10 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  * @date 3 Aug 2009
  *
+ * Representation of component categories. Name is needed and must be unique
  */
 public class Category {
 
-	private long id;
-	
 	private String name;
 	
 	private String description;
@@ -44,20 +43,6 @@ public class Category {
 	
 	public Category() {
 		super();
-	}
-
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	/**
@@ -115,7 +100,6 @@ public class Category {
 		}
 		Category category = (Category) obj;
 		return new EqualsBuilder()
-			.append(id, category.getId())
 			.append(name, category.getName())
 			.append(description, category.getDescription())
 			.append(components, category.getComponents())
@@ -128,7 +112,6 @@ public class Category {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
-		.append(id)
 		.append(name)
 		.append(description)
 		.append(components)
@@ -141,7 +124,6 @@ public class Category {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append(id)
 			.append(name)
 			.append(description)
 			.append(components)

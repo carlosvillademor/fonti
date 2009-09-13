@@ -31,6 +31,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  * @date 25 Jul 2009
  *
+ * Representation of client. Id is needed and unique
  */
 public class Client {
 
@@ -68,7 +69,8 @@ public class Client {
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	@SuppressWarnings("unused")
+	private void setId(long id) {
 		this.id = id;
 	}
 

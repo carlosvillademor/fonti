@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class
+		name="Company"
+		table="COMPANY">
+		<id name="name" column="COMPANY_NAME"/>
+		<property name="nationalInsuranceNumber" type="string" 
+				  column="COMPANY_NATIONAL_INSURANCE_NUMBER"/>
+		<property name="phoneNumber" type="string" 
+				  column="COMPANY_PHONE_NUMBER"/>
+		<property name="emailAddress" type="string" 
+				  column="COMPANY_EMAIL_ADDRESS"/>
+		<component name="address" class="Address">
+			<property name="street" type="string"
+					  column="COMPANY_ADDRESS_STREET"/>
+			<property name="zipcode" type="string"
+					  column="COMPANY_ADDRESS_ZIP_CODE"/>
+			<property name="number" type="int"
+					  column="COMPANY_ADDRESS_NUMBER"/>
+			<property name="floor" type="int"
+					  column="COMPANY_ADDRESS_FLOOR"/>
+			<property name="letter" type="string"
+					  column="COMPANY_ADDRESS_LETTER"/>
+			<property name="city" type="string"
+					  column="COMPANY_ADDRESS_CITY"/>
+			<property name="state" type="string"
+					  column="COMPANY_ADDRESS_STATE"/>
+		</component>
+		<property name="bankAccount" type="string" 
+				  column="COMPANY_BANK_ACCOUNT"/>
+	</class>
+</hibernate-mapping>

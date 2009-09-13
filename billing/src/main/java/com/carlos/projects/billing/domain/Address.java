@@ -29,10 +29,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  * @date 25 Jul 2009
  *
+ * Representation of address
  */
 public class Address {
-	
-	private long id;
 	
 	private String street;
 	
@@ -52,20 +51,6 @@ public class Address {
 		super();
 	}
 	
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	/**
 	 * @return the street
 	 */
@@ -177,7 +162,6 @@ public class Address {
 		}		
 		Address otherAddress = (Address) obj; 
 		return new EqualsBuilder()
-			.append(id, otherAddress.getId())
 			.append(street, otherAddress.getStreet())
 			.append(zipCode, otherAddress.getZipCode())
 			.append(number, otherAddress.getNumber())
@@ -194,7 +178,6 @@ public class Address {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
-		.append(id)
 		.append(street)
 		.append(zipCode)
 		.append(number)
@@ -211,7 +194,6 @@ public class Address {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-		.append(id)
 		.append(street)
 		.append(zipCode)
 		.append(number)

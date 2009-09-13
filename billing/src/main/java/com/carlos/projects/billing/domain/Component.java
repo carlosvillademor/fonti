@@ -29,49 +29,36 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  * @date 25 Jul 2009
  *
+ * Representation of component. All properties are needed and must be unique
  */
 public class Component {
 
-	private long id;
-	
-	private String name;
+	private String code;
 	
 	private String description;
 	
-	private double minimunDiscount;
+	private double price;
 	
-	private double maximunDiscount;
+	private double minimumDiscount;
+	
+	private double maximumDiscount;
 
 	public Component() {
 		super();
 	}
 	
 	/**
-	 * @return the id
+	 * @return the code
 	 */
-	public long getId() {
-		return id;
+	public String getCode() {
+		return code;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param code the code to set
 	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	/**
@@ -89,31 +76,45 @@ public class Component {
 	}
 
 	/**
-	 * @return the minimunDiscount
+	 * @return the price
 	 */
-	public double getMinimunDiscount() {
-		return minimunDiscount;
+	public double getPrice() {
+		return price;
 	}
 
 	/**
-	 * @param minimunDiscount the minimunDiscount to set
+	 * @param price the price to set
 	 */
-	public void setMinimunDiscount(double minimunDiscount) {
-		this.minimunDiscount = minimunDiscount;
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 	/**
-	 * @return the maximunDiscount
+	 * @return the minimumDiscount
 	 */
-	public double getMaximunDiscount() {
-		return maximunDiscount;
+	public double getMinimumDiscount() {
+		return minimumDiscount;
+	}
+
+	/**
+	 * @param minimumDiscount the minimumDiscount to set
+	 */
+	public void setMinimumDiscount(double minimumDiscount) {
+		this.minimumDiscount = minimumDiscount;
+	}
+
+	/**
+	 * @return the maximumDiscount
+	 */
+	public double getMaximumDiscount() {
+		return maximumDiscount;
 	}
 
 	/**
 	 * @param maximunDiscount the maximunDiscount to set
 	 */
-	public void setMaximunDiscount(double maximunDiscount) {
-		this.maximunDiscount = maximunDiscount;
+	public void setMaximumDiscount(double maximumDiscount) {
+		this.maximumDiscount = maximumDiscount;
 	}
 
 	/* (non-Javadoc)
@@ -122,11 +123,10 @@ public class Component {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append(id)
-			.append(name)
+			.append(code)
 			.append(description)
-			.append(minimunDiscount)
-			.append(maximunDiscount)
+			.append(minimumDiscount)
+			.append(maximumDiscount)
 			.toString();
 	}
 
@@ -143,11 +143,10 @@ public class Component {
 		}
 		Component component = (Component) obj;
 		return new EqualsBuilder()
-		.append(id, component.getId())
-		.append(name, component.getName())
+		.append(code, component.getCode())
 		.append(description, component.getDescription())
-		.append(minimunDiscount, component.getMinimunDiscount())
-		.append(maximunDiscount, component.getMaximunDiscount())
+		.append(minimumDiscount, component.getMinimumDiscount())
+		.append(maximumDiscount, component.getMaximumDiscount())
 		.isEquals();
 	}
 
@@ -157,13 +156,11 @@ public class Component {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
-		.append(id)
-		.append(name)
+		.append(code)
 		.append(description)
-		.append(minimunDiscount)
-		.append(maximunDiscount)
+		.append(minimumDiscount)
+		.append(maximumDiscount)
 		.hashCode();
 	}
-	
 	
 }

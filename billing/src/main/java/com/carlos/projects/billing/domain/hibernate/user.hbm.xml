@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="User" table="USER">
+		<id name="userName" type="string" column="USER_USER_NAME"/>
+		<property name="firstName" type="string" 
+				  column="USER_FIRST_NAME" not-null="true"/>
+		<property name="lastName" type="string" column="USER_LAST_NAME"/>
+		<property name="password" type="string" 
+				  column="USER_PASSWORD" not-null="true"/>
+		<property name="securityQuestion" type="string" 
+				  column="USER_SECURITY_QUESTION"/>
+		<property name="securityAnswer" type="string" 
+				  column="USER_SECURITY_ANSWER"/>
+	</class>
+</hibernate-mapping>

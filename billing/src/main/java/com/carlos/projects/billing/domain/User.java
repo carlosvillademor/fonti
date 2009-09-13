@@ -29,12 +29,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  * @date 25 Jul 2009
  *
+ * Representation of the users using the application, whose user name must 
+ * be unique, and needs to have first name and password at least
  */
 
 public class User {
 
-	private long id;
-	
 	private String firstName;
 	
 	private String lastName;
@@ -49,20 +49,6 @@ public class User {
 	
 	public User() {
 		super();
-	}
-
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	/**
@@ -162,7 +148,6 @@ public class User {
 		}
 		User otherUser = (User) obj;
 		return new EqualsBuilder()
-			.append(id, otherUser.getId())
 			.append(firstName, otherUser.getFirstName())
 			.append(lastName, otherUser.getLastName())
 			.append(userName, otherUser.getUserName())
@@ -178,7 +163,6 @@ public class User {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
-			.append(id)
 			.append(firstName)
 			.append(lastName)
 			.append(userName)
@@ -194,7 +178,6 @@ public class User {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append(id)
 			.append(firstName)
 			.append(lastName)
 			.append(userName)

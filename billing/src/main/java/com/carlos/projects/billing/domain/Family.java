@@ -31,12 +31,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  * @date 3 Aug 2009
  *
+ * Representation of component families. Name is needed and must be unique
  */
 
 public class Family {
 
-	private long id;
-	
 	private String name;
 	
 	private String description;
@@ -45,20 +44,6 @@ public class Family {
 	
 	public Family() {
 		super();
-	}
-
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	/**
@@ -116,7 +101,6 @@ public class Family {
 		}
 		Family family = (Family) obj;
 		return new EqualsBuilder()
-			.append(id, family.getId())
 			.append(name, family.getName())
 			.append(description, family.getDescription())
 			.append(categories, family.getCategories())
@@ -129,7 +113,6 @@ public class Family {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
-			.append(id)
 			.append(name)
 			.append(description)
 			.append(categories)
@@ -142,12 +125,10 @@ public class Family {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append(id)
 			.append(name)
 			.append(description)
 			.append(categories)
 			.toString();
 	}
-	
-	
+
 }
