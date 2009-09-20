@@ -9,8 +9,9 @@
 		<id name="name" column="FAMILY_NAME"/>
 		<property name="description" type="string" 
 				  column="FAMILY_DESCRIPTION"/>
-		<set name="categories" table="CATEGORY">
-			<key column="CATEGORY_ID"/>
+		<set name="categories" inverse="true" 
+			 cascade="save-update, delete, delete-orphan">
+			<key column="CATEGORY_FAMILY_NAME"/>
 			<one-to-many class="Category"/>
 		</set>
 	</class>

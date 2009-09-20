@@ -10,7 +10,7 @@
 		<property name="description" type="string" 
 				  column="CATEGORY_DESCRIPTION"/>
 		<set name="components" table="COMPONENT">
-			<key column="COMPONENT_ID"/>
+			<key column="COMPONENT_CATEGORY_NAME"/>
 			<composite-element class="Component">
 				<property name="code" type="string" 
 						  column="COMPONENT_CODE" not-null="true"/>
@@ -24,7 +24,7 @@
 						  column="COMPONENT_MAXIMUM_DISCOUNT" not-null="true"/>
 			</composite-element>
 		</set>
-		<many-to-one name="family" column="FAMILY_ID" 
+		<many-to-one name="family" column="CATEGORY_FAMILY_NAME" 
 					 class="Family" not-null="true"/>
 	</class>
 </hibernate-mapping>

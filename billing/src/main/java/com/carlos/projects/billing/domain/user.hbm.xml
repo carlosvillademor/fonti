@@ -14,5 +14,7 @@
 				  column="USER_SECURITY_QUESTION"/>
 		<property name="securityAnswer" type="string" 
 				  column="USER_SECURITY_ANSWER"/>
+		<many-to-one name="company" column="USER_COMPANY_NAME" 
+					 class="Company"/>
 	</class>
 </hibernate-mapping>

@@ -31,7 +31,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  * @date 25 Jul 2009
  *
- * Representation of client. Id is needed and unique
+ * Representation of client. Id is needed and unique. First name is needed.
  */
 public class Client {
 

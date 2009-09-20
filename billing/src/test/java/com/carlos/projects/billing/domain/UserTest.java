@@ -20,8 +20,8 @@
 
 package com.carlos.projects.billing.domain;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class UserTest {
 	}
 	
 	@Test
-	public void userConstructorShouldReturnNonNullUser() {
+	public void shouldCreateNonNullUser() {
 		assertThat(user, is(notNullValue()));
 	}	
 }

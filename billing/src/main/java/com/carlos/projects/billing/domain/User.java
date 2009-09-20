@@ -29,8 +29,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  * @date 25 Jul 2009
  *
- * Representation of the users using the application, whose user name must 
- * be unique, and needs to have first name and password at least
+ * Representation of the users using the application. User name and company are
+ * needed and must be unique, and needs to have first name and password.
  */
 
 public class User {
@@ -46,6 +46,8 @@ public class User {
 	private String securityQuestion;
 	
 	private String securityAnswer;
+	
+	private Company company;
 	
 	public User() {
 		super();
@@ -135,6 +137,20 @@ public class User {
 		this.securityAnswer = securityAnswer;
 	}
 
+	/**
+	 * @return the company
+	 */
+	public Company getCompany() {
+		return company;
+	}
+
+	/**
+	 * @param company the company to set
+	 */
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -154,6 +170,7 @@ public class User {
 			.append(password, otherUser.getPassword())
 			.append(securityQuestion, otherUser.getSecurityQuestion())
 			.append(securityAnswer, otherUser.getSecurityAnswer())
+			.append(company, otherUser.getCompany())
 			.isEquals();
 	}
 
@@ -169,6 +186,7 @@ public class User {
 			.append(password)
 			.append(securityQuestion)
 			.append(securityAnswer)
+			.append(company)
 			.hashCode();
 	}
 
@@ -184,6 +202,7 @@ public class User {
 			.append(password)
 			.append(securityQuestion)
 			.append(securityAnswer)
+			.append(company)
 			.toString();
 	}
 

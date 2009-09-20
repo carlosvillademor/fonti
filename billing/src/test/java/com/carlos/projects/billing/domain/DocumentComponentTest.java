@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.carlos.projects.billing.domain;
 
 import static org.hamcrest.Matchers.*;
@@ -29,21 +28,20 @@ import org.junit.Test;
 /**
  * @author Carlos Fernandez
  *
- * @date 3 Sep 2009
- *
- * Unit tests for {@link Address}
+ * @date 20 Sep 2009
+ * 
+ * Unit tests for {@link DocumentComponent}}
  */
-public class AddressTest {
-	
-	private Address address;
+public class DocumentComponentTest {
+	DocumentComponent documentComponent;
 	
 	@Before
 	public void setup() {
-		address = new Address();
+		documentComponent = new DocumentComponent();
 	}
-	
+
 	@Test
-	public void shouldCreateNotNullAddress() {
-		assertThat(address, is(notNullValue()));
+	public void shouldCreateNonNullDocumentComponent() {
+		assertThat(documentComponent, is(notNullValue()));
 	}
 }

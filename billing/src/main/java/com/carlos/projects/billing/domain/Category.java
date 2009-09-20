@@ -31,7 +31,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  * @date 3 Aug 2009
  *
- * Representation of component categories. Name is needed and must be unique
+ * Representation of component categories. 
+ * Name and family are needed and must be unique
  */
 public class Category {
 
@@ -40,6 +41,8 @@ public class Category {
 	private String description;
 	
 	private Set<Component> components;
+	
+	private Family family;
 	
 	public Category() {
 		super();
@@ -87,6 +90,20 @@ public class Category {
 		this.components = components;
 	}
 
+	/**
+	 * @return the family
+	 */
+	public Family getFamily() {
+		return family;
+	}
+
+	/**
+	 * @param family the family to set
+	 */
+	public void setFamily(Family family) {
+		this.family = family;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -103,6 +120,7 @@ public class Category {
 			.append(name, category.getName())
 			.append(description, category.getDescription())
 			.append(components, category.getComponents())
+			.append(family, category.getFamily())
 			.isEquals();
 	}
 
@@ -112,10 +130,11 @@ public class Category {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
-		.append(name)
-		.append(description)
-		.append(components)
-		.hashCode();
+			.append(name)
+			.append(description)
+			.append(components)
+			.append(family)
+			.hashCode();
 	}
 
 	/* (non-Javadoc)
@@ -127,6 +146,7 @@ public class Category {
 			.append(name)
 			.append(description)
 			.append(components)
+			.append(family)
 			.toString();
 	}
 
