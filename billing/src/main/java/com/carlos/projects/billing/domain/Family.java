@@ -40,7 +40,7 @@ public class Family {
 	
 	private String description;
 	
-	private Set<Category> categories;
+	private Set<Component> components;
 	
 	public Family() {
 		super();
@@ -75,17 +75,17 @@ public class Family {
 	}
 
 	/**
-	 * @return the categories
+	 * @return the components
 	 */
-	public Set<Category> getCategories() {
-		return categories;
+	public Set<Component> getComponents() {
+		return components;
 	}
 
 	/**
-	 * @param categories the categories to set
+	 * @param components the components to set
 	 */
-	public void setCategories(Set<Category> categories) {
-		this.categories = categories;
+	public void setComponents(Set<Component> components) {
+		this.components = components;
 	}
 
 	/* (non-Javadoc)
@@ -103,7 +103,6 @@ public class Family {
 		return new EqualsBuilder()
 			.append(name, family.getName())
 			.append(description, family.getDescription())
-			.append(categories, family.getCategories())
 			.isEquals();
 	}
 
@@ -115,7 +114,6 @@ public class Family {
 		return new HashCodeBuilder()
 			.append(name)
 			.append(description)
-			.append(categories)
 			.hashCode();
 	}
 
@@ -127,7 +125,6 @@ public class Family {
 		return new ToStringBuilder(this)
 			.append(name)
 			.append(description)
-			.append(categories)
 			.toString();
 	}
 

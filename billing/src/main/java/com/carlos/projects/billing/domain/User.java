@@ -170,7 +170,6 @@ public class User {
 			.append(password, otherUser.getPassword())
 			.append(securityQuestion, otherUser.getSecurityQuestion())
 			.append(securityAnswer, otherUser.getSecurityAnswer())
-			.append(company, otherUser.getCompany())
 			.isEquals();
 	}
 
@@ -186,7 +185,6 @@ public class User {
 			.append(password)
 			.append(securityQuestion)
 			.append(securityAnswer)
-			.append(company)
 			.hashCode();
 	}
 
@@ -202,7 +200,6 @@ public class User {
 			.append(password)
 			.append(securityQuestion)
 			.append(securityAnswer)
-			.append(company)
 			.toString();
 	}
 

@@ -6,7 +6,7 @@
 	<class
 		name="Company"
 		table="COMPANY">
-		<id name="name" column="COMPANY_NAME"/>
+		<id name="name" type="string" column="COMPANY_NAME"/>
 		<property name="nationalInsuranceNumber" type="string" 
 				  column="COMPANY_NATIONAL_INSURANCE_NUMBER"/>
 		<property name="phoneNumber" type="string" 

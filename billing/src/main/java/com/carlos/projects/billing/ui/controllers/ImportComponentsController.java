@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import com.carlos.projects.billing.Importer;
 import com.carlos.projects.billing.domain.FileUpload;
 
 /**
@@ -38,9 +39,25 @@ import com.carlos.projects.billing.domain.FileUpload;
  *
  */
 public class ImportComponentsController extends SimpleFormController {
-	
+
+	private Importer importer;
+
 	public ImportComponentsController() {
 		super();
+	}
+
+	/**
+	 * @return the importer
+	 */
+	public Importer getImporter() {
+		return importer;
+	}
+
+	/**
+	 * @param importer the importer to set
+	 */
+	public void setImporter(Importer importer) {
+		this.importer = importer;
 	}
 
 	/* (non-Javadoc)
@@ -49,12 +66,13 @@ public class ImportComponentsController extends SimpleFormController {
 	@Override
 	protected ModelAndView onSubmit(Object command)
 			throws Exception {
-		//Cast the bean
 		FileUpload bean = (FileUpload) command;
-		
 		MultipartFile file = bean.getFile();
+
+		long imported = importer.importData(file);
+		
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("file", file);
+		model.put("imported", imported);
 		return new ModelAndView("showComponents", model);
 	}
 

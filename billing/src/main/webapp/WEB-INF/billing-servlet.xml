@@ -18,7 +18,11 @@
 		<property name="dataSource" ref="myDataSource"/>
 		<property name="mappingResources">
 			<list>
-				<value>address.hbm.xml</value>
+				<value>category.hbm.xml</value>
+				<value>client.hbm.xml</value>
+				<value>company.hbm.xml</value>
+				<value>family.hbm.xml</value>
+				<value>user.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -41,9 +45,9 @@
         <property name="commandClass" 
         	value="com.carlos.projects.billing.domain.FileUpload"/>
         <property name="formView" value="importComponents"/>
+        <property name="importer" value="com.carlos.projects.billing.ExcelToMySQLImporter"/>
     </bean>
-	
-	
+
 	<bean name="/showComponents.htm" 
 			class="com.carlos.projects.billing.ui.controllers.ShowComponentsController">
 		<property name="viewName" value="showComponents" />

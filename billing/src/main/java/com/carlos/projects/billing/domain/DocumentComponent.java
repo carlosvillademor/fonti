@@ -108,6 +108,7 @@ public class DocumentComponent {
 		return new ToStringBuilder(this)
 			.append(code)
 			.append(description)
+			.append(price)
 			.append(discountApplied)
 			.toString();
 	}
@@ -127,6 +128,7 @@ public class DocumentComponent {
 		return new EqualsBuilder()
 		.append(code, documentComponent.getCode())
 		.append(description, documentComponent.getDescription())
+		.append(price, documentComponent.getPrice())
 		.append(discountApplied, documentComponent.getDiscountApplied())
 		.isEquals();
 	}
@@ -139,6 +141,7 @@ public class DocumentComponent {
 		return new HashCodeBuilder()
 		.append(code)
 		.append(description)
+		.append(price)
 		.append(discountApplied)
 		.hashCode();
 	}

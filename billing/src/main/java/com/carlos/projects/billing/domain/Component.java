@@ -125,6 +125,7 @@ public class Component {
 		return new ToStringBuilder(this)
 			.append(code)
 			.append(description)
+			.append(price)
 			.append(minimumDiscount)
 			.append(maximumDiscount)
 			.toString();
@@ -145,6 +146,7 @@ public class Component {
 		return new EqualsBuilder()
 		.append(code, component.getCode())
 		.append(description, component.getDescription())
+		.append(price, component.getPrice())
 		.append(minimumDiscount, component.getMinimumDiscount())
 		.append(maximumDiscount, component.getMaximumDiscount())
 		.isEquals();
@@ -158,6 +160,7 @@ public class Component {
 		return new HashCodeBuilder()
 		.append(code)
 		.append(description)
+		.append(price)
 		.append(minimumDiscount)
 		.append(maximumDiscount)
 		.hashCode();
