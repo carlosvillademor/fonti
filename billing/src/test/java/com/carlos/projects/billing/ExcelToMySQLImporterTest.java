@@ -49,4 +49,17 @@ public class ExcelToMySQLImporterTest {
         assertThat(importedComponents, is(3L));
     }
 
+    @Test
+    public void shouldStoreComponentsInDatabase() throws URISyntaxException, IOException {
+        //given
+        ExcelToMySQLImporter importer = new ExcelToMySQLImporter();
+        MultipartFile file = new MockMultipartFile("data.xls", getClass().getResourceAsStream("/data.xls"));
+
+        //when
+        long importedComponents = importer.importData(file);
+
+        //then
+        assertThat(importedComponents, is(3L));
+    }
+
 }
