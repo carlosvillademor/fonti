@@ -69,10 +69,10 @@ public class ImportComponentsController extends SimpleFormController {
 		FileUpload bean = (FileUpload) command;
 		MultipartFile file = bean.getFile();
 
-		long imported = importer.importData(file);
+		long componentsImported = importer.importData(file);
 		
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("imported", imported);
+		model.put("componentsImported", componentsImported);
 		return new ModelAndView("showComponents", model);
 	}
 

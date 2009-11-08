@@ -19,22 +19,19 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
-import static org.mockito.Mockito.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Test;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.carlos.projects.billing.ExcelToMySQLImporter;
 import com.carlos.projects.billing.Importer;
 import com.carlos.projects.billing.domain.FileUpload;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Carlos Fernandez
@@ -57,7 +54,7 @@ public class ImportComponentsControllerTest {
 		ImportComponentsController controller = new ImportComponentsController();
 		controller.setImporter(importer);
 		Map<String, Object> expectedModel = new HashMap<String, Object>();
-		expectedModel.put("imported", 3L);
+		expectedModel.put("componentsImported", 3L);
 		when(command.getFile()).thenReturn(file);
 		when(importer.importData(file)).thenReturn(3L);
 		
@@ -65,6 +62,7 @@ public class ImportComponentsControllerTest {
 		ModelAndView mav = controller.onSubmit(command);
 		
 		//then
-		assertThat(mav.getModel(), is(expectedModel));
+		assertThat(mav.getViewName(), is("showComponents"));
+        assertThat((Map<String, Object>)mav.getModel(), is(expectedModel));
 	}
 }
