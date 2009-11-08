@@ -2,72 +2,75 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-	<!-- DATA SOURCE -->
-	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-		<property name="url" value="jdbc:hsqldb:hsql://localhost:9001"/>
-		<property name="username" value="sa"/>
-		<property name="password" value=""/>
-	</bean>
-	
-	<!-- SESSION FACTORY -->
-	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="dataSource" ref="myDataSource"/>
-		<property name="mappingResources">
-			<list>
-				<value>category.hbm.xml</value>
-				<value>client.hbm.xml</value>
-				<value>company.hbm.xml</value>
-				<value>family.hbm.xml</value>
-				<value>user.hbm.xml</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<value> hibernate.dialect=org.hibernate.dialect.HSQLDialect</value>
-		</property>
-	</bean>
+    <!-- RESOURCES -->
+    <util:properties id="messages" location="classpath:messages.properties"/>
 
-	<!-- HANDLER MAPPINGS -->
-	<bean id="handlerMapping" 
-		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+    <!-- DATA SOURCE -->
+    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+        <property name="url" value="jdbc:hsqldb:hsql://localhost:9001"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
 
-	<!-- CONTROLLERS -->
-	<bean name="/home.htm" 
-			class="com.carlos.projects.billing.ui.controllers.HomeController">
-		<property name="viewName" value="home" />
-	</bean>
+    <!-- SESSION FACTORY -->
+    <bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="myDataSource"/>
+        <property name="mappingResources">
+            <list>
+                <value>client.hbm.xml</value>
+                <value>company.hbm.xml</value>
+                <value>family.hbm.xml</value>
+                <value>user.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <value>hibernate.dialect=org.hibernate.dialect.HSQLDialect</value>
+        </property>
+    </bean>
 
-    <bean name="/importComponents.htm" 
-			class="com.carlos.projects.billing.ui.controllers.ImportComponentsController">
-        <property name="commandClass" 
-        	value="com.carlos.projects.billing.domain.FileUpload"/>
+    <!-- HANDLER MAPPINGS -->
+    <bean id="handlerMapping"
+          class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+    <!-- CONTROLLERS -->
+    <bean name="/home.htm"
+          class="com.carlos.projects.billing.ui.controllers.HomeController">
+        <property name="viewName" value="home"/>
+    </bean>
+
+    <bean name="/importComponents.htm"
+          class="com.carlos.projects.billing.ui.controllers.ImportComponentsController">
+        <property name="commandClass"
+                  value="com.carlos.projects.billing.domain.FileUpload"/>
         <property name="formView" value="importComponents"/>
         <property name="importer" value="com.carlos.projects.billing.ExcelToMySQLImporter"/>
     </bean>
 
-	<bean name="/showComponents.htm" 
-			class="com.carlos.projects.billing.ui.controllers.ShowComponentsController">
-		<property name="viewName" value="showComponents" />
-	</bean>	
+    <bean name="/showComponents.htm"
+          class="com.carlos.projects.billing.ui.controllers.ShowComponentsController">
+        <property name="viewName" value="showComponents"/>
+    </bean>
 
-	<!-- RESOLVERS -->
-	<bean id="multipartResolver"
-    		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	</bean>	
-	
-	<!-- VELOCITY CONFIGURATION -->
-	<bean id="velocityConfig" 
-			class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-		<property name="resourceLoaderPath" value="velocity"/>
-	</bean>
-	
-	<bean id="viewResolver" 
-			class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-		<property name="cache" value="true"/>
-		<property name="suffix" value=".vm"/>
-	</bean>
+    <!-- RESOLVERS -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    </bean>
+
+    <!-- VELOCITY CONFIGURATION -->
+    <bean id="velocityConfig"
+          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="velocity"/>
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="cache" value="true"/>
+        <property name="suffix" value=".vm"/>
+    </bean>
 
 </beans>
