@@ -36,28 +36,28 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class Family {
 
-	private String name;
+	private String code;
 	
 	private String description;
 	
 	private Set<Component> components;
-	
-	public Family() {
+
+    public Family() {
 		super();
 	}
 
 	/**
-	 * @return the name
+	 * @return the code
 	 */
-	public String getName() {
-		return name;
+	public String getCode() {
+		return code;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param code the code to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class Family {
 		}
 		Family family = (Family) obj;
 		return new EqualsBuilder()
-			.append(name, family.getName())
+			.append(code, family.getCode())
 			.append(description, family.getDescription())
 			.isEquals();
 	}
@@ -112,7 +112,7 @@ public class Family {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
-			.append(name)
+			.append(code)
 			.append(description)
 			.hashCode();
 	}
@@ -123,7 +123,7 @@ public class Family {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append(name)
+			.append(code)
 			.append(description)
 			.toString();
 	}

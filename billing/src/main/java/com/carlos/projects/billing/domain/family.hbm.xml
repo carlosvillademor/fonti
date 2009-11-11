@@ -6,7 +6,7 @@
 	<class
 		name="Family"
 		table="FAMILY">
-		<id name="name" type="string" column="FAMILY_NAME"/>
+		<id name="code" type="string" column="FAMILY_CODE"/>
 		<property name="description" type="string" 
 				  column="FAMILY_DESCRIPTION"/>
 		<set name="components" table="COMPONENT">

@@ -19,11 +19,13 @@
  */
 package com.carlos.projects.billing;
 
+import com.carlos.projects.billing.domain.Family;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -46,20 +48,22 @@ public class ExcelToMySQLImporterTest {
 		long importedComponents = importer.importData(file);
 
         //then
-        assertThat(importedComponents, is(3L));
+        assertThat(importedComponents, is(1L));
     }
 
     @Test
-    public void shouldStoreComponentsInDatabase() throws URISyntaxException, IOException {
+    public void shouldStoreFamilyInDatabase() throws URISyntaxException, IOException {
         //given
         ExcelToMySQLImporter importer = new ExcelToMySQLImporter();
         MultipartFile file = new MockMultipartFile("data.xls", getClass().getResourceAsStream("/data.xls"));
+        Family family = new Family();
+        family.setCode("36");
+        family.setDescription("CONTADORES");
 
         //when
         long importedComponents = importer.importData(file);
 
         //then
-        assertThat(importedComponents, is(3L));
     }
 
 }
