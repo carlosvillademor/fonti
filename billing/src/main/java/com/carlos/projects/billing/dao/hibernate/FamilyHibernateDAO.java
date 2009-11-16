@@ -18,19 +18,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.carlos.projects.billing.dao;
+package com.carlos.projects.billing.dao.hibernate;
 
+import com.carlos.projects.billing.dao.FamilyDAO;
 import com.carlos.projects.billing.domain.Family;
+import org.hibernate.SessionFactory;
 
 /**
- * Data Access Object for dealing with {@link com.carlos.projects.billing.domain.Family}s
+ * Hibernate implementation of {@link com.carlos.projects.billing.dao.FamilyDAO}
  *
  * @author Carlos Fernandez
- *
- * @date 08-Nov-2009
- *
+ * @date 12-Nov-2009
  */
-public interface FamilyDAO {
+public class FamilyHibernateDAO extends HibernateDAO<Family> implements FamilyDAO {
 
+    public FamilyHibernateDAO(SessionFactory hibernateSessionFactory) {
+        super(hibernateSessionFactory);
+    }
 
 }

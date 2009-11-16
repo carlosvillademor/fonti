@@ -18,19 +18,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.carlos.projects.billing.dao;
-
-import com.carlos.projects.billing.domain.Family;
+package com.carlos.projects.billing.dao.hibernate;
 
 /**
- * Data Access Object for dealing with {@link com.carlos.projects.billing.domain.Family}s
+ * 
  *
  * @author Carlos Fernandez
- *
- * @date 08-Nov-2009
+ * @date 15-Nov-2009
  *
  */
-public interface FamilyDAO {
-
-
+public class ComponentHibernateDAO {
 }

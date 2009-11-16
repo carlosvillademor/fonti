@@ -27,11 +27,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
+ * Normative definition of a Family
+ *
  * @author Carlos Fernandez
  *
  * @date 3 Aug 2009
  *
- * Representation of component families. Name is needed and must be unique
  */
 
 public class Family {

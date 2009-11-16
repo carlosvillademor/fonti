@@ -21,11 +21,14 @@
 package com.carlos.projects.billing.dao;
 
 /**
+ * Data Access Object for dealing with {@link com.carlos.projects.billing.domain.Component}s
+ *
  * @author Carlos Fernandez
  *
  * @date 08-Nov-2009
  *
- * Interface to access components in the database
  */
 public interface ComponentDAO {
+
+    
 }
