@@ -19,10 +19,14 @@
  */
 package com.carlos.projects.billing;
 
+import com.carlos.projects.billing.dao.FamilyDAO;
 import com.carlos.projects.billing.domain.Family;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,11 +41,18 @@ import java.net.URISyntaxException;
  * Unit tests for {@link ExcelToMySQLImporter}
  */
 public class ExcelToMySQLImporterTest {
-	
+
+    @Mock private FamilyDAO familyDAO;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
+
 	@Test
 	public void shouldImportCorrectNumberOfComponentsFromFile() throws URISyntaxException, IOException {
 		//given
-		ExcelToMySQLImporter importer = new ExcelToMySQLImporter();
+		ExcelToMySQLImporter importer = new ExcelToMySQLImporter(null);
 		MultipartFile file = new MockMultipartFile("data.xls", getClass().getResourceAsStream("/data.xls"));
 
 		//when
@@ -54,7 +65,7 @@ public class ExcelToMySQLImporterTest {
     @Test
     public void shouldStoreFamilyInDatabase() throws URISyntaxException, IOException {
         //given
-        ExcelToMySQLImporter importer = new ExcelToMySQLImporter();
+        ExcelToMySQLImporter importer = new ExcelToMySQLImporter(familyDAO);
         MultipartFile file = new MockMultipartFile("data.xls", getClass().getResourceAsStream("/data.xls"));
         Family family = new Family();
         family.setCode("36");

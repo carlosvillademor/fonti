@@ -19,7 +19,10 @@
  */
 package com.carlos.projects.billing;
 
+import com.carlos.projects.billing.dao.FamilyDAO;
+import com.carlos.projects.billing.domain.Family;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -29,6 +32,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * @author Carlos Fernandez
@@ -40,9 +44,17 @@ import java.io.InputStream;
  */
 public class ExcelToMySQLImporter implements Importer {
 
-	/* (non-Javadoc)
-	 * @see com.carlos.projects.billing.Importer#importData()
-	 */
+    private FamilyDAO familyDAO;
+
+    private Properties messages;
+
+    public ExcelToMySQLImporter(FamilyDAO familyDAO) {
+        this.familyDAO = familyDAO;
+    }
+
+    /* (non-Javadoc)
+      * @see com.carlos.projects.billing.Importer#importData()
+      */
 	public long importData(MultipartFile excelFile) {
         File componentsFile = new File("components.xls");
         InputStream input;
@@ -52,11 +64,17 @@ public class ExcelToMySQLImporter implements Importer {
             input = new FileInputStream(componentsFile);
             workbook = WorkbookFactory.create(input);
         } catch (IOException e) {
-            throw new RuntimeException("Ha habido un problema mientras se importaba el fichero con los componentes", e);
+            throw new RuntimeException(messages.getProperty("import.error"), e);
         } catch (InvalidFormatException e) {
-            throw new RuntimeException("Ha habido un problema mientras se importaba el fichero con los componentes", e);
+            throw new RuntimeException(messages.getProperty("import.error"), e);
         }
         Sheet sheet = workbook.getSheetAt(0);
+        Row row = sheet.getRow(0);
+        String familyDescription = row.getCell(9).getStringCellValue();
+        String familyCode = row.getCell(4).getStringCellValue();
+        Family family = new Family();
+        family.setCode(familyCode);
+        family.setDescription(familyDescription);
         return (long) (sheet.getLastRowNum());
 	}
 	
