@@ -1,0 +1,4 @@
+[<<DAO>>]^-.-[HibernateDAO]
+[<<FamilyDAO>>]^-.-[FamilyHibernateDAO]
+[<<DAO>>]^-[<<FamilyDAO>>]
+[HibernateDAO]^-[FamilyHibernateDAO]
