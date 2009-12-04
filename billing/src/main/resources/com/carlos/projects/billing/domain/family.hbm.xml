@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC
-"-//Hibernate/Hibernate Mapping DTD//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class
-		name="Family"
-		table="FAMILY">
-		<id name="code" type="string" column="FAMILY_CODE"/>
-		<property name="description" type="string" 
-				  column="FAMILY_DESCRIPTION"/>
-		<set name="components" table="COMPONENT">
-			<key column="COMPONENT_FAMILY_NAME"/>
-			<composite-element class="Component">
-				<property name="code" type="string" 
-						  column="COMPONENT_CODE" not-null="true"/>
-				<property name="description" type="string"
-						  column="COMPONENT_DESCRIPTION" not-null="true"/>
-				<property name="price" type="double"
-						  column="COMPONENT_PRICE" not-null="true"/>
-				<property name="minimumDiscount" type="double"
-						  column="COMPONENT_MINIMUM_DISCOUNT" not-null="true"/>
-				<property name="maximumDiscount" type="double"
-						  column="COMPONENT_MAXIMUM_DISCOUNT" not-null="true"/>
-			</composite-element>
-		</set>
-	</class>
+    <class
+            name="Family"
+            table="FAMILY">
+        <id name="code" type="string" column="FAMILY_CODE"/>
+        <property name="description" type="string"
+                  column="FAMILY_DESCRIPTION"/>
+        <set name="components" table="COMPONENT">
+            <key column="COMPONENT_FAMILY_NAME"/>
+            <composite-element class="Component">
+                <property name="code" type="string"
+                          column="COMPONENT_CODE" not-null="true"/>
+                <property name="description" type="string"
+                          column="COMPONENT_DESCRIPTION" not-null="true"/>
+                <property name="price" type="double"
+                          column="COMPONENT_PRICE" not-null="true"/>
+                <property name="discount1" type="double"
+                          column="COMPONENT_DISCOUNT1" not-null="true"/>
+                <property name="discount2" type="double"
+                          column="COMPONENT_DISCOUNT2" not-null="true"/>
+            </composite-element>
+        </set>
+    </class>
 </hibernate-mapping>

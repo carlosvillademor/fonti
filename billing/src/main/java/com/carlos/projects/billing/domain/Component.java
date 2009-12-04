@@ -38,9 +38,9 @@ public class Component {
 
     private double price;
 
-    private double minimumDiscount;
+    private double discount1;
 
-    private double maximumDiscount;
+    private double discount2;
 
     public Component() {
         super();
@@ -89,31 +89,31 @@ public class Component {
     }
 
     /**
-     * @return the minimumDiscount
+     * @return the discount1
      */
-    public double getMinimumDiscount() {
-        return minimumDiscount;
+    public double getDiscount1() {
+        return discount1;
     }
 
     /**
-     * @param minimumDiscount the minimumDiscount to set
+     * @param discount1 the discount1 to set
      */
-    public void setMinimumDiscount(double minimumDiscount) {
-        this.minimumDiscount = minimumDiscount;
+    public void setDiscount1(double discount1) {
+        this.discount1 = discount1;
     }
 
     /**
-     * @return the maximumDiscount
+     * @return the discount2
      */
-    public double getMaximumDiscount() {
-        return maximumDiscount;
+    public double getDiscount2() {
+        return discount2;
     }
 
     /**
-     * @param maximumDiscount the maximumDiscount to set
+     * @param discount2 the discount2 to set
      */
-    public void setMaximumDiscount(double maximumDiscount) {
-        this.maximumDiscount = maximumDiscount;
+    public void setDiscount2(double discount2) {
+        this.discount2 = discount2;
     }
 
     /* (non-Javadoc)
@@ -125,8 +125,8 @@ public class Component {
                 .append(code)
                 .append(description)
                 .append(price)
-                .append(minimumDiscount)
-                .append(maximumDiscount)
+                .append(discount1)
+                .append(discount2)
                 .toString();
     }
 
@@ -146,8 +146,8 @@ public class Component {
                 .append(code, component.getCode())
                 .append(description, component.getDescription())
                 .append(price, component.getPrice())
-                .append(minimumDiscount, component.getMinimumDiscount())
-                .append(maximumDiscount, component.getMaximumDiscount())
+                .append(discount1, component.getDiscount1())
+                .append(discount2, component.getDiscount2())
                 .isEquals();
     }
 
@@ -160,8 +160,8 @@ public class Component {
                 .append(code)
                 .append(description)
                 .append(price)
-                .append(minimumDiscount)
-                .append(maximumDiscount)
+                .append(discount1)
+                .append(discount2)
                 .hashCode();
     }
 
