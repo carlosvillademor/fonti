@@ -20,6 +20,7 @@
 
 package com.carlos.projects.billing.dao.hibernate;
 
+import com.carlos.projects.billing.dao.DAO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -31,8 +32,8 @@ import java.io.Serializable;
  * @author Carlos Fernandez
  * @date 15-Nov-2009
  */
-abstract class HibernateDAO<T, ID extends Serializable> {
-    
+abstract class HibernateDAO<T, ID extends Serializable> implements DAO<T, ID> {
+
     private SessionFactory sessionFactory;
 
     HibernateDAO(SessionFactory hibernateSessionFactory) {
@@ -40,10 +41,10 @@ abstract class HibernateDAO<T, ID extends Serializable> {
     }
 
     private Session getSession() {
-        return sessionFactory.getCurrentSession();   
+        return sessionFactory.getCurrentSession();
     }
 
-    T getById(Class<T> clazz, Serializable id) {
+    public T getById(Class<T> clazz, Serializable id) {
         if (id == null) {
             return null;
         } else {
@@ -51,7 +52,7 @@ abstract class HibernateDAO<T, ID extends Serializable> {
         }
     }
 
-    ID save(T entity) {
+    public ID save(T entity) {
         Session session = getSession();
         ID id = (ID) session.save(entity);
         session.flush();

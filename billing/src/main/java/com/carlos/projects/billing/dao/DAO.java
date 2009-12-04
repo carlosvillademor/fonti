@@ -1,4 +1,6 @@
-/**
+package com.carlos.projects.billing.dao;
+
+import java.io.Serializable; /**
  * Fonti is a web application for billing and budgeting
  * Copyright (C) 2009  Carlos Fernandez
  *
@@ -18,22 +20,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.carlos.projects.billing.dao.hibernate;
-
-import com.carlos.projects.billing.dao.FamilyDAO;
-import com.carlos.projects.billing.domain.Family;
-import org.hibernate.SessionFactory;
-
 /**
- * Hibernate implementation of {@link com.carlos.projects.billing.dao.FamilyDAO}
+ * Contains common logic for Data Access Objects.
  *
  * @author Carlos Fernandez
- * @date 12-Nov-2009
+ * @date 03-Dec-2009
  */
-public class FamilyHibernateDAO extends HibernateDAO<Family, String> implements FamilyDAO {
+public interface DAO<T, ID extends Serializable> {
 
-    public FamilyHibernateDAO(SessionFactory hibernateSessionFactory) {
-        super(hibernateSessionFactory);
-    }
+    T getById(Class<T> clazz, Serializable id);
+
+    ID save(T entity);
 
 }

@@ -26,11 +26,8 @@ import com.carlos.projects.billing.domain.Family;
  * Data Access Object for dealing with {@link com.carlos.projects.billing.domain.Family}s
  *
  * @author Carlos Fernandez
- *
  * @date 08-Nov-2009
- *
  */
-public interface FamilyDAO {
-
+public interface FamilyDAO extends DAO<Family, String> {
 
 }

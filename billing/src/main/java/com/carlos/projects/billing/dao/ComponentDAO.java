@@ -20,15 +20,14 @@
 
 package com.carlos.projects.billing.dao;
 
+import com.carlos.projects.billing.domain.Component;
+
 /**
  * Data Access Object for dealing with {@link com.carlos.projects.billing.domain.Component}s
  *
  * @author Carlos Fernandez
- *
  * @date 08-Nov-2009
- *
  */
-public interface ComponentDAO {
+public interface ComponentDAO extends DAO<Component, String> {
 
-    
 }
