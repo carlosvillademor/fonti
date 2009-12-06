@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Fonti is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -23,17 +23,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Carlos Fernandez
- * 
  * @date 6 Oct 2009
- * 
+ * <p/>
  * Interface to import data from a file to a database
  */
 public interface Importer {
-	
-	/**
-	 * @param file file where to import the data from
-	 * 
-	 * @return number of elements imported
-	 */
-	public long importData(MultipartFile file);
+
+    /**
+     * @param file file where to import the data from
+     * @return number of elements imported
+     */
+    public Long importData(MultipartFile file);
 }
