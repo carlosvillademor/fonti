@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Fonti is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -19,50 +19,93 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
-import com.carlos.projects.billing.ExcelToMySQLImporter;
 import com.carlos.projects.billing.Importer;
+import com.carlos.projects.billing.dao.ComponentDAO;
+import com.carlos.projects.billing.domain.Component;
 import com.carlos.projects.billing.domain.FileUpload;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
+import org.mockito.Mock;
 import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * @author Carlos Fernandez
- * 
- * @date 6 Oct 2009
- * 
  * Unit tests for {@link ImportComponentsController}}
+ *
+ * @author Carlos Fernandez
+ * @date 6 Oct 2009
  */
 public class ImportComponentsControllerTest {
 
-	@SuppressWarnings("unchecked")
-	@Test
-	public void shouldImportDataAndPutNumberOfImportedItemsInTheModelWhenOnSubmit() 
-			throws Exception{
-		//given
-		Importer importer = mock(ExcelToMySQLImporter.class);
-		FileUpload command = mock(FileUpload.class);
-		MultipartFile file = mock(MultipartFile.class);
-		command.setFile(file);
-		ImportComponentsController controller = new ImportComponentsController();
-		controller.setImporter(importer);
-		Map<String, Object> expectedModel = new HashMap<String, Object>();
-		expectedModel.put("componentsImported", 3L);
-		when(command.getFile()).thenReturn(file);
-		when(importer.importData(file)).thenReturn(3L);
-		
-		//when
-		ModelAndView mav = controller.onSubmit(command);
-		
-		//then
-		assertThat(mav.getViewName(), is("showComponents"));
-        assertThat((Map<String, Object>)mav.getModel(), is(expectedModel));
-	}
+    @Mock
+    private Importer importer;
+
+    @Mock
+    private FileUpload command;
+
+    @Mock
+    private MultipartFile file;
+
+    @Mock
+    private ComponentDAO componentDAO;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void shouldImportDataAndPutNumberOfImportedItemsInTheModelWhenOnSubmit()
+            throws Exception {
+        //given
+        ImportComponentsController controller = new ImportComponentsController(importer, componentDAO);
+        Map<String, Object> expectedModel = new HashMap<String, Object>();
+        expectedModel.put("numberOfComponentsImported", 2L);
+        List<Component> components = createComponents();
+        expectedModel.put("importedComponents", components);
+        when(command.getFile()).thenReturn(file);
+        when(importer.importData(file)).thenReturn(2L);
+        when(componentDAO.findAll("Component")).thenReturn(components);
+
+        //when
+        ModelAndView mav = controller.onSubmit(command);
+
+        //then
+        assertThat(mav.getViewName(), is("showComponents"));
+        assertThat((Map<String, Object>) mav.getModel(), is(expectedModel));
+    }
+
+    private List<Component> createComponents() {
+        List<Component> components = new ArrayList<Component>();
+
+        Component component1 = new Component();
+        component1.setCode("KITAZUL162212");
+        component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
+        component1.setDiscount1(33.00);
+        component1.setDiscount2(0.00);
+        component1.setPrice(383.2065);
+
+        Component component2 = new Component();
+        component2.setCode("000636");
+        component2.setDescription("LATIGUILLO FLEX.RIVER MH 2 300");
+        component2.setDiscount1(40.00);
+        component2.setDiscount2(0.00);
+        component2.setPrice(38.2740);
+
+        components.add(component1);
+        components.add(component2);
+
+        return components;
+    }
+
 }
