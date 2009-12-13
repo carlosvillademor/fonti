@@ -10,7 +10,7 @@
         <property name="emailAddress" type="string" column="COMPANY_EMAIL_ADDRESS"/>
         <component name="address" class="Address">
             <property name="street" type="string" column="COMPANY_ADDRESS_STREET"/>
-            <property name="zipcode" type="string" column="COMPANY_ADDRESS_ZIP_CODE"/>
+            <property name="zipCode" type="string" column="COMPANY_ADDRESS_ZIP_CODE"/>
             <property name="number" type="integer" column="COMPANY_ADDRESS_NUMBER"/>
             <property name="floor" type="integer" column="COMPANY_ADDRESS_FLOOR"/>
             <property name="letter" type="string" column="COMPANY_ADDRESS_LETTER"/>

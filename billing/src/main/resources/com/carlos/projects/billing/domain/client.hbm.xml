@@ -12,7 +12,7 @@
         <property name="idCardNumber" type="string" column="CLIENT_ID_CARD_NUMBER"/>
         <component name="address" class="Address">
             <property name="street" type="string" column="CLIENT_ADDRESS_STREET"/>
-            <property name="zipcode" type="string" column="CLIENT_ADDRESS_ZIP_CODE"/>
+            <property name="zipCode" type="string" column="CLIENT_ADDRESS_ZIP_CODE"/>
             <property name="number" type="integer" column="CLIENT_ADDRESS_NUMBER"/>
             <property name="floor" type="integer" column="CLIENT_ADDRESS_FLOOR"/>
             <property name="letter" type="string" column="CLIENT_ADDRESS_LETTER"/>
