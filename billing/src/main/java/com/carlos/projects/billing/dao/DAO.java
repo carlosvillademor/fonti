@@ -1,6 +1,7 @@
 package com.carlos.projects.billing.dao;
 
-import java.io.Serializable; /**
+import java.io.Serializable;
+import java.util.List; /**
  * Fonti is a web application for billing and budgeting
  * Copyright (C) 2009  Carlos Fernandez
  *
@@ -31,5 +32,7 @@ public interface DAO<T, ID extends Serializable> {
     T getById(Class<T> clazz, Serializable id);
 
     ID save(T entity);
+
+    List<T> findAll(String entityName);
 
 }

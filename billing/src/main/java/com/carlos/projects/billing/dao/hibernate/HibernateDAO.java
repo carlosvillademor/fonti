@@ -25,6 +25,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Contains common logic for Hibernate-based Data Access Objects.
@@ -59,4 +60,7 @@ abstract class HibernateDAO<T, ID extends Serializable> implements DAO<T, ID> {
         return id;
     }
 
+    public List<T> findAll(String entityName) {
+        return (List<T>) getSession().createQuery("from " + entityName).list();
+    }
 }
