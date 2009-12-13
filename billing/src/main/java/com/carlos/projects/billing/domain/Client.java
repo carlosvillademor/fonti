@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Fonti is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -20,251 +20,250 @@
 
 package com.carlos.projects.billing.domain;
 
-import java.util.Date;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import java.util.Date;
+
 /**
  * @author Carlos Fernandez
- *
  * @date 25 Jul 2009
- *
+ * <p/>
  * Representation of client. Id is needed and unique. First name is needed.
  */
 public class Client {
 
-	private long id;
-	
-	private String firstName;
-	
-	private String lastName;
-	
-	private String idCardNumber;
-	
-	private Address address;
-	
-	private Long phoneNumber;
-	
-	private String emailAddress;
-	
-	private Date dateOfBirth;
-	
-	private String bankAccount;
-	
-	private String nationalInsuranceNumber;
+    private Long id;
 
-	public Client () {
-		super();
-	}
+    private String firstName;
 
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
+    private String lastName;
 
-	/**
-	 * @param id the id to set
-	 */
-	@SuppressWarnings("unused")
-	private void setId(long id) {
-		this.id = id;
-	}
+    private String idCardNumber;
 
-	/**
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
+    private Address address;
 
-	/**
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    private Long phoneNumber;
 
-	/**
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return lastName;
-	}
+    private String emailAddress;
 
-	/**
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    private Date dateOfBirth;
 
-	/**
-	 * @return the idCardNumber
-	 */
-	public String getIdCardNumber() {
-		return idCardNumber;
-	}
+    private String bankAccount;
 
-	/**
-	 * @param idCardNumber the idCardNumber to set
-	 */
-	public void setIdCardNumber(String idCardNumber) {
-		this.idCardNumber = idCardNumber;
-	}
+    private String nationalInsuranceNumber;
 
-	/**
-	 * @return the address
-	 */
-	public Address getAddress() {
-		return address;
-	}
+    public Client() {
+        super();
+    }
 
-	/**
-	 * @param address the address to set
-	 */
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 * @return the phoneNumber
-	 */
-	public Long getPhoneNumber() {
-		return phoneNumber;
-	}
+    /**
+     * @param id the id to set
+     */
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param phoneNumber the phoneNumber to set
-	 */
-	public void setPhoneNumber(Long phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
-	/**
-	 * @return the emailAddress
-	 */
-	public String getEmailAddress() {
-		return emailAddress;
-	}
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	/**
-	 * @param emailAddress the emailAddress to set
-	 */
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
-	/**
-	 * @return the dateOfBirth
-	 */
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	/**
-	 * @param dateOfBirth the dateOfBirth to set
-	 */
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
+    /**
+     * @return the idCardNumber
+     */
+    public String getIdCardNumber() {
+        return idCardNumber;
+    }
 
-	/**
-	 * @return the bankAccount
-	 */
-	public String getBankAccount() {
-		return bankAccount;
-	}
+    /**
+     * @param idCardNumber the idCardNumber to set
+     */
+    public void setIdCardNumber(String idCardNumber) {
+        this.idCardNumber = idCardNumber;
+    }
 
-	/**
-	 * @param bankAccount the bankAccount to set
-	 */
-	public void setBankAccount(String bankAccount) {
-		this.bankAccount = bankAccount;
-	}
+    /**
+     * @return the address
+     */
+    public Address getAddress() {
+        return address;
+    }
 
-	/**
-	 * @return the nationalInsuranceNumber
-	 */
-	public String getNationalInsuranceNumber() {
-		return nationalInsuranceNumber;
-	}
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
-	/**
-	 * @param nationalInsuranceNumber the nationalInsuranceNumber to set
-	 */
-	public void setNationalInsuranceNumber(String nationalInsuranceNumber) {
-		this.nationalInsuranceNumber = nationalInsuranceNumber;
-	}
+    /**
+     * @return the phoneNumber
+     */
+    public Long getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (!(obj instanceof Client)) {
-			return false;
-		}
-		
-		if (obj == this) {
-			return true;
-		}
-		
-		Client otherClient = (Client) obj;		
-		return new EqualsBuilder()
-			.append(id, otherClient.getId())
-			.append(firstName, otherClient.getFirstName())
-			.append(lastName, otherClient.getLastName())
-			.append(idCardNumber, otherClient.getIdCardNumber())
-			.append(address, otherClient.getAddress())
-			.append(phoneNumber, otherClient.getPhoneNumber())
-			.append(emailAddress, otherClient.getEmailAddress())
-			.append(dateOfBirth, otherClient.getDateOfBirth())
-			.append(bankAccount, otherClient.getBankAccount())
-			.append(nationalInsuranceNumber, 
-					otherClient.getNationalInsuranceNumber())
-			.isEquals();
-	}
+    /**
+     * @param phoneNumber the phoneNumber to set
+     */
+    public void setPhoneNumber(Long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder()
-		.append(id)
-		.append(firstName)
-		.append(lastName)
-		.append(idCardNumber)
-		.append(address)
-		.append(phoneNumber)
-		.append(emailAddress)
-		.append(dateOfBirth)
-		.append(bankAccount)
-		.append(nationalInsuranceNumber)
-		.hashCode();
-	}
+    /**
+     * @return the emailAddress
+     */
+    public String getEmailAddress() {
+        return emailAddress;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this)
-		.append(id)
-		.append(firstName)
-		.append(lastName)
-		.append(idCardNumber)
-		.append(address)
-		.append(phoneNumber)
-		.append(emailAddress)
-		.append(dateOfBirth)
-		.append(bankAccount)
-		.append(nationalInsuranceNumber)
-		.toString();
-	}
+    /**
+     * @param emailAddress the emailAddress to set
+     */
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    /**
+     * @return the dateOfBirth
+     */
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    /**
+     * @param dateOfBirth the dateOfBirth to set
+     */
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    /**
+     * @return the bankAccount
+     */
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    /**
+     * @param bankAccount the bankAccount to set
+     */
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    /**
+     * @return the nationalInsuranceNumber
+     */
+    public String getNationalInsuranceNumber() {
+        return nationalInsuranceNumber;
+    }
+
+    /**
+     * @param nationalInsuranceNumber the nationalInsuranceNumber to set
+     */
+    public void setNationalInsuranceNumber(String nationalInsuranceNumber) {
+        this.nationalInsuranceNumber = nationalInsuranceNumber;
+    }
+
+    /* (non-Javadoc)
+      * @see java.lang.Object#equals(java.lang.Object)
+      */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Client)) {
+            return false;
+        }
+
+        if (obj == this) {
+            return true;
+        }
+
+        Client otherClient = (Client) obj;
+        return new EqualsBuilder()
+                .append(id, otherClient.getId())
+                .append(firstName, otherClient.getFirstName())
+                .append(lastName, otherClient.getLastName())
+                .append(idCardNumber, otherClient.getIdCardNumber())
+                .append(address, otherClient.getAddress())
+                .append(phoneNumber, otherClient.getPhoneNumber())
+                .append(emailAddress, otherClient.getEmailAddress())
+                .append(dateOfBirth, otherClient.getDateOfBirth())
+                .append(bankAccount, otherClient.getBankAccount())
+                .append(nationalInsuranceNumber,
+                        otherClient.getNationalInsuranceNumber())
+                .isEquals();
+    }
+
+    /* (non-Javadoc)
+      * @see java.lang.Object#hashCode()
+      */
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(id)
+                .append(firstName)
+                .append(lastName)
+                .append(idCardNumber)
+                .append(address)
+                .append(phoneNumber)
+                .append(emailAddress)
+                .append(dateOfBirth)
+                .append(bankAccount)
+                .append(nationalInsuranceNumber)
+                .hashCode();
+    }
+
+    /* (non-Javadoc)
+      * @see java.lang.Object#toString()
+      */
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(id)
+                .append(firstName)
+                .append(lastName)
+                .append(idCardNumber)
+                .append(address)
+                .append(phoneNumber)
+                .append(emailAddress)
+                .append(dateOfBirth)
+                .append(bankAccount)
+                .append(nationalInsuranceNumber)
+                .toString();
+    }
 
 }

@@ -62,7 +62,7 @@ public class ExcelToMySQLImporterTest {
         MultipartFile file = new MockMultipartFile("emptyData.xlsx", getClass().getResourceAsStream("/emptyData.xlsx"));
 
         //when
-        long importedComponents = importer.importData(file);
+        Long importedComponents = importer.importData(file);
 
         //then
         assertThat("The number of components imported is not 0", importedComponents, is(0L));
@@ -105,7 +105,7 @@ public class ExcelToMySQLImporterTest {
         family2.setComponents(components2);
 
         //when
-        long importedComponents = importer.importData(file);
+        Long importedComponents = importer.importData(file);
 
         //then
         assertThat("The number of components imported is not 2", importedComponents, is(2L));
@@ -140,7 +140,7 @@ public class ExcelToMySQLImporterTest {
         family1.setComponents(components1);
 
         //when
-        long importedComponents = importer.importData(file);
+        Long importedComponents = importer.importData(file);
 
         //then
         assertThat("The number of components imported is not 1", importedComponents, is(1L));
@@ -180,7 +180,7 @@ public class ExcelToMySQLImporterTest {
         when(componentDAO.getById((Class<Component>) anyObject(), anyString())).thenReturn(null, component1);
 
         //when
-        long importedComponents = importer.importData(file);
+        Long importedComponents = importer.importData(file);
 
         //then
         assertThat("The number of components imported is not 1", importedComponents, is(1L));
@@ -223,7 +223,7 @@ public class ExcelToMySQLImporterTest {
         when(familyDAO.getById(Family.class, family1.getCode())).thenReturn(null, family1);
 
         //when
-        long importedComponents = importer.importData(file);
+        Long importedComponents = importer.importData(file);
 
         //then
         assertThat("The number of components imported is not 2", importedComponents, is(2L));
