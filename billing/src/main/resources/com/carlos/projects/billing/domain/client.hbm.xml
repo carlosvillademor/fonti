@@ -1,43 +1,28 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC
-"-//Hibernate/Hibernate Mapping DTD//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
-	<class
-		name="Client"
-		table="CLIENT">
-		<id name="id" column="CLIENT_ID">
-			<generator class="native"/>
-		</id>
-		<property name="firstName" type="string" 
-				  column="CLIENT_FIRST_NAME" not-null="true"/>
-		<property name="lastName" type="string" column="CLIENT_LAST_NAME"/>
-		<property name="idCardNumber" type="string" 
-				  column="CLIENT_ID_CARD_NUMBER"/>
-		<component name="address" class="Address">
-			<property name="street" type="string"
-					  column="CLIENT_ADDRESS_STREET"/>
-			<property name="zipcode" type="string"
-					  column="CLIENT_ADDRESS_ZIP_CODE"/>
-			<property name="number" type="int"
-					  column="CLIENT_ADDRESS_NUMBER"/>
-			<property name="floor" type="int"
-					  column="CLIENT_ADDRESS_FLOOR"/>
-			<property name="letter" type="string"
-					  column="CLIENT_ADDRESS_LETTER"/>
-			<property name="city" type="string"
-					  column="CLIENT_ADDRESS_CITY"/>
-			<property name="state" type="string"
-					  column="CLIENT_ADDRESS_STATE"/>
-		</component>
-		<property name="phoneNumber" type="string" 
-				  column="CLIENT_PHONE_NUMBER"/>
-		<property name="emailAddress" type="string" 
-				  column="CLIENT_EMAIL_ADDRESS"/>
-		<property name="dateOfBirth" type="date" column="CLIENT_DATE_OF_BIRTH"/>
-		<property name="bankAccount" type="string" 
-				  column="CLIENT_BANK_ACCOUNT"/>
-		<property name="nationalInsuranceNumber" type="string" 
-				  column="CLIENT_NATIONAL_INSURANCE_NUMBER"/>
-	</class>
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.carlos.projects.billing.domain">
+    <class name="Client" table="CLIENT">
+        <id name="id" type="long" column="CLIENT_ID">
+            <generator class="increment"/>
+        </id>
+        <property name="firstName" type="string" column="CLIENT_FIRST_NAME" not-null="true"/>
+        <property name="lastName" type="string" column="CLIENT_LAST_NAME"/>
+        <property name="idCardNumber" type="string" column="CLIENT_ID_CARD_NUMBER"/>
+        <component name="address" class="Address">
+            <property name="street" type="string" column="CLIENT_ADDRESS_STREET"/>
+            <property name="zipcode" type="string" column="CLIENT_ADDRESS_ZIP_CODE"/>
+            <property name="number" type="integer" column="CLIENT_ADDRESS_NUMBER"/>
+            <property name="floor" type="integer" column="CLIENT_ADDRESS_FLOOR"/>
+            <property name="letter" type="string" column="CLIENT_ADDRESS_LETTER"/>
+            <property name="city" type="string" column="CLIENT_ADDRESS_CITY"/>
+            <property name="state" type="string" column="CLIENT_ADDRESS_STATE"/>
+        </component>
+        <property name="phoneNumber" type="string" column="CLIENT_PHONE_NUMBER"/>
+        <property name="emailAddress" type="string" column="CLIENT_EMAIL_ADDRESS"/>
+        <property name="dateOfBirth" type="date" column="CLIENT_DATE_OF_BIRTH"/>
+        <property name="bankAccount" type="string" column="CLIENT_BANK_ACCOUNT"/>
+        <property name="nationalInsuranceNumber" type="string" column="CLIENT_NATIONAL_INSURANCE_NUMBER"/>
+    </class>
 </hibernate-mapping>
