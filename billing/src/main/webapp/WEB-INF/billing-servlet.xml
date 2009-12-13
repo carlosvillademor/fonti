@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
@@ -11,10 +10,10 @@
 
     <!-- DATA SOURCE -->
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-        <property name="url" value="jdbc:hsqldb:hsql://localhost:9001"/>
-        <property name="username" value="sa"/>
-        <property name="password" value=""/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/billing"/>
+        <property name="username" value="root"/>
+        <property name="password" value="password"/>
     </bean>
 
     <!-- SESSION FACTORY -->
@@ -22,17 +21,19 @@
         <property name="dataSource" ref="myDataSource"/>
         <property name="mappingResources">
             <list>
-                <value>client.hbm.xml</value>
-                <value>company.hbm.xml</value>
-                <value>family.hbm.xml</value>
-                <value>user.hbm.xml</value>
+                <value>com/carlos/projects/billing/domain/company.hbm.xml</value>
+                <value>com/carlos/projects/billing/domain/family.hbm.xml</value>
+                <value>com/carlos/projects/billing/domain/user.hbm.xml</value>
+                <value>com/carlos/projects/billing/domain/client.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
-            <value>hibernate.dialect=org.hibernate.dialect.HSQLDialect</value>
-            <value>show_sql=true</value>
-            <value>hibernate.format_sql=true</value>
-            <value>hibernate.hbm2ddl.auto=create-drop</value>
+            <value>
+                hibernate.dialect=org.hibernate.dialect.MySQLDialect
+                show_sql=true
+                hibernate.format_sql=true
+                hibernate.hbm2ddl.auto=create-drop
+            </value>
         </property>
     </bean>
 
@@ -48,16 +49,22 @@
 
     <bean name="/importComponents.htm"
           class="com.carlos.projects.billing.ui.controllers.ImportComponentsController">
-        <property name="commandClass"
-                  value="com.carlos.projects.billing.domain.FileUpload"/>
+        <constructor-arg ref="importer"/>
+        <constructor-arg ref="componentDAO"/>
+        <property name="commandClass" value="com.carlos.projects.billing.domain.FileUpload"/>
         <property name="formView" value="importComponents"/>
-        <property name="importer" value="com.carlos.projects.billing.ExcelToMySQLImporter"/>
     </bean>
 
     <bean name="/showComponents.htm"
           class="com.carlos.projects.billing.ui.controllers.ShowComponentsController">
         <property name="viewName" value="showComponents"/>
     </bean>
+
+    <!-- DAOs -->
+    <bean id="componentDAO" class="com.carlos.projects.billing.dao.ComponentDAO"/>
+
+    <!-- Importers -->
+    <bean id="importer" class="com.carlos.projects.billing.Importer"/>
 
     <!-- RESOLVERS -->
     <bean id="multipartResolver"
