@@ -50,6 +50,9 @@ public class ExcelToMySQLImporter implements Importer {
 
     private Properties messages;
 
+    private ExcelToMySQLImporter() {
+    }
+
     public ExcelToMySQLImporter(FamilyDAO familyDAO, ComponentDAO componentDAO) {
         this.familyDAO = familyDAO;
         this.componentDAO = componentDAO;

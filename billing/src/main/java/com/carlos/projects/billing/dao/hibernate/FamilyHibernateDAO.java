@@ -22,7 +22,6 @@ package com.carlos.projects.billing.dao.hibernate;
 
 import com.carlos.projects.billing.dao.FamilyDAO;
 import com.carlos.projects.billing.domain.Family;
-import org.hibernate.SessionFactory;
 
 /**
  * Hibernate implementation of {@link com.carlos.projects.billing.dao.FamilyDAO}
@@ -31,9 +30,5 @@ import org.hibernate.SessionFactory;
  * @date 12-Nov-2009
  */
 public class FamilyHibernateDAO extends HibernateDAO<Family, String> implements FamilyDAO {
-
-    public FamilyHibernateDAO(SessionFactory hibernateSessionFactory) {
-        super(hibernateSessionFactory);
-    }
 
 }

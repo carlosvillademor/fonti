@@ -61,10 +61,10 @@
     </bean>
 
     <!-- DAOs -->
-    <bean id="componentDAO" class="com.carlos.projects.billing.dao.ComponentDAO"/>
+    <bean id="componentDAO" class="com.carlos.projects.billing.dao.hibernate.ComponentHibernateDAO"/>
 
     <!-- Importers -->
-    <bean id="importer" class="com.carlos.projects.billing.Importer"/>
+    <bean id="importer" class="com.carlos.projects.billing.ExcelToMySQLImporter"/>
 
     <!-- RESOLVERS -->
     <bean id="multipartResolver"

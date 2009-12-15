@@ -20,12 +20,15 @@
 
 package com.carlos.projects.billing.dao.hibernate;
 
+import com.carlos.projects.billing.dao.ComponentDAO;
+import com.carlos.projects.billing.domain.Component;
+
 /**
  * Hibernate implementation of {@link com.carlos.projects.billing.dao.ComponentDAO}
  *
  * @author Carlos Fernandez
  * @date 15-Nov-2009
  */
-public class ComponentHibernateDAO {
+public class ComponentHibernateDAO extends HibernateDAO<Component, String> implements ComponentDAO {
 
 }

@@ -37,6 +37,9 @@ abstract class HibernateDAO<T, ID extends Serializable> implements DAO<T, ID> {
 
     private SessionFactory sessionFactory;
 
+    HibernateDAO() {
+    }
+
     HibernateDAO(SessionFactory hibernateSessionFactory) {
         this.sessionFactory = hibernateSessionFactory;
     }
