@@ -58,6 +58,18 @@ public class ExcelToMySQLImporter implements Importer {
         this.componentDAO = componentDAO;
     }
 
+    public FamilyDAO getFamilyDAO() {
+        return familyDAO;
+    }
+
+    public ComponentDAO getComponentDAO() {
+        return componentDAO;
+    }
+
+    public void setMessages(Properties messages) {
+        this.messages = messages;
+    }
+
     public Long importData(MultipartFile excelFile) {
         XSSFWorkbook workbook;
         try {

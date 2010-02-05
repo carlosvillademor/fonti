@@ -6,7 +6,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <!-- RESOURCES -->
-    <util:properties id="messages" location="classpath:messages.properties"/>
+    <util:properties id="messages" location="classpath:/messages.properties"/>
 
     <!-- DATA SOURCE -->
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -61,10 +61,20 @@
     </bean>
 
     <!-- DAOs -->
-    <bean id="componentDAO" class="com.carlos.projects.billing.dao.hibernate.ComponentHibernateDAO"/>
+    <bean id="familyDAO" class="com.carlos.projects.billing.dao.hibernate.FamilyHibernateDAO">
+        <constructor-arg ref="mySessionFactory"/>
+    </bean>
+
+    <bean id="componentDAO" class="com.carlos.projects.billing.dao.hibernate.ComponentHibernateDAO">
+        <constructor-arg ref="mySessionFactory"/>
+    </bean>
 
     <!-- Importers -->
-    <bean id="importer" class="com.carlos.projects.billing.ExcelToMySQLImporter"/>
+    <bean id="importer" class="com.carlos.projects.billing.ExcelToMySQLImporter">
+        <constructor-arg ref="familyDAO"/>
+        <constructor-arg ref="componentDAO"/>
+        <property name="messages" ref="messages"/>
+    </bean>
 
     <!-- RESOLVERS -->
     <bean id="multipartResolver"

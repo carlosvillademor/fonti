@@ -59,17 +59,10 @@ public class ImportComponentsController extends SimpleFormController {
     }
 
     /**
-     * @param importer the importer to set
+     * @return the componentDAO
      */
-    public void setImporter(Importer importer) {
-        this.importer = importer;
-    }
-
-    /**
-     * @param componentDAO the componentDAO to set
-     */
-    public void setComponentDAO(ComponentDAO componentDAO) {
-        this.componentDAO = componentDAO;
+    public ComponentDAO getComponentDAO() {
+        return componentDAO;
     }
 
     /* (non-Javadoc)
