@@ -24,6 +24,7 @@ import com.carlos.projects.billing.dao.FamilyDAO;
 import com.carlos.projects.billing.domain.Component;
 import com.carlos.projects.billing.domain.Family;
 import static org.hamcrest.Matchers.is;
+import org.junit.After;
 import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +34,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,6 +55,14 @@ public class ExcelToMySQLImporterTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+    }
+
+    @After
+    public void teardown() {
+        File file = new File("components.xlsx");
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
     @Test

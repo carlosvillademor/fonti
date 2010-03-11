@@ -2,8 +2,12 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
     <!-- RESOURCES -->
     <util:properties id="messages" location="classpath:/messages.properties"/>
@@ -17,7 +21,8 @@
     </bean>
 
     <!-- SESSION FACTORY -->
-    <bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+          destroy-method="destroy">
         <property name="dataSource" ref="myDataSource"/>
         <property name="mappingResources">
             <list>
@@ -36,6 +41,25 @@
             </value>
         </property>
     </bean>
+
+    <!-- TRANSACTION MANAGER -->
+    <bean id="myTransactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>
+
+    <!-- AOP -->
+    <tx:advice id="myDaoTransactionAdvice" transaction-manager="myTransactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="myDaoTransactions" expression="execution(* com.carlos.billing.dao..*DAO.*(..))"/>
+        <aop:advisor pointcut-ref="myDaoTransactions" advice-ref="myDaoTransactionAdvice"/>
+    </aop:config>
 
     <!-- HANDLER MAPPINGS -->
     <bean id="handlerMapping"
@@ -69,7 +93,7 @@
         <constructor-arg ref="mySessionFactory"/>
     </bean>
 
-    <!-- Importers -->
+    <!-- IMPORTERS -->
     <bean id="importer" class="com.carlos.projects.billing.ExcelToMySQLImporter">
         <constructor-arg ref="familyDAO"/>
         <constructor-arg ref="componentDAO"/>
