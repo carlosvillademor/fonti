@@ -74,6 +74,7 @@ public class ImportComponentsControllerTest {
         List<Component> components = createComponents();
         expectedModel.put("importedComponents", components);
         when(command.getFile()).thenReturn(file);
+        expectedModel.put("file", file);
         when(importer.importData(file)).thenReturn(2L);
         when(componentDAO.findAll("Component")).thenReturn(components);
 

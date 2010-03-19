@@ -79,6 +79,7 @@ public class ImportComponentsController extends SimpleFormController {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("numberOfComponentsImported", componentsImported);
         model.put("importedComponents", componentDAO.findAll("Component"));
+        model.put("file", file);
         return new ModelAndView("showComponents", model);
     }
 }
