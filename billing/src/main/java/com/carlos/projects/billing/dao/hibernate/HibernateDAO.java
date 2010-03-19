@@ -33,14 +33,14 @@ import java.util.List;
  * @author Carlos Fernandez
  * @date 15-Nov-2009
  */
-abstract class HibernateDAO<T, ID extends Serializable> implements DAO<T, ID> {
+public abstract class HibernateDAO<T, ID extends Serializable> implements DAO<T, ID> {
 
     private SessionFactory sessionFactory;
 
-    HibernateDAO() {
+    public HibernateDAO() {
     }
 
-    HibernateDAO(SessionFactory hibernateSessionFactory) {
+    public HibernateDAO(SessionFactory hibernateSessionFactory) {
         this.sessionFactory = hibernateSessionFactory;
     }
 

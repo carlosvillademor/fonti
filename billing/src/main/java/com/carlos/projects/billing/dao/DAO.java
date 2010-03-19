@@ -29,10 +29,10 @@ import java.util.List; /**
  */
 public interface DAO<T, ID extends Serializable> {
 
-    T getById(Class<T> clazz, Serializable id);
+    public T getById(Class<T> clazz, Serializable id);
 
-    ID save(T entity);
+    public ID save(T entity);
 
-    List<T> findAll(String entityName);
+    public List<T> findAll(String entityName);
 
 }
