@@ -6,15 +6,9 @@
     <class name="Family" table="FAMILY">
         <id name="code" type="string" column="FAMILY_CODE"/>
         <property name="description" type="string" column="FAMILY_DESCRIPTION"/>
-        <set name="components" table="COMPONENT">
+        <set name="components">
             <key column="COMPONENT_FAMILY_NAME"/>
-            <composite-element class="Component">
-                <property name="code" type="string" column="COMPONENT_CODE" not-null="true"/>
-                <property name="description" type="string" column="COMPONENT_DESCRIPTION" not-null="true"/>
-                <property name="price" type="double" column="COMPONENT_PRICE" not-null="true"/>
-                <property name="discount1" type="double" column="COMPONENT_DISCOUNT1" not-null="true"/>
-                <property name="discount2" type="double" column="COMPONENT_DISCOUNT2" not-null="true"/>
-            </composite-element>
+            <one-to-many class="Component"/>
         </set>
     </class>
 </hibernate-mapping>

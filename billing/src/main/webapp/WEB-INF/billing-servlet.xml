@@ -30,6 +30,7 @@
                 <value>com/carlos/projects/billing/domain/family.hbm.xml</value>
                 <value>com/carlos/projects/billing/domain/user.hbm.xml</value>
                 <value>com/carlos/projects/billing/domain/client.hbm.xml</value>
+                <value>com/carlos/projects/billing/domain/component.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -57,7 +58,7 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="myDaoTransactions" expression="execution(* com.carlos.billing.dao..*DAO.*(..))"/>
+        <aop:pointcut id="myDaoTransactions" expression="execution(* com.carlos.projects.billing.dao..*.*(..))"/>
         <aop:advisor pointcut-ref="myDaoTransactions" advice-ref="myDaoTransactionAdvice"/>
     </aop:config>
 
