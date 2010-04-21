@@ -30,10 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Implementation of the Importer interface that imports from an Excel file
@@ -72,12 +69,17 @@ public class ExcelToMySQLImporter implements Importer {
 
     public Long importData(MultipartFile excelFile) {
         XSSFWorkbook workbook;
+        File componentsFile = null;
         try {
-            File componentsFile = new File("components.xlsx");
+            componentsFile = new File("components-" + new Date().getTime() + ".xlsx");
             excelFile.transferTo(componentsFile);
             workbook = new XSSFWorkbook(componentsFile.getAbsolutePath());
         } catch (IOException e) {
             throw new RuntimeException(messages.getProperty("import.error"), e);
+        } finally {
+            if (componentsFile != null) {
+                componentsFile.deleteOnExit();
+            }
         }
         workbook.setMissingCellPolicy(Row.CREATE_NULL_AS_BLANK);
         Iterator<Row> rowIterator = workbook.getSheetAt(workbook.getActiveSheetIndex()).iterator();
