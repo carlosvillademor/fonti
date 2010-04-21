@@ -83,7 +83,7 @@ public class ImportComponentsControllerTest {
 
         //then
         assertThat(mav.getViewName(), is("showComponents"));
-        assertThat((Map<String, Object>) mav.getModel(), is(expectedModel));
+        assertThat(mav.getModel(), is(expectedModel));
     }
 
     private List<Component> createComponents() {
