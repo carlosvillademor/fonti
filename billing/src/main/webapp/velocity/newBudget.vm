@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>Nuevo presupuesto</title>
+</head>
+<body>
+<h1>Seleccione los componentes que forman parte del presupuesto</h1>
+
+<div id="componentList">
+    <label>Familia</label>
+    <select id="families">
+        #foreach ( $family in $viewHelper.getAllFamilies() )
+        <option value="$family.description">$family.description</option>
+        #end
+    </select>
+</div>
+</body>
+</html>

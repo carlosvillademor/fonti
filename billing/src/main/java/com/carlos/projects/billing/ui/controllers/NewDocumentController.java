@@ -22,11 +22,11 @@ package com.carlos.projects.billing.ui.controllers;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 /**
+ * Controller to display the new document page
+ *
  * @author Carlos Fernandez
- * @date 19 Jul 2009
- * <p/>
- * Controller for the home page
+ * @date 22-Apr-2010
  */
-public class HomeController extends ParameterizableViewController {
+public class NewDocumentController extends ParameterizableViewController {
 
 }

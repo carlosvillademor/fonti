@@ -17,16 +17,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.carlos.projects.billing.ui.controllers;
+package com.carlos.projects.billing.ui.helpers;
 
-import org.springframework.web.servlet.mvc.ParameterizableViewController;
+import com.carlos.projects.billing.dao.FamilyDAO;
+import com.carlos.projects.billing.domain.Family;
+
+import java.util.List;
 
 /**
+ * View helper to create a new budget document
+ *
  * @author Carlos Fernandez
- * @date 19 Jul 2009
- * <p/>
- * Controller for the home page
+ * @date 29-Apr-2010
  */
-public class HomeController extends ParameterizableViewController {
+public class BudgetViewHelper {
+
+    private FamilyDAO familyDAO;
+
+    public List<Family> getAllFamilies() {
+        return familyDAO.findAll("Family");
+    }
+
+    public void setFamilyDAO(FamilyDAO familyDAO) {
+        this.familyDAO = familyDAO;
+    }
 
 }

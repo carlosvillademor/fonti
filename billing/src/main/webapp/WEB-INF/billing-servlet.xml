@@ -86,6 +86,20 @@
         <property name="viewName" value="showComponents"/>
     </bean>
 
+    <bean name="/newDocument.htm" class="com.carlos.projects.billing.ui.controllers.NewDocumentController">
+        <property name="viewName" value="newDocument"/>
+    </bean>
+
+    <bean name="/newBudget.htm" class="com.carlos.projects.billing.ui.controllers.NewBudgetController">
+        <property name="viewName" value="newBudget"/>
+        <property name="viewHelper" ref="budgetViewHelper"/>
+    </bean>
+
+    <!-- VIEW HELPERS -->
+    <bean id="budgetViewHelper" class="com.carlos.projects.billing.ui.helpers.BudgetViewHelper">
+        <property name="familyDAO" ref="familyDAO"/>
+    </bean>
+
     <!-- DAOs -->
     <bean id="familyDAO" class="com.carlos.projects.billing.dao.hibernate.FamilyHibernateDAO">
         <constructor-arg ref="mySessionFactory"/>

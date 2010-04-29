@@ -1,0 +1,10 @@
+<html>
+<head>
+    <title>Crear un nuevo documento</title>
+</head>
+<body>
+<ul>
+    <li><a href="newBudget.htm" title="Presupuesto">Presupuesto</a></li>
+</ul>
+</body>
+</html>
