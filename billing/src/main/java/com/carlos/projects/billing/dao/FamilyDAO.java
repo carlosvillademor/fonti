@@ -22,6 +22,8 @@ package com.carlos.projects.billing.dao;
 
 import com.carlos.projects.billing.domain.Family;
 
+import java.util.List;
+
 /**
  * Data Access Object for dealing with {@link com.carlos.projects.billing.domain.Family}s
  *
@@ -29,5 +31,7 @@ import com.carlos.projects.billing.domain.Family;
  * @date 08-Nov-2009
  */
 public interface FamilyDAO extends DAO<Family, String> {
+
+    public List<Family> findAllOrderByDescription(String entityName);
 
 }

@@ -24,6 +24,8 @@ import com.carlos.projects.billing.dao.FamilyDAO;
 import com.carlos.projects.billing.domain.Family;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 /**
  * Hibernate implementation of {@link com.carlos.projects.billing.dao.FamilyDAO}
  *
@@ -37,5 +39,9 @@ public class FamilyHibernateDAO extends HibernateDAO<Family, String> implements 
 
     public FamilyHibernateDAO(SessionFactory hibernateSessionFactory) {
         super(hibernateSessionFactory);
+    }
+
+    public List<Family> findAllOrderByDescription(String entityName) {
+        return (List<Family>) getSession().createQuery("from Family order by description").list();
     }
 }

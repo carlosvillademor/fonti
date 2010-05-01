@@ -35,7 +35,7 @@ public class BudgetViewHelper {
     private FamilyDAO familyDAO;
 
     public List<Family> getAllFamilies() {
-        return familyDAO.findAll("Family");
+        return familyDAO.findAllOrderByDescription("Family");
     }
 
     public void setFamilyDAO(FamilyDAO familyDAO) {

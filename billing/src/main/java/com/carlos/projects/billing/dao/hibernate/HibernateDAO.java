@@ -44,7 +44,7 @@ public abstract class HibernateDAO<T, ID extends Serializable> implements DAO<T,
         this.sessionFactory = hibernateSessionFactory;
     }
 
-    private Session getSession() {
+    protected Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 

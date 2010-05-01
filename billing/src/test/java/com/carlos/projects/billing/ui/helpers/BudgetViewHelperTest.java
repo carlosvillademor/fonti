@@ -21,17 +21,18 @@ package com.carlos.projects.billing.ui.helpers;
 
 import com.carlos.projects.billing.dao.FamilyDAO;
 import com.carlos.projects.billing.domain.Family;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit test for {@link com.carlos.projects.billing.ui.helpers.BudgetViewHelper}
@@ -55,13 +56,13 @@ public class BudgetViewHelperTest {
         BudgetViewHelper viewHelper = new BudgetViewHelper();
         viewHelper.setFamilyDAO(familyDAO);
         List<Family> families = new ArrayList<Family>();
-        when(familyDAO.findAll("Family")).thenReturn(families);
+        when(familyDAO.findAllOrderByDescription("Family")).thenReturn(families);
 
         //when
         List<Family> actualFamilies = viewHelper.getAllFamilies();
 
         //then
-        verify(familyDAO).findAll("Family");
+        verify(familyDAO).findAllOrderByDescription("Family");
         assertThat(actualFamilies, is(families));
     }
 
