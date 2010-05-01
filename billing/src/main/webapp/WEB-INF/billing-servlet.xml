@@ -39,7 +39,7 @@
                 hibernate.dialect=org.hibernate.dialect.MySQLDialect
                 show_sql=true
                 hibernate.format_sql=true
-                hibernate.hbm2ddl.auto=create-drop
+                hibernate.hbm2ddl.auto=validate
             </value>
         </property>
     </bean>
