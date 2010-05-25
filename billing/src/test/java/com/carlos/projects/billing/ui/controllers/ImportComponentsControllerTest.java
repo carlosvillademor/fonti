@@ -46,17 +46,13 @@ import java.util.Map;
  */
 public class ImportComponentsControllerTest {
 
-    @Mock
-    private Importer importer;
+    @Mock private Importer importer;
 
-    @Mock
-    private FileUpload command;
+    @Mock private FileUpload command;
 
-    @Mock
-    private MultipartFile file;
+    @Mock private MultipartFile file;
 
-    @Mock
-    private ComponentDAO componentDAO;
+    @Mock private ComponentDAO componentDAO;
 
     @Before
     public void setup() {
@@ -69,12 +65,9 @@ public class ImportComponentsControllerTest {
             throws Exception {
         //given
         ImportComponentsController controller = new ImportComponentsController(importer, componentDAO);
-        Map<String, Object> expectedModel = new HashMap<String, Object>();
-        expectedModel.put("numberOfComponentsImported", 2L);
-        List<Component> components = createComponents();
-        expectedModel.put("importedComponents", components);
+	    List<Component> components = createComponents();
+        Map<String, Object> expectedModel = mockExpectedModel(components);
         when(command.getFile()).thenReturn(file);
-        expectedModel.put("file", file);
         when(importer.importData(file)).thenReturn(2L);
         when(componentDAO.findAll("Component")).thenReturn(components);
 
@@ -86,6 +79,14 @@ public class ImportComponentsControllerTest {
         assertThat(mav.getModel(), is(expectedModel));
     }
 
+    private Map<String, Object> mockExpectedModel(List<Component> components) {
+	    Map<String, Object> expectedModel = new HashMap<String, Object>();
+	    expectedModel.put("numberOfComponentsImported", 2L);
+	    expectedModel.put("importedComponents", components);
+	    expectedModel.put("file", file);
+	    return expectedModel;
+    }
+    
     private List<Component> createComponents() {
         List<Component> components = new ArrayList<Component>();
 
