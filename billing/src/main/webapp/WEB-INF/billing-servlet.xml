@@ -12,6 +12,8 @@
 
     <!-- RESOURCES -->
     <util:properties id="messages" location="classpath:/messages.properties"/>
+    <!--<util:properties id="jdbc" location="classpath:/jdbc.properties"/>
+    <util:properties id="hibernate" location="classpath:/hibernate.properties"/> -->
 
     <!-- DATA SOURCE -->
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -39,7 +41,12 @@
                 hibernate.dialect=org.hibernate.dialect.MySQLDialect
                 show_sql=true
                 hibernate.format_sql=true
-                hibernate.hbm2ddl.auto=validate
+                hibernate.hbm2ddl.auto=update
+ <!--                 hibernate.dialect=${dialect}
+                show_sql=${show_sql}
+                hibernate.format_sql=${format_sql}
+                hibernate.hbm2ddl.auto=${hbm2ddl.auto}
+ -->                
             </value>
         </property>
     </bean>
@@ -81,18 +88,23 @@
         <property name="formView" value="importComponents"/>
     </bean>
 
-    <bean name="/showComponents.htm"
-          class="com.carlos.projects.billing.ui.controllers.ShowComponentsController">
-        <property name="viewName" value="showComponents"/>
+    <bean name="/loadComponents.htm" class="com.carlos.projects.billing.ui.controllers.LoadComponentsController">
+        <property name="viewName" value="loadComponents"/>
+    	<constructor-arg ref="familyDAO"/>
+    </bean>
+
+    <bean name="/newBudget.htm" class="com.carlos.projects.billing.ui.controllers.NewBudgetController">
+        <property name="viewName" value="newBudget"/>
+        <property name="viewHelper" ref="budgetViewHelper"/>
     </bean>
 
     <bean name="/newDocument.htm" class="com.carlos.projects.billing.ui.controllers.NewDocumentController">
         <property name="viewName" value="newDocument"/>
     </bean>
 
-    <bean name="/newBudget.htm" class="com.carlos.projects.billing.ui.controllers.NewBudgetController">
-        <property name="viewName" value="newBudget"/>
-        <property name="viewHelper" ref="budgetViewHelper"/>
+    <bean name="/showComponents.htm"
+          class="com.carlos.projects.billing.ui.controllers.ShowComponentsController">
+        <property name="viewName" value="showComponents"/>
     </bean>
 
     <!-- VIEW HELPERS -->
