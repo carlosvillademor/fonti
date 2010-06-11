@@ -1,17 +1,15 @@
 <html>
-<head>
-    <title>Importar listado de componentes</title>
-</head>
-
-<body>
-<h1>Importar documento con la lista de componentes</h1>
-
-<form action=
-#springUrl("/importComponents.htm") enctype="multipart/form-data" method="post">
-<p>Seleccione el fichero con la lista de componentes a importar:<br/>
-    <input type="file" name="file" value="Abrir" size="40"/>
-</p>
-<input type="submit" value="Importar"/>
-</form>
-</body>
-        </html>
+    <head>
+        <title>Importar listado de componentes</title>
+    </head>
+    <body>
+        <h1>Importar documento con la lista de componentes</h1>
+        <form action=
+            #springUrl("/importComponents.htm") enctype="multipart/form-data" method="post">
+            <p>Seleccione el fichero con la lista de componentes a importar:<br/>
+                <input type="file" name="file" value="Abrir" size="40"/>
+            </p>
+            <input type="submit" value="Importar"/>
+        </form>
+    </body>
+</html>
