@@ -1,21 +1,21 @@
 <html>
-<head>
-    <title>Listado de componentes actualizado</title>
-</head>
-<body>
-<h1>Lista de componentes actualizada en la base de datos</h1>
+    <head>
+        <title>Listado de componentes actualizado</title>
+    </head>
+    <body>
+        <h1>Lista de componentes actualizada en la base de datos</h1>
 
-<p>Las propiedades del fichero que ha usado para actualizar la base
-    de datos de componentes son</p>
-<ul>
-    <li>Size: $!{file.size}</li>
-    <li>Name: $!{file.originalFilename}</li>
-</ul>
-<p>La lista de componentes importados es:</p>
-<ol>
-    #foreach( $component in $importedComponents )
-    <li>$component.code, $component.description, $component.price, $component.discount1, $component.discount2</li>
-    #end
-</ol>
-</body>
+        <p>Las propiedades del fichero que ha usado para actualizar la base
+            de datos de componentes son</p>
+        <ul>
+            <li>Size: $!{file.size}</li>
+            <li>Name: $!{file.originalFilename}</li>
+        </ul>
+        <p>La lista de componentes importados es:</p>
+        <ol>
+            #foreach( $component in $importedComponents )
+                <li>$component.code, $component.description, $component.price, $component.discount1, $component.discount2</li>
+            #end
+        </ol>
+    </body>
 </html>

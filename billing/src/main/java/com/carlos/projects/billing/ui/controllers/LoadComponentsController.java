@@ -53,6 +53,7 @@ public class LoadComponentsController extends ParameterizableViewController {
 			HttpServletResponse response) throws Exception {
 		Family family = familyDao.getById(Family.class, request.getParameter("familyCode"));
 		Map<String, Object> model = new HashMap<String, Object>();
+        model.put("familyName", family.getDescription());
 		model.put("components", family.getComponents());
 		return new ModelAndView(getViewName(), model);
 	}

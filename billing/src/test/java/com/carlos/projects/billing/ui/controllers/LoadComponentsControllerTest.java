@@ -27,10 +27,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,33 +49,39 @@ public class LoadComponentsControllerTest {
 
 	@Mock FamilyDAO familyDao;
 	@Mock Family family;
-	
+    @Mock HttpServletRequest request;
+
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
 
-	@SuppressWarnings("unchecked")
-	@Test
-	public void shouldLoadComponentsForAGivenFamilyCode() throws Exception {
+	@SuppressWarnings({"unchecked"})
+    @Test
+	public void shouldLoadComponentsAndFamilyNameForAGivenFamilyCode() throws Exception {
 		// Given
 		LoadComponentsController controller = new LoadComponentsController(familyDao);
+        controller.setViewName("loadComponents");
 		String familyCode = "familyCode";
 		Set<Component> components = mockComponents();
-		when(familyDao.getById(Family.class, familyCode)).thenReturn(family);
-		when(family.getComponents()).thenReturn(components);		
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		request.setMethod("POST");
-		request.setParameter("familyCode", "familyCode");
-		MockHttpServletResponse response = null;
+        String familyName = "Family name";
+        when(request.getParameter("familyCode")).thenReturn(familyCode);
+        when(request.getMethod()).thenReturn("POST");
+        when(familyDao.getById(Family.class, familyCode)).thenReturn(family);
+        when(family.getComponents()).thenReturn(components);
+        when(family.getDescription()).thenReturn(familyName);
+        MockHttpServletResponse response = null;
 
-		// When
-		ModelAndView modelAndView = controller.handleRequest(request, response);
-		
-		// Then
-		verify(familyDao).getById(Family.class, familyCode);
-		verify(family).getComponents();
-		assertThat((Set<Component>)modelAndView.getModel().get("components"), is(components));
+        // When
+        ModelAndView modelAndView = controller.handleRequest(request, response);
+
+        // Then
+        verify(familyDao).getById(Family.class, familyCode);
+        verify(family).getComponents();
+        verify(request).getParameter("familyCode");
+        assertThat((Set<Component>)modelAndView.getModel().get("components"), is(components));
+        assertThat((String) modelAndView.getModel().get("familyName"), is(familyName));
+        assertThat(modelAndView.getViewName(), is(controller.getViewName()));
 	}
 
 	private Set<Component> mockComponents() {
@@ -86,5 +92,5 @@ public class LoadComponentsControllerTest {
 		components.add(component2);
 		return components;
 	}
-	
+
 }

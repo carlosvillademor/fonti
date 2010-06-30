@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>Componentes de la familia ${familyName}</title>
+    </head>
+    <body>
+        <p>Lista de componentes de la familia ${familyName}</p>
+        <ul>
+            #foreach (${component} in ${components} )
+                <li>${component.description}</li>
+            #end
+        </ul>
+    </body>
+</html>
