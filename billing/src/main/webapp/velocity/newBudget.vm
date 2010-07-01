@@ -11,7 +11,7 @@
             <select id="families">
                 <option value="selectFamily" selected="selected">Seleccione una familia de componentes</option>
                 #foreach ( $family in $viewHelper.getAllFamilies() )
-                    <option value="$family.description">$family.description</option>
+                    <option value="$family.code">$family.description</option>
                 #end
             </select>
         </div>

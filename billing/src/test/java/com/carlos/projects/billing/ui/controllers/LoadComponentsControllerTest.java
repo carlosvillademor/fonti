@@ -92,5 +92,5 @@ public class LoadComponentsControllerTest {
 		components.add(component2);
 		return components;
 	}
-
+	
 }
