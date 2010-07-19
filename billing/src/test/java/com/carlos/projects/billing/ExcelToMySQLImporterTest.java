@@ -23,18 +23,16 @@ import com.carlos.projects.billing.dao.ComponentDAO;
 import com.carlos.projects.billing.dao.FamilyDAO;
 import com.carlos.projects.billing.domain.Component;
 import com.carlos.projects.billing.domain.Family;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashSet;
-import java.util.Set;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for {@link ExcelToMySQLImporter}
@@ -44,11 +42,9 @@ import java.util.Set;
  */
 public class ExcelToMySQLImporterTest {
 
-    @Mock
-    private FamilyDAO familyDAO;
+    @Mock private FamilyDAO familyDAO;
 
-    @Mock
-    private ComponentDAO componentDAO;
+    @Mock private ComponentDAO componentDAO;
 
     @Before
     public void setup() {
@@ -82,6 +78,7 @@ public class ExcelToMySQLImporterTest {
         component1.setDiscount1(33.00);
         component1.setDiscount2(0.00);
         component1.setPrice(383.2065);
+        component1.setFamilyCode("36");
 
         Component component2 = new Component();
         component2.setCode("000636");
@@ -89,20 +86,15 @@ public class ExcelToMySQLImporterTest {
         component2.setDiscount1(40.00);
         component2.setDiscount2(0.00);
         component2.setPrice(38.2740);
+        component2.setFamilyCode("33");
 
         Family family1 = new Family();
         family1.setCode("36");
         family1.setDescription("CONTADORES");
-        Set<Component> components1 = new HashSet<Component>();
-        components1.add(component1);
-        family1.setComponents(components1);
 
         Family family2 = new Family();
         family2.setCode("33");
         family2.setDescription("ACCES. FONTANERIA");
-        Set<Component> components2 = new HashSet<Component>();
-        components2.add(component2);
-        family2.setComponents(components2);
 
         //when
         Long importedComponents = importer.importData(file);
@@ -131,13 +123,11 @@ public class ExcelToMySQLImporterTest {
         component1.setDiscount1(33.00);
         component1.setDiscount2(0.00);
         component1.setPrice(383.2065);
+        component1.setFamilyCode("36");
 
         Family family1 = new Family();
         family1.setCode("36");
         family1.setDescription("CONTADORES");
-        Set<Component> components1 = new HashSet<Component>();
-        components1.add(component1);
-        family1.setComponents(components1);
 
         //when
         Long importedComponents = importer.importData(file);
@@ -164,18 +154,15 @@ public class ExcelToMySQLImporterTest {
         component1.setDiscount1(33.00);
         component1.setDiscount2(0.00);
         component1.setPrice(383.2065);
+        component1.setFamilyCode("36");
 
         Family family1 = new Family();
         family1.setCode("36");
         family1.setDescription("CONTADORES");
-        Set<Component> components1 = new HashSet<Component>();
-        components1.add(component1);
-        family1.setComponents(components1);
 
         Family family2 = new Family();
         family2.setCode("33");
         family2.setDescription("ACCES. FONTANERIA");
-        family2.setComponents(new HashSet<Component>());
 
         when(componentDAO.getById((Class<Component>) anyObject(), anyString())).thenReturn(null, component1);
 
@@ -205,6 +192,7 @@ public class ExcelToMySQLImporterTest {
         component1.setDiscount1(33.00);
         component1.setDiscount2(0.00);
         component1.setPrice(383.2065);
+        component1.setFamilyCode("36");
 
         Component component2 = new Component();
         component2.setCode("000636");
@@ -212,13 +200,11 @@ public class ExcelToMySQLImporterTest {
         component2.setDiscount1(40.00);
         component2.setDiscount2(0.00);
         component2.setPrice(38.2740);
+        component2.setFamilyCode("33");
 
         Family family1 = new Family();
         family1.setCode("36");
         family1.setDescription("CONTADORES");
-        Set<Component> components1 = new HashSet<Component>();
-        components1.add(component1);
-        family1.setComponents(components1);
 
         when(familyDAO.getById(Family.class, family1.getCode())).thenReturn(null, family1);
 

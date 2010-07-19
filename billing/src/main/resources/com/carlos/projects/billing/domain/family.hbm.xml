@@ -7,7 +7,7 @@
         <id name="code" type="string" column="FAMILY_CODE"/>
         <property name="description" type="string" column="FAMILY_DESCRIPTION"/>
         <set name="components" lazy="false">
-            <key column="COMPONENT_FAMILY_NAME"/>
+            <key column="COMPONENT_FAMILY_CODE" not-null="true"/>
             <one-to-many class="Component"/>
         </set>
     </class>
