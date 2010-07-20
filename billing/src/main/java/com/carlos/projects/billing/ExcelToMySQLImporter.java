@@ -30,7 +30,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Properties;
 
 /**
  * Implementation of the Importer interface that imports from an Excel file
@@ -89,29 +91,24 @@ public class ExcelToMySQLImporter implements Importer {
             String familyCode = row.getCell(4).getStringCellValue();
             //The first row of the excel file is the one with the titles
             if (row.getRowNum() != 0 && StringUtils.isNotBlank(familyCode)) {
-                Component component = null;
+                if (familyDAO.getById(Family.class, familyCode) == null) {
+                    Family family = createFamilyFromRow(row);
+                    familyDAO.save(family);
+                }
                 String componentCode = row.getCell(2).getStringCellValue();
                 if (componentDAO.getById(Component.class, componentCode) == null) {
-                    component = createComponentFromRow(row);
-                    componentDAO.save(component);
+                    componentDAO.save(createComponentFromRow(row));
                     numberOfImportedItems += 1L;
-                }
-                if (familyDAO.getById(Family.class, familyCode) == null) {
-                    Family family = createFamilyFromRowAndComponent(row, component);
-                    familyDAO.save(family);
                 }
             }
         }
         return numberOfImportedItems;
     }
 
-    private Family createFamilyFromRowAndComponent(Row row, Component component) {
+    private Family createFamilyFromRow(Row row) {
         Family family = new Family();
         family.setCode(StringUtils.trim(row.getCell(4).getStringCellValue()));
         family.setDescription(StringUtils.trim(row.getCell(9).getStringCellValue()));
-        Set<Component> components = new HashSet<Component>();
-        components.add(component);
-        family.setComponents(components);
         return family;
     }
 
@@ -122,6 +119,7 @@ public class ExcelToMySQLImporter implements Importer {
         component.setDiscount1(row.getCell(6).getNumericCellValue());
         component.setDiscount2(row.getCell(7).getNumericCellValue());
         component.setPrice(row.getCell(8).getNumericCellValue());
+        component.setFamilyCode(row.getCell(4).getStringCellValue());
         return component;
     }
 

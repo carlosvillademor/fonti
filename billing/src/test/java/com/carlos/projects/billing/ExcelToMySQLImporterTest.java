@@ -25,6 +25,7 @@ import com.carlos.projects.billing.domain.Component;
 import com.carlos.projects.billing.domain.Family;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockMultipartFile;
@@ -101,11 +102,12 @@ public class ExcelToMySQLImporterTest {
 
         //then
         assertThat("The number of components imported is not 2", importedComponents, is(2L));
-        verify(componentDAO, times(1)).save(component1);
-        verify(componentDAO, times(1)).save(component2);
+        InOrder inOrder = inOrder(familyDAO, componentDAO);
+        inOrder.verify(familyDAO, times(1)).save(family1);
+        inOrder.verify(componentDAO, times(1)).save(component1);
+        inOrder.verify(familyDAO, times(1)).save(family2);
+        inOrder.verify(componentDAO, times(1)).save(component2);
         verify(componentDAO, atMost(2)).save((Component) anyObject());
-        verify(familyDAO, times(1)).save(family1);
-        verify(familyDAO, times(1)).save(family2);
         verify(familyDAO, atMost(2)).save((Family) anyObject());
     }
 
@@ -134,9 +136,10 @@ public class ExcelToMySQLImporterTest {
 
         //then
         assertThat("The number of components imported is not 1", importedComponents, is(1L));
-        verify(componentDAO, times(1)).save(component1);
+        InOrder inOrder = inOrder(familyDAO, componentDAO);
+        inOrder.verify(familyDAO, times(1)).save(family1);
+        inOrder.verify(componentDAO, times(1)).save(component1);
         verify(componentDAO, atMost(1)).save((Component) anyObject());
-        verify(familyDAO, times(1)).save(family1);
         verify(familyDAO, atMost(1)).save((Family) anyObject());
     }
 
@@ -171,10 +174,11 @@ public class ExcelToMySQLImporterTest {
 
         //then
         assertThat("The number of components imported is not 1", importedComponents, is(1L));
-        verify(componentDAO, times(1)).save(component1);
+        InOrder inOrder = inOrder(familyDAO, componentDAO);
+        inOrder.verify(familyDAO, times(1)).save(family1);
+        inOrder.verify(componentDAO, times(1)).save(component1);
+        inOrder.verify(familyDAO, times(1)).save(family2);
         verify(componentDAO, atMost(1)).save((Component) anyObject());
-        verify(familyDAO, times(1)).save(family1);
-        verify(familyDAO, times(1)).save(family2);
         verify(familyDAO, atMost(2)).save((Family) anyObject());
     }
 
@@ -200,7 +204,7 @@ public class ExcelToMySQLImporterTest {
         component2.setDiscount1(40.00);
         component2.setDiscount2(0.00);
         component2.setPrice(38.2740);
-        component2.setFamilyCode("33");
+        component2.setFamilyCode("36");
 
         Family family1 = new Family();
         family1.setCode("36");
@@ -213,10 +217,11 @@ public class ExcelToMySQLImporterTest {
 
         //then
         assertThat("The number of components imported is not 2", importedComponents, is(2L));
-        verify(componentDAO, times(1)).save(component1);
-        verify(componentDAO, times(1)).save(component2);
+        InOrder inOrder = inOrder(familyDAO, componentDAO);
+        inOrder.verify(familyDAO, times(1)).save(family1);
+        inOrder.verify(componentDAO, times(1)).save(component1);
+        inOrder.verify(componentDAO, times(1)).save(component2);
         verify(componentDAO, atMost(2)).save((Component) anyObject());
-        verify(familyDAO, times(1)).save(family1);
         verify(familyDAO, atMost(1)).save((Family) anyObject());
     }
 

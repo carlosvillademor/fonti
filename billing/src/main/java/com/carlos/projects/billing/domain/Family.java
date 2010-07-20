@@ -20,11 +20,11 @@
 
 package com.carlos.projects.billing.domain;
 
-import java.util.Set;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+
+import java.util.Set;
 
 /**
  * Normative definition of a Family
@@ -104,6 +104,7 @@ public class Family {
 		return new EqualsBuilder()
 			.append(code, family.getCode())
 			.append(description, family.getDescription())
+            .append(components, family.getComponents())
 			.isEquals();
 	}
 
@@ -115,6 +116,7 @@ public class Family {
 		return new HashCodeBuilder()
 			.append(code)
 			.append(description)
+            .append(components)
 			.hashCode();
 	}
 
@@ -126,6 +128,7 @@ public class Family {
 		return new ToStringBuilder(this)
 			.append(code)
 			.append(description)
+            .append(components)
 			.toString();
 	}
 
