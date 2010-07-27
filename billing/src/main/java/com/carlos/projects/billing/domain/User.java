@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Fonti is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -36,19 +36,19 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class User {
 
 	private String firstName;
-	
+
 	private String lastName;
-	
+
 	private String userName;
-	
+
 	private String password;
-	
+
 	private String securityQuestion;
-	
+
 	private String securityAnswer;
-	
+
 	private Company company;
-	
+
 	public User() {
 		super();
 	}
@@ -185,7 +185,7 @@ public class User {
 			.append(password)
 			.append(securityQuestion)
 			.append(securityAnswer)
-			.hashCode();
+			.toHashCode();
 	}
 
 	/* (non-Javadoc)

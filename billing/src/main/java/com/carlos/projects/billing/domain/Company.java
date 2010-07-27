@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Fonti is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -27,24 +27,24 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Carlos Fernandez
  *
  * @date 11 Jul 2009
- * 
+ *
  * Representation of company. Name is needed and must be unique
  *
  */
 public class Company {
-	
+
 	private String name;
-	
+
 	private String nationalInsuranceNumber;
-	
+
 	private String phoneNumber;
-	
+
 	private String emailAddress;
-	
+
 	private Address address;
-	
+
 	private String bankAccount;
-	
+
 	public Company () {
 		super();
 	}
@@ -141,14 +141,14 @@ public class Company {
 		if (!(obj instanceof Company)) {
 			return false;
 		}
-		
+
 		if (obj == this) {
 			return true;
 		}
 		Company otherCompany = (Company) obj;
 		return new EqualsBuilder()
 		.append(name, otherCompany.getName())
-		.append(nationalInsuranceNumber, 
+		.append(nationalInsuranceNumber,
 				otherCompany.getNationalInsuranceNumber())
 		.append(phoneNumber, otherCompany.getPhoneNumber())
 		.append(emailAddress, otherCompany.getEmailAddress())
@@ -169,7 +169,7 @@ public class Company {
 			.append(emailAddress)
 			.append(address)
 			.append(bankAccount)
-			.hashCode();
+			.toHashCode();
 	}
 
 	/* (non-Javadoc)

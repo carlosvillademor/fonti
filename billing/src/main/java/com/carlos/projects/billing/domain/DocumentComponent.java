@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Fonti is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -25,21 +25,21 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * @author Carlos Fernandez
- * 
+ *
  * @date 20 Sep 2009
- * 
+ *
  * Representation of a component that belongs to a document.
  */
 public class DocumentComponent {
-	
+
 	private String code;
-	
+
 	private String description;
-	
+
 	private double price;
-	
+
 	private double discountApplied;
-	
+
 	public DocumentComponent() {
 		super();
 	}
@@ -143,7 +143,7 @@ public class DocumentComponent {
 		.append(description)
 		.append(price)
 		.append(discountApplied)
-		.hashCode();
+		.toHashCode();
 	}
-		
+
 }

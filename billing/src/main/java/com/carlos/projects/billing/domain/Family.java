@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Fonti is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -38,9 +38,9 @@ import java.util.Set;
 public class Family {
 
 	private String code;
-	
+
 	private String description;
-	
+
 	private Set<Component> components;
 
     public Family() {
@@ -117,7 +117,7 @@ public class Family {
 			.append(code)
 			.append(description)
             .append(components)
-			.hashCode();
+			.toHashCode();
 	}
 
 	/* (non-Javadoc)

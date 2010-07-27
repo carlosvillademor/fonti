@@ -244,7 +244,7 @@ public class Client {
                 .append(dateOfBirth)
                 .append(bankAccount)
                 .append(nationalInsuranceNumber)
-                .hashCode();
+                .toHashCode();
     }
 
     /* (non-Javadoc)

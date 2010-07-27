@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Fonti is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -32,25 +32,25 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * Representation of address
  */
 public class Address {
-	
+
 	private String street;
-	
+
 	private String zipCode;
-	
+
 	private int number;
-	
+
 	private int floor;
-	
+
 	private String letter;
-	
+
 	private String city;
-	
+
 	private String state;
 
 	public Address() {
 		super();
 	}
-	
+
 	/**
 	 * @return the street
 	 */
@@ -159,8 +159,8 @@ public class Address {
 		}
 		if (obj == this) {
 			return true;
-		}		
-		Address otherAddress = (Address) obj; 
+		}
+		Address otherAddress = (Address) obj;
 		return new EqualsBuilder()
 			.append(street, otherAddress.getStreet())
 			.append(zipCode, otherAddress.getZipCode())
@@ -185,7 +185,7 @@ public class Address {
 		.append(letter)
 		.append(city)
 		.append(state)
-		.hashCode();
+		.toHashCode();
 	}
 
 	/* (non-Javadoc)
