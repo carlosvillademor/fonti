@@ -31,6 +31,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
@@ -76,26 +79,26 @@ public class ExcelToMySQLImporterTest {
         Component component1 = new Component();
         component1.setCode("KITAZUL162212");
         component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
-        component1.setDiscount1(33.00);
-        component1.setDiscount2(0.00);
+        component1.setDiscount1(33.0);
+        component1.setDiscount2(0.0);
         component1.setPrice(383.2065);
-        component1.setFamilyCode("36");
-
-        Component component2 = new Component();
-        component2.setCode("000636");
-        component2.setDescription("LATIGUILLO FLEX.RIVER MH 2 300");
-        component2.setDiscount1(40.00);
-        component2.setDiscount2(0.00);
-        component2.setPrice(38.2740);
-        component2.setFamilyCode("33");
 
         Family family1 = new Family();
         family1.setCode("36");
         family1.setDescription("CONTADORES");
+        family1.setComponents(new HashSet<Component>(Arrays.asList(component1)));
+
+        Component component2 = new Component();
+        component2.setCode("000636");
+        component2.setDescription("LATIGUILLO FLEX.RIVER MH 2 300");
+        component2.setDiscount1(40.0);
+        component2.setDiscount2(0.0);
+        component2.setPrice(38.274);
 
         Family family2 = new Family();
         family2.setCode("33");
         family2.setDescription("ACCES. FONTANERIA");
+        family2.setComponents(new HashSet<Component>(Arrays.asList(component2)));
 
         //when
         Long importedComponents = importer.importData(file);
@@ -103,12 +106,16 @@ public class ExcelToMySQLImporterTest {
         //then
         assertThat("The number of components imported is not 2", importedComponents, is(2L));
         InOrder inOrder = inOrder(familyDAO, componentDAO);
-        inOrder.verify(familyDAO, times(1)).save(family1);
-        inOrder.verify(componentDAO, times(1)).save(component1);
-        inOrder.verify(familyDAO, times(1)).save(family2);
-        inOrder.verify(componentDAO, times(1)).save(component2);
-        verify(componentDAO, atMost(2)).save((Component) anyObject());
-        verify(familyDAO, atMost(2)).save((Family) anyObject());
+
+        inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
+        inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
+        inOrder.verify(familyDAO).save(family1);
+
+        inOrder.verify(familyDAO).getById(Family.class, family2.getCode());
+        inOrder.verify(componentDAO).getById(Component.class, component2.getCode());
+        inOrder.verify(familyDAO).save(family2);
+
+        verifyNoMoreInteractions(familyDAO, componentDAO);
     }
 
     @Test
@@ -122,14 +129,14 @@ public class ExcelToMySQLImporterTest {
         Component component1 = new Component();
         component1.setCode("KITAZUL162212");
         component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
-        component1.setDiscount1(33.00);
-        component1.setDiscount2(0.00);
+        component1.setDiscount1(33.0);
+        component1.setDiscount2(0.0);
         component1.setPrice(383.2065);
-        component1.setFamilyCode("36");
 
         Family family1 = new Family();
         family1.setCode("36");
         family1.setDescription("CONTADORES");
+        family1.setComponents(new HashSet<Component>(Arrays.asList(component1)));
 
         //when
         Long importedComponents = importer.importData(file);
@@ -137,10 +144,12 @@ public class ExcelToMySQLImporterTest {
         //then
         assertThat("The number of components imported is not 1", importedComponents, is(1L));
         InOrder inOrder = inOrder(familyDAO, componentDAO);
-        inOrder.verify(familyDAO, times(1)).save(family1);
-        inOrder.verify(componentDAO, times(1)).save(component1);
-        verify(componentDAO, atMost(1)).save((Component) anyObject());
-        verify(familyDAO, atMost(1)).save((Family) anyObject());
+
+        inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
+        inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
+        inOrder.verify(familyDAO).save(family1);
+
+        verifyNoMoreInteractions(familyDAO, componentDAO);
     }
 
     @Test
@@ -154,14 +163,14 @@ public class ExcelToMySQLImporterTest {
         Component component1 = new Component();
         component1.setCode("KITAZUL162212");
         component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
-        component1.setDiscount1(33.00);
-        component1.setDiscount2(0.00);
+        component1.setDiscount1(33.0);
+        component1.setDiscount2(0.0);
         component1.setPrice(383.2065);
-        component1.setFamilyCode("36");
 
         Family family1 = new Family();
         family1.setCode("36");
         family1.setDescription("CONTADORES");
+        family1.setComponents(new HashSet<Component>(Arrays.asList(component1)));
 
         Family family2 = new Family();
         family2.setCode("33");
@@ -175,11 +184,16 @@ public class ExcelToMySQLImporterTest {
         //then
         assertThat("The number of components imported is not 1", importedComponents, is(1L));
         InOrder inOrder = inOrder(familyDAO, componentDAO);
-        inOrder.verify(familyDAO, times(1)).save(family1);
-        inOrder.verify(componentDAO, times(1)).save(component1);
-        inOrder.verify(familyDAO, times(1)).save(family2);
-        verify(componentDAO, atMost(1)).save((Component) anyObject());
-        verify(familyDAO, atMost(2)).save((Family) anyObject());
+
+        inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
+        inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
+        inOrder.verify(familyDAO).save(family1);
+
+        inOrder.verify(familyDAO).getById(Family.class, family2.getCode());
+        inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
+        inOrder.verify(familyDAO).save(family2);
+
+        verifyNoMoreInteractions(familyDAO, componentDAO);
     }
 
     @Test
@@ -193,22 +207,26 @@ public class ExcelToMySQLImporterTest {
         Component component1 = new Component();
         component1.setCode("KITAZUL162212");
         component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
-        component1.setDiscount1(33.00);
-        component1.setDiscount2(0.00);
+        component1.setDiscount1(33.0);
+        component1.setDiscount2(0.0);
         component1.setPrice(383.2065);
-        component1.setFamilyCode("36");
 
         Component component2 = new Component();
         component2.setCode("000636");
         component2.setDescription("LATIGUILLO FLEX.RIVER MH 2 300");
-        component2.setDiscount1(40.00);
-        component2.setDiscount2(0.00);
-        component2.setPrice(38.2740);
-        component2.setFamilyCode("36");
+        component2.setDiscount1(40.0);
+        component2.setDiscount2(0.0);
+        component2.setPrice(38.274);
 
         Family family1 = new Family();
         family1.setCode("36");
         family1.setDescription("CONTADORES");
+        family1.setComponents(new HashSet<Component>(Arrays.asList(component1)));
+
+        Family family1SecondTime = new Family();
+        family1SecondTime.setCode("36");
+        family1SecondTime.setDescription("CONTADORES");
+        family1SecondTime.setComponents(new HashSet<Component>(Arrays.asList(component1, component2)));
 
         when(familyDAO.getById(Family.class, family1.getCode())).thenReturn(null, family1);
 
@@ -218,11 +236,16 @@ public class ExcelToMySQLImporterTest {
         //then
         assertThat("The number of components imported is not 2", importedComponents, is(2L));
         InOrder inOrder = inOrder(familyDAO, componentDAO);
-        inOrder.verify(familyDAO, times(1)).save(family1);
-        inOrder.verify(componentDAO, times(1)).save(component1);
-        inOrder.verify(componentDAO, times(1)).save(component2);
-        verify(componentDAO, atMost(2)).save((Component) anyObject());
-        verify(familyDAO, atMost(1)).save((Family) anyObject());
+
+        inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
+        inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
+        inOrder.verify(familyDAO).save(family1);
+
+        inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
+        inOrder.verify(componentDAO).getById(Component.class, component2.getCode());
+        inOrder.verify(familyDAO).save(family1SecondTime);
+
+        verifyNoMoreInteractions(familyDAO, componentDAO);
     }
 
 }

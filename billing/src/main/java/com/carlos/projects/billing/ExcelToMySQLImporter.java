@@ -30,9 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Implementation of the Importer interface that imports from an Excel file
@@ -88,17 +86,26 @@ public class ExcelToMySQLImporter implements Importer {
         Long numberOfImportedItems = 0L;
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
-            String familyCode = row.getCell(4).getStringCellValue();
+            String familyCode = row.getCell(4).getStringCellValue().trim();
             //The first row of the excel file is the one with the titles
             if (row.getRowNum() != 0 && StringUtils.isNotBlank(familyCode)) {
-                if (familyDAO.getById(Family.class, familyCode) == null) {
-                    Family family = createFamilyFromRow(row);
-                    familyDAO.save(family);
+                Family family = familyDAO.getById(Family.class, familyCode);
+                if (family == null) {
+                    family = createFamilyFromRow(row);
                 }
-                String componentCode = row.getCell(2).getStringCellValue();
-                if (componentDAO.getById(Component.class, componentCode) == null) {
-                    componentDAO.save(createComponentFromRow(row));
+                String componentCode = row.getCell(2).getStringCellValue().trim();
+                Component component = componentDAO.getById(Component.class, componentCode);
+                if (component == null) {
+                    if (family.getComponents() != null) {
+                        family.getComponents().add(createComponentFromRow(row));
+                    } else {
+                        family.setComponents(new HashSet<Component>(Arrays.asList(createComponentFromRow(row))));
+                    }
                     numberOfImportedItems += 1L;
+                }
+                //If both the family and the component existed we do not need to update the database
+                if (family != null || component != null) {
+                    familyDAO.save(family);
                 }
             }
         }
@@ -119,7 +126,6 @@ public class ExcelToMySQLImporter implements Importer {
         component.setDiscount1(row.getCell(6).getNumericCellValue());
         component.setDiscount2(row.getCell(7).getNumericCellValue());
         component.setPrice(row.getCell(8).getNumericCellValue());
-        component.setFamilyCode(row.getCell(4).getStringCellValue());
         return component;
     }
 
