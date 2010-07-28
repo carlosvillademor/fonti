@@ -33,6 +33,8 @@ public interface DAO<T, ID extends Serializable> {
 
     public ID save(T entity);
 
+    public void saveOrUpdate(T entity);
+
     public List<T> findAll(String entityName);
 
 }

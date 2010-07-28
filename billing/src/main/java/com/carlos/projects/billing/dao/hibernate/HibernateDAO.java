@@ -63,6 +63,11 @@ public abstract class HibernateDAO<T, ID extends Serializable> implements DAO<T,
         return id;
     }
 
+    public void saveOrUpdate(T entity) {
+        Session session = getSession();
+        session.saveOrUpdate(entity);
+    }
+
     public List<T> findAll(String entityName) {
         return (List<T>) getSession().createQuery("from " + entityName).list();
     }

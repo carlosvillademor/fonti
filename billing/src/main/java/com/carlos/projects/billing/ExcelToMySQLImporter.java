@@ -24,6 +24,8 @@ import com.carlos.projects.billing.dao.FamilyDAO;
 import com.carlos.projects.billing.domain.Component;
 import com.carlos.projects.billing.domain.Family;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,6 +42,8 @@ import java.util.*;
  * @date 6 Oct 2009
  */
 public class ExcelToMySQLImporter implements Importer {
+
+    private Log log = LogFactory.getLog(ExcelToMySQLImporter.class);
 
     private FamilyDAO familyDAO;
 
@@ -84,14 +88,17 @@ public class ExcelToMySQLImporter implements Importer {
         workbook.setMissingCellPolicy(Row.CREATE_NULL_AS_BLANK);
         Iterator<Row> rowIterator = workbook.getSheetAt(workbook.getActiveSheetIndex()).iterator();
         Long numberOfImportedItems = 0L;
+        log.info("Starting reading from file " + excelFile.getOriginalFilename() + " to import components to database");
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
             String familyCode = row.getCell(4).getStringCellValue().trim();
             //The first row of the excel file is the one with the titles
             if (row.getRowNum() != 0 && StringUtils.isNotBlank(familyCode)) {
+                boolean updateFamily = false;
                 Family family = familyDAO.getById(Family.class, familyCode);
                 if (family == null) {
                     family = createFamilyFromRow(row);
+                    updateFamily = true;
                 }
                 String componentCode = row.getCell(2).getStringCellValue().trim();
                 Component component = componentDAO.getById(Component.class, componentCode);
@@ -102,13 +109,14 @@ public class ExcelToMySQLImporter implements Importer {
                         family.setComponents(new HashSet<Component>(Arrays.asList(createComponentFromRow(row))));
                     }
                     numberOfImportedItems += 1L;
+                    updateFamily = true;
                 }
-                //If both the family and the component existed we do not need to update the database
-                if (family != null || component != null) {
-                    familyDAO.save(family);
+                if (updateFamily) {
+                    familyDAO.saveOrUpdate(family);
                 }
             }
         }
+        log.info("Components import to database finished");
         return numberOfImportedItems;
     }
 
