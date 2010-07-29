@@ -31,7 +31,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
 import java.util.HashSet;
 
 import static org.hamcrest.Matchers.is;
@@ -76,17 +75,21 @@ public class ExcelToMySQLImporterTest {
         ExcelToMySQLImporter importer = new ExcelToMySQLImporter(familyDAO, componentDAO);
         MultipartFile file = new MockMultipartFile("data.xlsx", getClass().getResourceAsStream("/data.xlsx"));
 
+        Family family1 = new Family();
+        family1.setCode("36");
+        family1.setDescription("CONTADORES");
+
         Component component1 = new Component();
         component1.setCode("KITAZUL162212");
         component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
         component1.setDiscount1(33.0);
         component1.setDiscount2(0.0);
         component1.setPrice(383.2065);
+        component1.setFamily(family1);
 
-        Family family1 = new Family();
-        family1.setCode("36");
-        family1.setDescription("CONTADORES");
-        family1.setComponents(new HashSet<Component>(Arrays.asList(component1)));
+        Family family2 = new Family();
+        family2.setCode("33");
+        family2.setDescription("ACCES. FONTANERIA");
 
         Component component2 = new Component();
         component2.setCode("000636");
@@ -94,11 +97,7 @@ public class ExcelToMySQLImporterTest {
         component2.setDiscount1(40.0);
         component2.setDiscount2(0.0);
         component2.setPrice(38.274);
-
-        Family family2 = new Family();
-        family2.setCode("33");
-        family2.setDescription("ACCES. FONTANERIA");
-        family2.setComponents(new HashSet<Component>(Arrays.asList(component2)));
+        component2.setFamily(family2);
 
         //when
         Long importedComponents = importer.importData(file);
@@ -109,11 +108,11 @@ public class ExcelToMySQLImporterTest {
 
         inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
         inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
-        inOrder.verify(familyDAO).saveOrUpdate(family1);
+        inOrder.verify(familyDAO).save(family1);
 
         inOrder.verify(familyDAO).getById(Family.class, family2.getCode());
         inOrder.verify(componentDAO).getById(Component.class, component2.getCode());
-        inOrder.verify(familyDAO).saveOrUpdate(family2);
+        inOrder.verify(familyDAO).save(family2);
 
         verifyNoMoreInteractions(familyDAO, componentDAO);
     }
@@ -126,17 +125,17 @@ public class ExcelToMySQLImporterTest {
         MultipartFile file = new MockMultipartFile("dataWithMissingFamilyCodes.xlsx",
                 getClass().getResourceAsStream("/dataWithMissingFamilyCodes.xlsx"));
 
+        Family family1 = new Family();
+        family1.setCode("36");
+        family1.setDescription("CONTADORES");
+
         Component component1 = new Component();
         component1.setCode("KITAZUL162212");
         component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
         component1.setDiscount1(33.0);
         component1.setDiscount2(0.0);
         component1.setPrice(383.2065);
-
-        Family family1 = new Family();
-        family1.setCode("36");
-        family1.setDescription("CONTADORES");
-        family1.setComponents(new HashSet<Component>(Arrays.asList(component1)));
+        component1.setFamily(family1);
 
         //when
         Long importedComponents = importer.importData(file);
@@ -147,7 +146,7 @@ public class ExcelToMySQLImporterTest {
 
         inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
         inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
-        inOrder.verify(familyDAO).saveOrUpdate(family1);
+        inOrder.verify(familyDAO).save(family1);
 
         verifyNoMoreInteractions(familyDAO, componentDAO);
     }
@@ -160,21 +159,22 @@ public class ExcelToMySQLImporterTest {
         MultipartFile file = new MockMultipartFile("dataWithDuplicatedComponentCodes.xlsx",
                 getClass().getResourceAsStream("/dataWithDuplicatedComponentCodes.xlsx"));
 
+        Family family1 = new Family();
+        family1.setCode("36");
+        family1.setDescription("CONTADORES");
+
         Component component1 = new Component();
         component1.setCode("KITAZUL162212");
         component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
         component1.setDiscount1(33.0);
         component1.setDiscount2(0.0);
         component1.setPrice(383.2065);
-
-        Family family1 = new Family();
-        family1.setCode("36");
-        family1.setDescription("CONTADORES");
-        family1.setComponents(new HashSet<Component>(Arrays.asList(component1)));
+        component1.setFamily(family1);
 
         Family family2 = new Family();
         family2.setCode("33");
         family2.setDescription("ACCES. FONTANERIA");
+        family2.setComponents(new HashSet<Component>());
 
         when(componentDAO.getById((Class<Component>) anyObject(), anyString())).thenReturn(null, component1);
 
@@ -187,11 +187,11 @@ public class ExcelToMySQLImporterTest {
 
         inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
         inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
-        inOrder.verify(familyDAO).saveOrUpdate(family1);
+        inOrder.verify(familyDAO).save(family1);
 
         inOrder.verify(familyDAO).getById(Family.class, family2.getCode());
         inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
-        inOrder.verify(familyDAO).saveOrUpdate(family2);
+        inOrder.verify(familyDAO).save(family2);
 
         verifyNoMoreInteractions(familyDAO, componentDAO);
     }
@@ -204,29 +204,25 @@ public class ExcelToMySQLImporterTest {
         MultipartFile file = new MockMultipartFile("dataWithDuplicatedFamilyCodes.xlsx",
                 getClass().getResourceAsStream("/dataWithDuplicatedFamilyCodes.xlsx"));
 
+        Family family1 = new Family();
+        family1.setCode("36");
+        family1.setDescription("CONTADORES");
+
         Component component1 = new Component();
         component1.setCode("KITAZUL162212");
         component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
+        component1.setPrice(383.2065);
         component1.setDiscount1(33.0);
         component1.setDiscount2(0.0);
-        component1.setPrice(383.2065);
+        component1.setFamily(family1);
 
         Component component2 = new Component();
         component2.setCode("000636");
         component2.setDescription("LATIGUILLO FLEX.RIVER MH 2 300");
+        component2.setPrice(38.274);
         component2.setDiscount1(40.0);
         component2.setDiscount2(0.0);
-        component2.setPrice(38.274);
-
-        Family family1 = new Family();
-        family1.setCode("36");
-        family1.setDescription("CONTADORES");
-        family1.setComponents(new HashSet<Component>(Arrays.asList(component1)));
-
-        Family family1SecondTime = new Family();
-        family1SecondTime.setCode("36");
-        family1SecondTime.setDescription("CONTADORES");
-        family1SecondTime.setComponents(new HashSet<Component>(Arrays.asList(component1, component2)));
+        component2.setFamily(family1);
 
         when(familyDAO.getById(Family.class, family1.getCode())).thenReturn(null, family1);
 
@@ -239,13 +235,13 @@ public class ExcelToMySQLImporterTest {
 
         inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
         inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
-        inOrder.verify(familyDAO).saveOrUpdate(family1);
+        inOrder.verify(familyDAO).save(family1);
 
-//        inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
-//        inOrder.verify(componentDAO).getById(Component.class, component2.getCode());
-//        inOrder.verify(familyDAO).save(family1SecondTime);
-//
-//        verifyNoMoreInteractions(familyDAO, componentDAO);
+        inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
+        inOrder.verify(componentDAO).getById(Component.class, component2.getCode());
+        inOrder.verify(componentDAO).save(component2);
+
+        verifyNoMoreInteractions(familyDAO, componentDAO);
     }
 
 }

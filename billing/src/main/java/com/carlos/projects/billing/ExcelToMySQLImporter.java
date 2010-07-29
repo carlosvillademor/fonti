@@ -32,7 +32,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Properties;
 
 /**
  * Implementation of the Importer interface that imports from an Excel file
@@ -94,25 +96,27 @@ public class ExcelToMySQLImporter implements Importer {
             String familyCode = row.getCell(4).getStringCellValue().trim();
             //The first row of the excel file is the one with the titles
             if (row.getRowNum() != 0 && StringUtils.isNotBlank(familyCode)) {
-                boolean updateFamily = false;
                 Family family = familyDAO.getById(Family.class, familyCode);
+                boolean saveFamily = false;
                 if (family == null) {
                     family = createFamilyFromRow(row);
-                    updateFamily = true;
+                    saveFamily = true;
                 }
                 String componentCode = row.getCell(2).getStringCellValue().trim();
                 Component component = componentDAO.getById(Component.class, componentCode);
+                boolean addComponent = false;
                 if (component == null) {
-                    if (family.getComponents() != null) {
-                        family.getComponents().add(createComponentFromRow(row));
-                    } else {
-                        family.setComponents(new HashSet<Component>(Arrays.asList(createComponentFromRow(row))));
-                    }
+                    addComponent = true;
+                    component = createComponent(row, family);
                     numberOfImportedItems += 1L;
-                    updateFamily = true;
                 }
-                if (updateFamily) {
-                    familyDAO.saveOrUpdate(family);
+                if (saveFamily) {
+                    if (addComponent) {
+                        family.addComponent(component);
+                    }
+                    familyDAO.save(family);
+                } else {
+                    componentDAO.save(component);
                 }
             }
         }
@@ -127,13 +131,14 @@ public class ExcelToMySQLImporter implements Importer {
         return family;
     }
 
-    private Component createComponentFromRow(Row row) {
+    private Component createComponent(Row row, Family family) {
         Component component = new Component();
         component.setCode(StringUtils.trim(row.getCell(2).getStringCellValue()));
         component.setDescription(StringUtils.trim(row.getCell(3).getStringCellValue()));
         component.setDiscount1(row.getCell(6).getNumericCellValue());
         component.setDiscount2(row.getCell(7).getNumericCellValue());
         component.setPrice(row.getCell(8).getNumericCellValue());
+        component.setFamily(family);
         return component;
     }
 
