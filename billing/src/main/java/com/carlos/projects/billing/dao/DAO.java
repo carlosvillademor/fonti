@@ -35,6 +35,8 @@ public interface DAO<T, ID extends Serializable> {
 
     public void saveOrUpdate(T entity);
 
+    public void update(T entity);
+
     public List<T> findAll(String entityName);
 
 }
