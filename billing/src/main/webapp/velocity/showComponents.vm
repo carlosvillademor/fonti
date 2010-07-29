@@ -14,7 +14,7 @@
         <p>La lista de componentes importados es:</p>
         <ol>
             #foreach( $component in $importedComponents )
-                <li>$component.code, $component.description, $component.price, $component.discount1, $component.discount2, $component.familyCode</li>
+                <li>$component.code, $component.description, $component.price, $component.discount1, $component.discount2</li>
             #end
         </ol>
     </body>
