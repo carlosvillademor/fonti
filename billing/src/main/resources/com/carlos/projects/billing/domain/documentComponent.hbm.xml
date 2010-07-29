@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.carlos.projects.billing.domain">
+    <class name="DocumentComponent" table="DOCUMENT_COMPONENT">
+        <id column="DOCUMENT_COMPONENT_ID" type="long">
+            <generator class="native"/>
+        </id>
+        <property name="code" type="string" column="DOCUMENT_COMPONENT_CODE" not-null="true"/>
+        <property name="description" type="string" column="DOCUMENT_COMPONENT_DESCRIPTION" not-null="true"/>
+        <property name="price" type="double" column="DOCUMENT_COMPONENT_PRICE" not-null="true"/>
+        <property name="discountApplied" type="double" column="DOCUMENT_COMPONENT_DISCOUNT1" not-null="true"/>
+        <many-to-one name="document" column="DOCUMENT_COMPONENT_DOCUMENT_ID" class="DocumentComponent" not-null="true"/>
+    </class>
+</hibernate-mapping>

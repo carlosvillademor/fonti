@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.carlos.projects.billing.domain">
+    <class name="Document" table="DOCUMENT">
+        <id name="id" column="DOCUMENT_ID" type="long">
+            <generator class="native"/>
+        </id>
+        <set name="documentComponents" inverse="true" cascade="save-update, delete" lazy="false">
+            <key column="DOCUMENT_COMPONENT_DOCUMENT_ID"></key>
+            <one-to-many class="DocumentComponent"/>
+        </set>
+    </class>
+</hibernate-mapping>

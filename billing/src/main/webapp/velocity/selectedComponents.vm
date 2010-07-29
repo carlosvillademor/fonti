@@ -1,9 +1,9 @@
 <html>
     <head>
-        <title>Compoonentes de la familia ${familyName}</title>
+        <title>Compoonentes de la familia ${familyName} seleccionados</title>
     </head>
     <body>
-        <p>Lista de los componentes de la familia $!{familyName}</p>
+        <p>Lista de los componentes de la familia $!{familyName} seleccionados</p>
         <form action="#springUrl('/addComponents.htm')" method="post">
             #foreach ( $component in $components )
                 <input type="checkbox" name="$component.code" value="$component.code" >${component.description}</input><br/>

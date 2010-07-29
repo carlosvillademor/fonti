@@ -178,14 +178,14 @@ public class Address {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
-		.append(street)
-		.append(zipCode)
-		.append(number)
-		.append(floor)
-		.append(letter)
-		.append(city)
-		.append(state)
-		.toHashCode();
+            .append(street)
+            .append(zipCode)
+            .append(number)
+            .append(floor)
+            .append(letter)
+            .append(city)
+            .append(state)
+            .toHashCode();
 	}
 
 	/* (non-Javadoc)
@@ -194,13 +194,13 @@ public class Address {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-		.append(street)
-		.append(zipCode)
-		.append(number)
-		.append(floor)
-		.append(letter)
-		.append(city)
-		.append(state)
-		.toString();
+            .append(street)
+            .append(zipCode)
+            .append(number)
+            .append(floor)
+            .append(letter)
+            .append(city)
+            .append(state)
+            .toString();
 	}
 }

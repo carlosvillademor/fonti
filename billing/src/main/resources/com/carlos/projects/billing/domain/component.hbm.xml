@@ -9,6 +9,6 @@
         <property name="price" type="double" column="COMPONENT_PRICE" not-null="true"/>
         <property name="discount1" type="double" column="COMPONENT_DISCOUNT1" not-null="true"/>
         <property name="discount2" type="double" column="COMPONENT_DISCOUNT2" not-null="true"/>
-        <many-to-one name="family" column="COMPONENT_FAMILY_CODE" class="Family" not-null="true"></many-to-one>
+        <many-to-one name="family" column="COMPONENT_FAMILY_CODE" class="Family" not-null="true"/>
     </class>
 </hibernate-mapping>
