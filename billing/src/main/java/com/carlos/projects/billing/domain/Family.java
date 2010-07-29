@@ -24,6 +24,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -41,7 +42,7 @@ public class Family {
 
 	private String description;
 
-	private Set<Component> components;
+	private Set<Component> components = new HashSet<Component>();
 
     public Family() {
 		super();
@@ -89,6 +90,11 @@ public class Family {
 		this.components = components;
 	}
 
+    public void addComponent(Component component) {
+        component.setFamily(this);
+        components.add(component);
+    }
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -104,7 +110,6 @@ public class Family {
 		return new EqualsBuilder()
 			.append(code, family.getCode())
 			.append(description, family.getDescription())
-            .append(components, family.getComponents())
 			.isEquals();
 	}
 
@@ -116,7 +121,6 @@ public class Family {
 		return new HashCodeBuilder()
 			.append(code)
 			.append(description)
-            .append(components)
 			.toHashCode();
 	}
 
@@ -128,7 +132,6 @@ public class Family {
 		return new ToStringBuilder(this)
 			.append(code)
 			.append(description)
-            .append(components)
 			.toString();
 	}
 

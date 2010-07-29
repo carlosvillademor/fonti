@@ -42,6 +42,8 @@ public class Component {
 
     private double discount2;
 
+    private Family family;
+
     public Component() {
         super();
     }
@@ -116,6 +118,20 @@ public class Component {
         this.discount2 = discount2;
     }
 
+    /**
+     * @return the family
+     */
+    public Family getFamily() {
+        return family;
+    }
+
+    /**
+     * @param family the family to set
+     */
+    public void setFamily(Family family) {
+        this.family = family;
+    }
+
     /* (non-Javadoc)
       * @see java.lang.Object#toString()
       */
@@ -127,6 +143,7 @@ public class Component {
                 .append(price)
                 .append(discount1)
                 .append(discount2)
+                .append(family)
                 .toString();
     }
 
@@ -148,6 +165,7 @@ public class Component {
                 .append(price, component.getPrice())
                 .append(discount1, component.getDiscount1())
                 .append(discount2, component.getDiscount2())
+                .append(family, component.getFamily())
                 .isEquals();
     }
 
@@ -162,6 +180,7 @@ public class Component {
                 .append(price)
                 .append(discount1)
                 .append(discount2)
+                .append(family)
                 .toHashCode();
     }
 

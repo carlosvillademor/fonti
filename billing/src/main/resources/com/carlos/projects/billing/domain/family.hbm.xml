@@ -6,8 +6,8 @@
     <class name="Family" table="FAMILY">
         <id name="code" type="string" column="FAMILY_CODE"/>
         <property name="description" type="string" column="FAMILY_DESCRIPTION"/>
-        <set name="components" table="COMPONENT" lazy="false" cascade="save-update, delete">
-            <key column="COMPONENT_FAMILY_CODE" not-null="true"/>
+        <set name="components" inverse="true" cascade="save-update, delete" lazy="false">
+            <key column="COMPONENT_FAMILY_CODE"/>
             <one-to-many class="Component"/>
         </set>
     </class>
