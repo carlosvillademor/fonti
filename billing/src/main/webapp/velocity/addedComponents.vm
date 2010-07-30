@@ -1,14 +1,14 @@
 <html>
     <head>
-        <title>Componentes de la familia ${familyName}</title>
+        <title>Componentes de la familia ${familyName} a&ntilde;adidos al documento</title>
     </head>
     <body>
-        <p>Lista de los componentes de la familia $!{familyName}</p>
+        <p>Lista de los componentes de la familia $!{familyName} a&ntilde;adidos al documento</p>
         <form action="#springUrl('/addComponents.htm')" method="post">
             #foreach ( $component in $components )
                 <input type="checkbox" name="$component.code" value="$component.code" >${component.description}</input><br/>
             #end
-            <input type="submit" value="A&ntilde;adir"/>
+            <input type="submit" value="Continuar"/>
         </form>
     </body>
 </html>

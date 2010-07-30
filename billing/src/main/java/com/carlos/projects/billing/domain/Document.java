@@ -21,9 +21,11 @@ package com.carlos.projects.billing.domain;
 
 /**
  * @author: Carlos Fernandez
+ *
  * @date: 29-Jul-2010
+ *
+ * Representation for a document
  */
-
 public class Document {
 
     private DocumentComponent documentComponents;

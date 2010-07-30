@@ -19,13 +19,24 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
- * @author Carlos Fernandez
- * @date 19 Jul 2009
- * <p/>
- * Controller for the home page
+ * @author: Carlos Fernandez
+ *
+ * @date: 30 Jul 2010
+ *
+ * Controller to add selected components to a document
  */
-public class HomeController extends ParameterizableViewController {
+public class AddComponentsController extends ParameterizableViewController {
+
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return super.handleRequestInternal(request, response);
+    }
+
 }

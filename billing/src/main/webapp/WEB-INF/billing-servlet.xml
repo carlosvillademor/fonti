@@ -46,7 +46,7 @@
                 show_sql=${show_sql}
                 hibernate.format_sql=${format_sql}
                 hibernate.hbm2ddl.auto=${hbm2ddl.auto}
- -->                
+ -->
             </value>
         </property>
     </bean>
@@ -75,6 +75,11 @@
           class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
 
     <!-- CONTROLLERS -->
+    <bean name="/addComponents.htm"
+          class="com.carlos.projects.billing.ui.controllers.AddComponentsController">
+        <property name="viewName" value="addedComponents"/>
+    </bean>
+
     <bean name="/home.htm"
           class="com.carlos.projects.billing.ui.controllers.HomeController">
         <property name="viewName" value="home"/>

@@ -19,17 +19,49 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import com.carlos.projects.billing.domain.DocumentComponent;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: Carlos Fernandez
+ *
  * @date: 29 Jul 2010
+ *
+ * Unit tests for @link{AddComponentsController}
  */
 public class AddComponentsControllerTest {
 
-    @Test
-    public void should() {
-        
+    @Mock private HttpServletRequest request;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
     }
-    
+
+    @Test
+    public void shouldAddComponentsToDocument() throws Exception {
+        //Given
+        HttpServletResponse response = null;
+        AddComponentsController addController = new AddComponentsController();
+        Map<String, DocumentComponent> documentComponents = new HashMap<String, DocumentComponent>();
+        //documentComponents.put("",)
+
+        //When
+        ModelAndView modelAndView = addController.handleRequestInternal(request, response);
+
+        //Then
+//        assertThat("The list of components in the document is wrong",
+//                (Map<String, DocumentComponent>) modelAndView.getModel().get("documentComponents"),
+//                is(documentComponents));
+    }
+
 }
