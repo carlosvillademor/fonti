@@ -4,7 +4,7 @@
     </head>
     <body>
         <p>Lista de los componentes de la familia $!{familyName}</p>
-        <form action="#springUrl('/addComponents.htm')" method="post">
+        <form action="#springUrl('/selectComponents.htm')" method="post">
             #foreach ( $component in $components )
                 <input type="checkbox" name="$component.code" value="$component.code" >${component.description}</input><br/>
             #end

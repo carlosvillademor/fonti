@@ -115,8 +115,10 @@ public class ExcelToMySQLImporter implements Importer {
                         family.addComponent(component);
                     }
                     familyDAO.save(family);
+                    log.debug("Family " + family + " saved into the database");
                 } else {
                     componentDAO.save(component);
+                    log.debug("Component " + component + " saved into the database");
                 }
             }
         }

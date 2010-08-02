@@ -53,7 +53,7 @@ public class AddComponentsControllerTest {
         HttpServletResponse response = null;
         AddComponentsController addController = new AddComponentsController();
         Map<String, DocumentComponent> documentComponents = new HashMap<String, DocumentComponent>();
-        //documentComponents.put("",)
+        documentComponents.put("s",null);
 
         //When
         ModelAndView modelAndView = addController.handleRequestInternal(request, response);

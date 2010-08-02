@@ -107,6 +107,11 @@
         <property name="viewName" value="newDocument"/>
     </bean>
 
+    <bean name="/selectComponents.htm"
+          class="com.carlos.projects.billing.ui.controllers.SelectComponentsController">
+        <property name="viewName" value="selectedComponents"/>
+    </bean>
+
     <bean name="/showComponents.htm"
           class="com.carlos.projects.billing.ui.controllers.ShowComponentsController">
         <property name="viewName" value="showComponents"/>
