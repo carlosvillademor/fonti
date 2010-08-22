@@ -53,22 +53,12 @@ public class ExcelToMySQLImporter implements Importer {
 
     private Properties messages;
 
-    private ExcelToMySQLImporter() {
-    }
-
     public ExcelToMySQLImporter(FamilyDAO familyDAO, ComponentDAO componentDAO) {
         this.familyDAO = familyDAO;
         this.componentDAO = componentDAO;
     }
 
-    public FamilyDAO getFamilyDAO() {
-        return familyDAO;
-    }
-
-    public ComponentDAO getComponentDAO() {
-        return componentDAO;
-    }
-
+    @SuppressWarnings({"UnusedDeclaration"})
     public void setMessages(Properties messages) {
         this.messages = messages;
     }
@@ -115,10 +105,10 @@ public class ExcelToMySQLImporter implements Importer {
                         family.addComponent(component);
                     }
                     familyDAO.save(family);
-                    log.debug("Family " + family + " saved into the database");
+                    log.info("Family " + family + " saved into the database");
                 } else {
                     componentDAO.save(component);
-                    log.debug("Component " + component + " saved into the database");
+                    log.info("Component " + component + " saved into the database");
                 }
             }
         }
