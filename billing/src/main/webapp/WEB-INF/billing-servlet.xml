@@ -12,8 +12,8 @@
 
     <!-- RESOURCES -->
     <util:properties id="messages" location="classpath:/messages.properties"/>
-    <!--<util:properties id="jdbc" location="classpath:/jdbc.properties"/>
-    <util:properties id="hibernate" location="classpath:/hibernate.properties"/> -->
+    <util:properties id="jdbc" location="classpath:/jdbc.properties"/>
+    <util:properties id="hibernate" location="classpath:/hibernate.properties"/>
 
     <!-- DATA SOURCE -->
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -21,6 +21,14 @@
         <property name="url" value="jdbc:mysql://localhost:3306/billing"/>
         <property name="username" value="root"/>
         <property name="password" value="password"/>
+        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+        <!--<property name="url" value="jdbc:mysql://localhost:3306/billing"/>-->
+        <!--<property name="username" value="root"/>-->
+        <!--<property name="password" value="password"/> -->
+        <property name="driverClassName" value="${driverClassName}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
     </bean>
 
     <!-- SESSION FACTORY -->
@@ -38,15 +46,14 @@
         </property>
         <property name="hibernateProperties">
             <value>
-                hibernate.dialect=org.hibernate.dialect.MySQLDialect
+                <!-- hibernate.dialect=org.hibernate.dialect.MySQLDialect
                 show_sql=true
                 hibernate.format_sql=true
-                hibernate.hbm2ddl.auto=create-drop
- <!--                 hibernate.dialect=${dialect}
-                show_sql=${show_sql}
-                hibernate.format_sql=${format_sql}
+                hibernate.hbm2ddl.auto=create-drop-->
+                hibernate.dialect=${dialect}
+                show_sql=${show.sql}
+                hibernate.format_sql=${format.sql}
                 hibernate.hbm2ddl.auto=${hbm2ddl.auto}
- -->
             </value>
         </property>
     </bean>
@@ -95,7 +102,7 @@
 
     <bean name="/loadComponents.htm" class="com.carlos.projects.billing.ui.controllers.LoadComponentsController">
         <property name="viewName" value="loadComponents"/>
-    	<constructor-arg ref="familyDAO"/>
+        <constructor-arg ref="familyDAO"/>
     </bean>
 
     <bean name="/newBudget.htm" class="com.carlos.projects.billing.ui.controllers.NewBudgetController">
@@ -109,7 +116,7 @@
 
     <bean name="/selectComponents.htm"
           class="com.carlos.projects.billing.ui.controllers.SelectComponentsController">
-        <property name="viewName" value="selectedComponents"/>
+        <property name="viewName" value="selectComponents"/>
     </bean>
 
     <bean name="/showComponents.htm"
