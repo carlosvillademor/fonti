@@ -1,0 +1,18 @@
+<html>
+<body>
+<p>Lista de los componentes de la familia $!{familyName} seleccionados</p>
+
+<form id="addComponentes" action="#springUrl('/addComponents.htm')" method="post">
+    #foreach ( $component in $components )
+    <fieldset>
+        <legend>Componente</legend>
+        ${component.description}<br/>
+        Quantity: <input type="text" name="quantity"/>
+        Discount: <input type="text" name="discount"/>
+        Price: <input type="text" name="price"/>
+    </fieldset>
+    #end
+    <input type="submit" value="A&ntilde;adir"/>
+</form>
+</body>
+</html>

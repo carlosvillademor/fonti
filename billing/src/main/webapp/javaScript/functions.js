@@ -3,4 +3,10 @@ $(document).ready(function(){
     $("#families").change(function(){
         $("#componentsSelection").load("loadComponents.htm?familyCode=" + $("#families").val());
     });
+
+    //Select the components for the document
+    $("#selectComponents").click(function(){
+        $("#selectedComponents").post("selectComponents.htm?familyName=" + $("#families").text(),
+            $("#addComponentes").serialize());
+    });
 });
