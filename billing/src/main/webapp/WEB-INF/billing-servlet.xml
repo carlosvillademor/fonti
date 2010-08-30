@@ -11,20 +11,16 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
     <!-- RESOURCES -->
-    <util:properties id="messages" location="classpath:/messages.properties"/>
     <util:properties id="jdbc" location="classpath:/jdbc.properties"/>
     <util:properties id="hibernate" location="classpath:/hibernate.properties"/>
+    <util:properties id="messages" location="classpath:/messages.properties"/>
 
     <!-- DATA SOURCE -->
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/billing"/>
-        <property name="username" value="root"/>
-        <property name="password" value="password"/>
         <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
         <!--<property name="url" value="jdbc:mysql://localhost:3306/billing"/>-->
         <!--<property name="username" value="root"/>-->
-        <!--<property name="password" value="password"/> -->
+        <!--<property name="password" value="password"/>-->
         <property name="driverClassName" value="${driverClassName}"/>
         <property name="url" value="${url}"/>
         <property name="username" value="${username}"/>
@@ -102,7 +98,7 @@
 
     <bean name="/loadComponents.htm" class="com.carlos.projects.billing.ui.controllers.LoadComponentsController">
         <property name="viewName" value="loadComponents"/>
-        <constructor-arg ref="familyDAO"/>
+    	<constructor-arg ref="familyDAO"/>
     </bean>
 
     <bean name="/newBudget.htm" class="com.carlos.projects.billing.ui.controllers.NewBudgetController">
@@ -116,7 +112,7 @@
 
     <bean name="/selectComponents.htm"
           class="com.carlos.projects.billing.ui.controllers.SelectComponentsController">
-        <property name="viewName" value="selectComponents"/>
+        <property name="viewName" value="selectedComponents"/>
     </bean>
 
     <bean name="/showComponents.htm"
