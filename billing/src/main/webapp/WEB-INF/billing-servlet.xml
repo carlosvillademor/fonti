@@ -11,16 +11,19 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
     <!-- RESOURCES -->
-    <util:properties id="jdbc" location="classpath:/jdbc.properties"/>
-    <util:properties id="hibernate" location="classpath:/hibernate.properties"/>
     <util:properties id="messages" location="classpath:/messages.properties"/>
+    <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+                <value>classpath:hibernate.properties</value>
+            </list>
+        </property>
+    </bean>
 
     <!-- DATA SOURCE -->
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
-        <!--<property name="url" value="jdbc:mysql://localhost:3306/billing"/>-->
-        <!--<property name="username" value="root"/>-->
-        <!--<property name="password" value="password"/>-->
         <property name="driverClassName" value="${driverClassName}"/>
         <property name="url" value="${url}"/>
         <property name="username" value="${username}"/>
@@ -42,10 +45,6 @@
         </property>
         <property name="hibernateProperties">
             <value>
-                <!-- hibernate.dialect=org.hibernate.dialect.MySQLDialect
-                show_sql=true
-                hibernate.format_sql=true
-                hibernate.hbm2ddl.auto=create-drop-->
                 hibernate.dialect=${dialect}
                 show_sql=${show.sql}
                 hibernate.format_sql=${format.sql}
