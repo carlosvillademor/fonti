@@ -40,7 +40,7 @@ public class SelectComponentsControllerTest {
     public void shouldForwardToNewDocumentPage() throws Exception {
         //Given
         SelectComponentsController controller = new SelectComponentsController();
-        controller.setViewName("selectedComponents");
+        controller.setViewName("selectComponents");
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setMethod("GET");
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -49,7 +49,7 @@ public class SelectComponentsControllerTest {
         ModelAndView modelAndView = controller.handleRequest(request, response);
 
         //Then
-        assertThat(modelAndView.getViewName(), is("selectedComponents"));
+        assertThat(modelAndView.getViewName(), is("selectComponents"));
     }
 
 }

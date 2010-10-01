@@ -1,24 +1,24 @@
 <html>
-<head>
-    <script type="text/javascript" src="javaScript/jquery-1.4.2.js"></script>
-    <script type="text/javascript" src="javaScript/functions.js"></script>
-    <title>Nuevo presupuesto</title>
-</head>
-<body>
-<h1>Seleccione los componentes que forman parte del presupuesto</h1>
+    <head>
+        <script type="text/javascript" src="javaScript/jquery-1.4.2.js"></script>
+        <script type="text/javascript" src="javaScript/functions.js"></script>
+        <title>Nuevo presupuesto</title>
+    </head>
+    <body>
+        <h1>Seleccione los componentes que forman parte del presupuesto</h1>
 
-<div id="familiesSelection">
-    <label>Familia</label>
-    <select id="families">
-        <option value="selectFamily" selected="selected">Seleccione una familia de componentes</option>
-        #foreach ( $family in $viewHelper.getAllFamilies() )
-        <option value="$family.code">$family.description</option>
-        #end
-    </select>
-</div>
-<div id="componentsSelection">
-</div>
-<div id="selectedComponents">
-</div>
-</body>
+        <div id="familiesSelection">
+            <label>Familia</label>
+            <select id="families">
+                <option value="selectFamily" selected="selected">Seleccione una familia de componentes</option>
+                #foreach ( $family in $viewHelper.getAllFamilies() )
+                    <option value="$family.code">$family.description</option>
+                #end
+            </select>
+        </div>
+        <div id="componentsSelection">
+        </div>
+        <div id="selectedComponents">
+        </div>
+    </body>
 </html>

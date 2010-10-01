@@ -111,7 +111,7 @@
 
     <bean name="/selectComponents.htm"
           class="com.carlos.projects.billing.ui.controllers.SelectComponentsController">
-        <property name="viewName" value="selectedComponents"/>
+        <property name="viewName" value="selectComponents"/>
     </bean>
 
     <bean name="/showComponents.htm"
