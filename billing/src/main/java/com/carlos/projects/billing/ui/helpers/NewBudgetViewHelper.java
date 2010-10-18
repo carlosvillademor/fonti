@@ -30,7 +30,7 @@ import java.util.List;
  * @author Carlos Fernandez
  * @date 29-Apr-2010
  */
-public class BudgetViewHelper {
+public class NewBudgetViewHelper {
 
     private FamilyDAO familyDAO;
 

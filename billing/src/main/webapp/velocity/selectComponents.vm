@@ -7,9 +7,9 @@
     <fieldset>
         <legend>Componente</legend>
         ${component.description}<br/>
-        Quantity: <input type="text" name="quantity"/>
-        Discount: <input type="text" name="discount"/>
-        Price: <input type="text" name="price"/>
+        <label>Quantity: <input type="text" name="quantity"/></label>
+        <label>Discount: <input type="text" name="discount"/></label>
+        <label>Price: <input type="text" name="price"/></label>
     </fieldset>
     #end
     <input type="submit" value="A&ntilde;adir"/>

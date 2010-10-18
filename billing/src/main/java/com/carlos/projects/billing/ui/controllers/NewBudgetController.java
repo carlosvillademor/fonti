@@ -19,7 +19,7 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
-import com.carlos.projects.billing.ui.helpers.BudgetViewHelper;
+import com.carlos.projects.billing.ui.helpers.NewBudgetViewHelper;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
@@ -36,24 +36,24 @@ import java.util.Map;
  */
 public class NewBudgetController extends ParameterizableViewController {
 
-    private BudgetViewHelper viewHelper;
+    private NewBudgetViewHelper newBudgetViewHelper;
 
     public NewBudgetController() {
     }
 
-    public NewBudgetController(BudgetViewHelper viewHelper) {
-        this.viewHelper = viewHelper;
+    public NewBudgetController(NewBudgetViewHelper newBudgetViewHelper) {
+        this.newBudgetViewHelper = newBudgetViewHelper;
     }
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("viewHelper", viewHelper);
+        model.put("newBudgetViewHelper", newBudgetViewHelper);
         return new ModelAndView(getViewName(), model);
     }
 
-    public void setViewHelper(BudgetViewHelper viewHelper) {
-        this.viewHelper = viewHelper;
+    public void setNewBudgetViewHelper(NewBudgetViewHelper newBudgetViewHelper) {
+        this.newBudgetViewHelper = newBudgetViewHelper;
     }
 
 }

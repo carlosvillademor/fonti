@@ -6,7 +6,9 @@
         <p>Lista de los componentes de la familia $!{familyName} a&ntilde;adidos al documento</p>
         <form action="#springUrl('/addComponents.htm')" method="post">
             #foreach ( $component in $components )
-                <input type="checkbox" name="$component.code" value="$component.code" >${component.description}</input><br/>
+                <label id="addComponent"$velocityCount>
+                    <input type="checkbox" name="$component.code" value="$component.code">
+                </label><br/>
             #end
             <input type="submit" value="Continuar"/>
         </form>

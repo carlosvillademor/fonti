@@ -19,13 +19,14 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
-import com.carlos.projects.billing.ui.helpers.BudgetViewHelper;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import com.carlos.projects.billing.ui.helpers.NewBudgetViewHelper;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * Unit tests for {@link com.carlos.projects.billing.ui.controllers.NewBudgetController}
@@ -38,10 +39,10 @@ public class NewBudgetControllerTest {
     @Test
     public void shouldForwardToNewBudgetPage() throws Exception {
         //given
-        BudgetViewHelper viewHelper = new BudgetViewHelper();
+        NewBudgetViewHelper newBudgetViewHelper = new NewBudgetViewHelper();
         NewBudgetController controller = new NewBudgetController(null);
         controller.setViewName("newBudget");
-        controller.setViewHelper(viewHelper);
+        controller.setNewBudgetViewHelper(newBudgetViewHelper);
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setMethod("GET");
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -51,7 +52,7 @@ public class NewBudgetControllerTest {
 
         //then
         assertThat(modelAndView.getViewName(), is("newBudget"));
-        assertThat((BudgetViewHelper) modelAndView.getModel().get("viewHelper"), is(viewHelper));
+        assertThat((NewBudgetViewHelper) modelAndView.getModel().get("newBudgetViewHelper"), is(newBudgetViewHelper));
     }
 
 }

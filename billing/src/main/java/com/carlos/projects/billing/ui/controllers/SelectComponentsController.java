@@ -29,8 +29,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author: Carlos Fernandez
  *
  * @date: 02 Aug 2010
- *
- * Unit tests for @link{SelectComponentsController}
  */
 public class SelectComponentsController extends ParameterizableViewController {
 

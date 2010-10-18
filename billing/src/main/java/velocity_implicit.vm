@@ -1,0 +1,6 @@
+#* @implicitly included *#
+#* @vtlvariable name="importedComponents" type="com.carlos.projects.billing.domain.Component[]" *#
+#* @vtlvariable name="file" type="org.springframework.web.multipart.MultipartFile" *#
+#* @vtlvariable name="newBudgetViewHelper" type="com.carlos.projects.billing.ui.helpers.NewBudgetViewHelper" *#
+#* @vtlvariable name="components" type="com.carlos.projects.billing.domain.Component[]" *#
+#* @vtlvariable name="familyName" type="java.lang.String" *#

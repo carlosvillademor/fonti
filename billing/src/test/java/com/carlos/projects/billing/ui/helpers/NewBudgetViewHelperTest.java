@@ -35,12 +35,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Unit test for {@link com.carlos.projects.billing.ui.helpers.BudgetViewHelper}
+ * Unit test for {@link NewBudgetViewHelper}
  *
  * @author Carlos Fernandez
  * @date 29-Apr-2010
  */
-public class BudgetViewHelperTest {
+public class NewBudgetViewHelperTest {
 
     @Mock
     private FamilyDAO familyDAO;
@@ -53,13 +53,13 @@ public class BudgetViewHelperTest {
     @Test
     public void shouldGetAllTheFamilies() {
         //given
-        BudgetViewHelper viewHelper = new BudgetViewHelper();
-        viewHelper.setFamilyDAO(familyDAO);
+        NewBudgetViewHelper viewHelperNew = new NewBudgetViewHelper();
+        viewHelperNew.setFamilyDAO(familyDAO);
         List<Family> families = new ArrayList<Family>();
         when(familyDAO.findAllOrderByDescription("Family")).thenReturn(families);
 
         //when
-        List<Family> actualFamilies = viewHelper.getAllFamilies();
+        List<Family> actualFamilies = viewHelperNew.getAllFamilies();
 
         //then
         verify(familyDAO).findAllOrderByDescription("Family");

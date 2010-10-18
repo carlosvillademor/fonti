@@ -102,7 +102,7 @@
 
     <bean name="/newBudget.htm" class="com.carlos.projects.billing.ui.controllers.NewBudgetController">
         <property name="viewName" value="newBudget"/>
-        <property name="viewHelper" ref="budgetViewHelper"/>
+        <property name="newBudgetViewHelper" ref="newBudgetViewHelper"/>
     </bean>
 
     <bean name="/newDocument.htm" class="com.carlos.projects.billing.ui.controllers.NewDocumentController">
@@ -120,7 +120,7 @@
     </bean>
 
     <!-- VIEW HELPERS -->
-    <bean id="budgetViewHelper" class="com.carlos.projects.billing.ui.helpers.BudgetViewHelper">
+    <bean id="newBudgetViewHelper" class="com.carlos.projects.billing.ui.helpers.NewBudgetViewHelper">
         <property name="familyDAO" ref="familyDAO"/>
     </bean>
 
