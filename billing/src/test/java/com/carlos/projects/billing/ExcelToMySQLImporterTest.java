@@ -170,9 +170,9 @@ public class ExcelToMySQLImporterTest {
 
         Family family = createFamily("36", "CONTADORES");
         Component component1 = createComponent("KITAZUL162212",
-            "KIT AZUL BATERIA 16-2-21/2 BAHISA", 383.2065, 33.0, 0.0, family);
+            "KIT AZUL BATERIA 16-2-21/2 BAHISA", 33.0, 0.0, 383.2065, family);
         Component component2 = createComponent("000636",
-            "LATIGUILLO FLEX.RIVER MH 2 300", 38.274, 40.0, 0.0, family);
+            "LATIGUILLO FLEX.RIVER MH 2 300", 40.0, 0.0, 38.274, family);
 
         when(familyDAO.getById(Family.class, family.getCode())).thenReturn(null, family);
 
@@ -199,9 +199,9 @@ public class ExcelToMySQLImporterTest {
         Component component = new Component();
         component.setCode(code);
         component.setDescription(description);
+        component.setPrice(price);
         component.setDiscount1(discount1);
         component.setDiscount2(discount2);
-        component.setPrice(price);
         component.setFamily(family1);
         return component;
     }
