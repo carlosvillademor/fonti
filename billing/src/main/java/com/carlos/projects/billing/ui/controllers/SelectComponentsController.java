@@ -27,22 +27,22 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author: Carlos Fernandez
- *
  * @date: 02 Aug 2010
  */
 public class SelectComponentsController extends ParameterizableViewController {
 
-	public SelectComponentsController() {
-		super();
-	}
+    public SelectComponentsController() {
+        super();
+    }
 
-	/* (non-Javadoc)
-	 * @see org.springframework.web.servlet.mvc.ParameterizableViewController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
-	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		return super.handleRequestInternal(request, response);
-	}
+    /* (non-Javadoc)
+      * @see org.springframework.web.servlet.mvc.ParameterizableViewController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+      */
+
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+                                                 HttpServletResponse response) throws Exception {
+        return super.handleRequestInternal(request, response);
+    }
 
 }

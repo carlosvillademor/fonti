@@ -13,7 +13,7 @@
     <!-- RESOURCES -->
     <util:properties id="messages" location="classpath:/messages.properties"/>
     <bean id="propertyConfigurer"
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:jdbc.properties</value>
@@ -97,7 +97,7 @@
 
     <bean name="/loadComponents.htm" class="com.carlos.projects.billing.ui.controllers.LoadComponentsController">
         <property name="viewName" value="loadComponents"/>
-    	<constructor-arg ref="familyDAO"/>
+        <constructor-arg ref="familyDAO"/>
     </bean>
 
     <bean name="/newBudget.htm" class="com.carlos.projects.billing.ui.controllers.NewBudgetController">
