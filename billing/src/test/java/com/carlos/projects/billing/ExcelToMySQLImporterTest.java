@@ -75,29 +75,12 @@ public class ExcelToMySQLImporterTest {
         ExcelToMySQLImporter importer = new ExcelToMySQLImporter(familyDAO, componentDAO);
         MultipartFile file = new MockMultipartFile("data.xlsx", getClass().getResourceAsStream("/data.xlsx"));
 
-        Family family1 = new Family();
-        family1.setCode("36");
-        family1.setDescription("CONTADORES");
-
-        Component component1 = new Component();
-        component1.setCode("KITAZUL162212");
-        component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
-        component1.setDiscount1(33.0);
-        component1.setDiscount2(0.0);
-        component1.setPrice(383.2065);
-        component1.setFamily(family1);
-
-        Family family2 = new Family();
-        family2.setCode("33");
-        family2.setDescription("ACCES. FONTANERIA");
-
-        Component component2 = new Component();
-        component2.setCode("000636");
-        component2.setDescription("LATIGUILLO FLEX.RIVER MH 2 300");
-        component2.setDiscount1(40.0);
-        component2.setDiscount2(0.0);
-        component2.setPrice(38.274);
-        component2.setFamily(family2);
+        Family family1 = createFamily("36", "CONTADORES");
+        Component component1 = createComponent("KITAZUL162212",
+            "KIT AZUL BATERIA 16-2-21/2 BAHISA", 33.0, 0.0, 383.2065, family1);
+        Family family2 = createFamily("33", "ACCES. FONTANERIA");
+        Component component2 = createComponent("000636",
+            "LATIGUILLO FLEX.RIVER MH 2 300", 40.0, 0.0, 38.274, family2);
 
         //when
         Long importedComponents = importer.importData(file);
@@ -125,17 +108,9 @@ public class ExcelToMySQLImporterTest {
         MultipartFile file = new MockMultipartFile("dataWithMissingFamilyCodes.xlsx",
                 getClass().getResourceAsStream("/dataWithMissingFamilyCodes.xlsx"));
 
-        Family family1 = new Family();
-        family1.setCode("36");
-        family1.setDescription("CONTADORES");
-
-        Component component1 = new Component();
-        component1.setCode("KITAZUL162212");
-        component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
-        component1.setDiscount1(33.0);
-        component1.setDiscount2(0.0);
-        component1.setPrice(383.2065);
-        component1.setFamily(family1);
+        Family family = createFamily("36", "CONTADORES");
+        Component component = createComponent("KITAZUL162212",
+            "KIT AZUL BATERIA 16-2-21/2 BAHISA", 33.0, 0.0, 383.2065, family);
 
         //when
         Long importedComponents = importer.importData(file);
@@ -144,9 +119,9 @@ public class ExcelToMySQLImporterTest {
         assertThat("The number of components imported is not 1", importedComponents, is(1L));
         InOrder inOrder = inOrder(familyDAO, componentDAO);
 
-        inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
-        inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
-        inOrder.verify(familyDAO).save(family1);
+        inOrder.verify(familyDAO).getById(Family.class, family.getCode());
+        inOrder.verify(componentDAO).getById(Component.class, component.getCode());
+        inOrder.verify(familyDAO).save(family);
 
         verifyNoMoreInteractions(familyDAO, componentDAO);
     }
@@ -159,24 +134,13 @@ public class ExcelToMySQLImporterTest {
         MultipartFile file = new MockMultipartFile("dataWithDuplicatedComponentCodes.xlsx",
                 getClass().getResourceAsStream("/dataWithDuplicatedComponentCodes.xlsx"));
 
-        Family family1 = new Family();
-        family1.setCode("36");
-        family1.setDescription("CONTADORES");
-
-        Component component1 = new Component();
-        component1.setCode("KITAZUL162212");
-        component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
-        component1.setDiscount1(33.0);
-        component1.setDiscount2(0.0);
-        component1.setPrice(383.2065);
-        component1.setFamily(family1);
-
-        Family family2 = new Family();
-        family2.setCode("33");
-        family2.setDescription("ACCES. FONTANERIA");
+        Family family1 = createFamily("36", "CONTADORES");
+        Component component = createComponent("KITAZUL162212",
+            "KIT AZUL BATERIA 16-2-21/2 BAHISA", 33.0, 0.0, 383.2065, family1);
+        Family family2 = createFamily("33", "ACCES. FONTANERIA");
         family2.setComponents(new HashSet<Component>());
 
-        when(componentDAO.getById((Class<Component>) anyObject(), anyString())).thenReturn(null, component1);
+        when(componentDAO.getById((Class<Component>) anyObject(), anyString())).thenReturn(null, component);
 
         //when
         Long importedComponents = importer.importData(file);
@@ -186,11 +150,11 @@ public class ExcelToMySQLImporterTest {
         InOrder inOrder = inOrder(familyDAO, componentDAO);
 
         inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
-        inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
+        inOrder.verify(componentDAO).getById(Component.class, component.getCode());
         inOrder.verify(familyDAO).save(family1);
 
         inOrder.verify(familyDAO).getById(Family.class, family2.getCode());
-        inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
+        inOrder.verify(componentDAO).getById(Component.class, component.getCode());
         inOrder.verify(familyDAO).save(family2);
 
         verifyNoMoreInteractions(familyDAO, componentDAO);
@@ -204,27 +168,13 @@ public class ExcelToMySQLImporterTest {
         MultipartFile file = new MockMultipartFile("dataWithDuplicatedFamilyCodes.xlsx",
                 getClass().getResourceAsStream("/dataWithDuplicatedFamilyCodes.xlsx"));
 
-        Family family1 = new Family();
-        family1.setCode("36");
-        family1.setDescription("CONTADORES");
+        Family family = createFamily("36", "CONTADORES");
+        Component component1 = createComponent("KITAZUL162212",
+            "KIT AZUL BATERIA 16-2-21/2 BAHISA", 383.2065, 33.0, 0.0, family);
+        Component component2 = createComponent("000636",
+            "LATIGUILLO FLEX.RIVER MH 2 300", 38.274, 40.0, 0.0, family);
 
-        Component component1 = new Component();
-        component1.setCode("KITAZUL162212");
-        component1.setDescription("KIT AZUL BATERIA 16-2-21/2 BAHISA");
-        component1.setPrice(383.2065);
-        component1.setDiscount1(33.0);
-        component1.setDiscount2(0.0);
-        component1.setFamily(family1);
-
-        Component component2 = new Component();
-        component2.setCode("000636");
-        component2.setDescription("LATIGUILLO FLEX.RIVER MH 2 300");
-        component2.setPrice(38.274);
-        component2.setDiscount1(40.0);
-        component2.setDiscount2(0.0);
-        component2.setFamily(family1);
-
-        when(familyDAO.getById(Family.class, family1.getCode())).thenReturn(null, family1);
+        when(familyDAO.getById(Family.class, family.getCode())).thenReturn(null, family);
 
         //when
         Long importedComponents = importer.importData(file);
@@ -233,15 +183,34 @@ public class ExcelToMySQLImporterTest {
         assertThat("The number of components imported is not 2", importedComponents, is(2L));
         InOrder inOrder = inOrder(familyDAO, componentDAO);
 
-        inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
+        inOrder.verify(familyDAO).getById(Family.class, family.getCode());
         inOrder.verify(componentDAO).getById(Component.class, component1.getCode());
-        inOrder.verify(familyDAO).save(family1);
+        inOrder.verify(familyDAO).save(family);
 
-        inOrder.verify(familyDAO).getById(Family.class, family1.getCode());
+        inOrder.verify(familyDAO).getById(Family.class, family.getCode());
         inOrder.verify(componentDAO).getById(Component.class, component2.getCode());
         inOrder.verify(componentDAO).save(component2);
 
         verifyNoMoreInteractions(familyDAO, componentDAO);
+    }
+
+    private Component createComponent(String code, String description, double discount1,
+            double discount2, double price, Family family1) {
+        Component component = new Component();
+        component.setCode(code);
+        component.setDescription(description);
+        component.setDiscount1(discount1);
+        component.setDiscount2(discount2);
+        component.setPrice(price);
+        component.setFamily(family1);
+        return component;
+    }
+
+    private Family createFamily(String code, String description) {
+        Family family = new Family();
+        family.setCode(code);
+        family.setDescription(description);
+        return family;
     }
 
 }
