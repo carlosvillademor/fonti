@@ -65,17 +65,13 @@ public class ExcelToMySQLImporter implements Importer {
 
     public Long importData(MultipartFile excelFile) {
         XSSFWorkbook workbook;
-        File componentsFile = null;
+        File componentsFile;
         try {
             componentsFile = new File("components-" + new Date().getTime() + ".xlsx");
             excelFile.transferTo(componentsFile);
             workbook = new XSSFWorkbook(componentsFile.getAbsolutePath());
         } catch (IOException e) {
             throw new RuntimeException(messages.getProperty("import.error"), e);
-        } finally {
-            if (componentsFile != null) {
-                componentsFile.deleteOnExit();
-            }
         }
         workbook.setMissingCellPolicy(Row.CREATE_NULL_AS_BLANK);
         Iterator<Row> rowIterator = workbook.getSheetAt(workbook.getActiveSheetIndex()).iterator();
@@ -112,8 +108,20 @@ public class ExcelToMySQLImporter implements Importer {
                 }
             }
         }
+        closeAndDeleteTemporaryFiles(excelFile, componentsFile);
         log.info("Components import to database finished");
         return numberOfImportedItems;
+    }
+
+    private void closeAndDeleteTemporaryFiles(MultipartFile excelFile, File componentsFile) {
+        try {
+            excelFile.getInputStream().close();
+        } catch (IOException e) {
+            log.info("Could not close " + excelFile.getOriginalFilename());
+        }
+        if ((componentsFile != null) && (!componentsFile.delete())){
+                componentsFile.deleteOnExit();
+        }
     }
 
     private Family createFamilyFromRow(Row row) {
