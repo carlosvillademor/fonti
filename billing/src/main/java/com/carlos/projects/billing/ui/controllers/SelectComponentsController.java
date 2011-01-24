@@ -19,11 +19,15 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import com.carlos.projects.billing.domain.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Carlos Fernandez
@@ -42,7 +46,16 @@ public class SelectComponentsController extends ParameterizableViewController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
-        return super.handleRequestInternal(request, response);
+        ModelAndView mav = super.handleRequestInternal(request, response);
+        final Map requestParameters = request.getParameterMap();
+        List<Component> components = getComponents(requestParameters);
+        mav.getModelMap().addAttribute("components", components);
+        return mav;
+    }
+
+    private List<Component> getComponents(Map requestParameters) {
+        List<Component> components = new ArrayList<Component>();
+        return components;
     }
 
 }

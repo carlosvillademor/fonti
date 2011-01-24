@@ -19,10 +19,14 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import com.carlos.projects.billing.domain.Component;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -37,19 +41,30 @@ import static org.hamcrest.core.Is.is;
 public class SelectComponentsControllerTest {
 
     @Test
-    public void shouldForwardToNewDocumentPage() throws Exception {
+    public void shouldForwardToNewDocumentPageWithComponentsInModel() throws Exception {
         //Given
         SelectComponentsController controller = new SelectComponentsController();
         controller.setViewName("selectComponents");
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setMethod("GET");
+        request.setMethod("POST");
+        request.setParameter("selectComponent1", "componentId1");
+        request.setParameter("selectComponent2", "componentId2");
         MockHttpServletResponse response = new MockHttpServletResponse();
+        List<Component> expectedComponents = new ArrayList<Component>();
+        Component component1 = new Component();
+        component1.setCode("compoonentId1");
+        expectedComponents.add(component1);
+        Component component2 = new Component();
+        expectedComponents.add(component2);
+        component1.setCode("compoonentId2");
 
         //When
         ModelAndView modelAndView = controller.handleRequest(request, response);
 
         //Then
         assertThat(modelAndView.getViewName(), is("selectComponents"));
+        assertThat((List<Component>) modelAndView.getModelMap().get("components"),
+                is(expectedComponents));
     }
 
 }
