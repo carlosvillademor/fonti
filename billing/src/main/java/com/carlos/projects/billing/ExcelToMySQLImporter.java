@@ -108,17 +108,12 @@ public class ExcelToMySQLImporter implements Importer {
                 }
             }
         }
-        closeAndDeleteTemporaryFiles(excelFile, componentsFile);
+        closeAndDeleteTemporaryFiles(componentsFile);
         log.info("Components import to database finished");
         return numberOfImportedItems;
     }
 
-    private void closeAndDeleteTemporaryFiles(MultipartFile excelFile, File componentsFile) {
-        try {
-            excelFile.getInputStream().close();
-        } catch (IOException e) {
-            log.info("Could not close " + excelFile.getOriginalFilename());
-        }
+    private void closeAndDeleteTemporaryFiles(File componentsFile) {
         if ((componentsFile != null) && (!componentsFile.delete())){
                 componentsFile.deleteOnExit();
         }
