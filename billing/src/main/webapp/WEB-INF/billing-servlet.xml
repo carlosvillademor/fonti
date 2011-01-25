@@ -79,7 +79,7 @@
     <!-- CONTROLLERS -->
     <bean name="/addComponents.htm"
           class="com.carlos.projects.billing.ui.controllers.AddComponentsController">
-        <property name="viewName" value="addedComponents"/>
+        <property name="viewName" value="addComponents"/>
     </bean>
 
     <bean name="/home.htm"

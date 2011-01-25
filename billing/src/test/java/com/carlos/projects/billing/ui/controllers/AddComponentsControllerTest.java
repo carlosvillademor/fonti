@@ -33,14 +33,14 @@ import java.util.Map;
 
 /**
  * @author: Carlos Fernandez
- *
  * @date: 29 Jul 2010
- *
+ * <p/>
  * Unit tests for @link{AddComponentsController}
  */
 public class AddComponentsControllerTest {
 
-    @Mock private HttpServletRequest request;
+    @Mock
+    private HttpServletRequest request;
 
     @Before
     public void setup() {
@@ -53,7 +53,7 @@ public class AddComponentsControllerTest {
         HttpServletResponse response = null;
         AddComponentsController addController = new AddComponentsController();
         Map<String, DocumentComponent> documentComponents = new HashMap<String, DocumentComponent>();
-        documentComponents.put("s",null);
+        documentComponents.put("s", null);
 
         //When
         ModelAndView modelAndView = addController.handleRequestInternal(request, response);
