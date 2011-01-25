@@ -19,8 +19,11 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import com.carlos.projects.billing.dao.ComponentDAO;
 import com.carlos.projects.billing.domain.Component;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,6 +33,8 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * @author: Carlos Fernandez
@@ -40,23 +45,30 @@ import static org.hamcrest.core.Is.is;
  */
 public class SelectComponentsControllerTest {
 
+    @Mock private ComponentDAO componentDAO;
+
+    @Before
+    public void setUp() {
+        initMocks(this);
+    }
+
     @Test
     public void shouldForwardToNewDocumentPageWithComponentsInModel() throws Exception {
         //Given
-        SelectComponentsController controller = new SelectComponentsController();
+        SelectComponentsController controller = new SelectComponentsController(componentDAO);
         controller.setViewName("selectComponents");
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setMethod("POST");
-        request.setParameter("selectComponent1", "componentId1");
-        request.setParameter("selectComponent2", "componentId2");
+
+        MockHttpServletRequest request = createMockRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
-        List<Component> expectedComponents = new ArrayList<Component>();
-        Component component1 = new Component();
-        component1.setCode("compoonentId1");
-        expectedComponents.add(component1);
-        Component component2 = new Component();
-        expectedComponents.add(component2);
-        component1.setCode("compoonentId2");
+
+        String componentId1 = "componentId1";
+        Component component1 = createComponent(componentId1);
+        String componentId2 = "componentId2";
+        Component component2 = createComponent(componentId2);
+        List<Component> expectedComponents = createExpectedComponents(component1, component2);
+
+        when(componentDAO.getById(Component.class, componentId1)).thenReturn(component1);
+        when(componentDAO.getById(Component.class, componentId2)).thenReturn(component2);
 
         //When
         ModelAndView modelAndView = controller.handleRequest(request, response);
@@ -65,6 +77,27 @@ public class SelectComponentsControllerTest {
         assertThat(modelAndView.getViewName(), is("selectComponents"));
         assertThat((List<Component>) modelAndView.getModelMap().get("components"),
                 is(expectedComponents));
+    }
+
+    private Component createComponent(String compoonentId) {
+        Component component1 = new Component();
+        component1.setCode(compoonentId);
+        return component1;
+    }
+
+    private List<Component> createExpectedComponents(Component component1, Component component2) {
+        List<Component> expectedComponents = new ArrayList<Component>();
+        expectedComponents.add(component1);
+        expectedComponents.add(component2);
+        return expectedComponents;
+    }
+
+    private MockHttpServletRequest createMockRequest() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setMethod("POST");
+        request.setParameter("selectComponent1", "componentId1");
+        request.setParameter("selectComponent2", "componentId2");
+        return request;
     }
 
 }

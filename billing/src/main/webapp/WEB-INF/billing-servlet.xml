@@ -111,6 +111,7 @@
 
     <bean name="/selectComponents.htm"
           class="com.carlos.projects.billing.ui.controllers.SelectComponentsController">
+        <constructor-arg ref="componentDAO"/>
         <property name="viewName" value="selectComponents"/>
     </bean>
 

@@ -19,6 +19,7 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import com.carlos.projects.billing.dao.ComponentDAO;
 import com.carlos.projects.billing.domain.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
@@ -35,26 +36,41 @@ import java.util.Map;
  */
 public class SelectComponentsController extends ParameterizableViewController {
 
+    private ComponentDAO componentDAO;
+
     public SelectComponentsController() {
         super();
     }
 
-    /* (non-Javadoc)
-      * @see org.springframework.web.servlet.mvc.ParameterizableViewController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-      */
+    public SelectComponentsController(ComponentDAO componentDAO) {
+        this.componentDAO = componentDAO;
+    }
 
+    public ComponentDAO getComponentDAO() {
+        return componentDAO;
+    }
+
+    public void setComponentDAO(ComponentDAO componentDAO) {
+        this.componentDAO = componentDAO;
+    }
+
+    /* (non-Javadoc)
+     * @see org.springframework.web.servlet.mvc.ParameterizableViewController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
         ModelAndView mav = super.handleRequestInternal(request, response);
-        final Map requestParameters = request.getParameterMap();
-        List<Component> components = getComponents(requestParameters);
-        mav.getModelMap().addAttribute("components", components);
+        mav.getModelMap().addAttribute("components",
+                getComponents((Map<String, String[]>) request.getParameterMap()));
         return mav;
     }
 
-    private List<Component> getComponents(Map requestParameters) {
+    private List<Component> getComponents(Map<String, String[]> requestParameters) {
         List<Component> components = new ArrayList<Component>();
+        for (String key : requestParameters.keySet()) {
+            components.add(componentDAO.getById(Component.class, requestParameters.get(key)[0]));
+        }
         return components;
     }
 
