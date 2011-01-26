@@ -95,8 +95,8 @@ public class SelectComponentsControllerTest {
     private MockHttpServletRequest createMockRequest() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setMethod("POST");
-        request.setParameter("selectComponent1", "componentId1");
-        request.setParameter("selectComponent2", "componentId2");
+        request.setParameter("componentId1", "valueComponentId1");
+        request.setParameter("componentId2", "valueComponentId2");
         return request;
     }
 

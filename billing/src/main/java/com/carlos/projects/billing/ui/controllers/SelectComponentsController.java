@@ -69,7 +69,7 @@ public class SelectComponentsController extends ParameterizableViewController {
     private List<Component> getComponents(Map<String, String[]> requestParameters) {
         List<Component> components = new ArrayList<Component>();
         for (String key : requestParameters.keySet()) {
-            components.add(componentDAO.getById(Component.class, requestParameters.get(key)[0]));
+            components.add(componentDAO.getById(Component.class, key));
         }
         return components;
     }

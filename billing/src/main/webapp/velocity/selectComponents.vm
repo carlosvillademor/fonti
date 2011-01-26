@@ -5,8 +5,7 @@
         <form id="addComponentes" action="#springUrl('/addComponents.htm')" method="post">
             #foreach ( $component in $components )
                 <fieldset>
-                    <legend>Componente</legend>
-                    ${component.description}<br/>
+                    <legend>${component.description}</legend>                    
                     <label>Cantidad: <input type="text" name="quantity"/></label>
                     <label>Descuento: <input type="text" name="discount"/></label>
                     <label>Precio: <input type="text" name="price"/></label>
