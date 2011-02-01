@@ -8,8 +8,8 @@
         <p>Las propiedades del fichero que ha usado para actualizar la base
             de datos de componentes son</p>
         <ul>
-            <li>Size: $!{file.size}</li>
-            <li>Name: $!{file.originalFilename}</li>
+            <li>Size: ${file.size}</li>
+            <li>Name: ${file.originalFilename}</li>
         </ul>
         <p>La lista de componentes importados es:</p>
         <ol>

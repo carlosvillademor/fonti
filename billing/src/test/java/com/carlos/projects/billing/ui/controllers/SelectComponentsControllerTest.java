@@ -53,7 +53,7 @@ public class SelectComponentsControllerTest {
     }
 
     @Test
-    public void shouldForwardToNewDocumentPageWithComponentsInModel() throws Exception {
+    public void shouldForwardToNewDocumentPageWithComponentsAndFamilyInModel() throws Exception {
         //Given
         SelectComponentsController controller = new SelectComponentsController(componentDAO);
         controller.setViewName("selectComponents");
@@ -77,6 +77,7 @@ public class SelectComponentsControllerTest {
         assertThat(modelAndView.getViewName(), is("selectComponents"));
         assertThat((List<Component>) modelAndView.getModelMap().get("components"),
                 is(expectedComponents));
+        assertThat((String) modelAndView.getModelMap().get("familyName"), is("familyNameValue"));
     }
 
     private Component createComponent(String compoonentId) {
@@ -97,6 +98,7 @@ public class SelectComponentsControllerTest {
         request.setMethod("POST");
         request.setParameter("componentId1", "valueComponentId1");
         request.setParameter("componentId2", "valueComponentId2");
+        request.setParameter("familyName", "familyNameValue");
         return request;
     }
 

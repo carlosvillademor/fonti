@@ -31,6 +31,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 /**
  * @author: Carlos Fernandez
  * @date: 29 Jul 2010
@@ -48,6 +51,16 @@ public class AddComponentsControllerTest {
     }
 
     @Test
+    public void shouldAddFamily() {
+        //Given
+
+        //When
+
+        //Then
+
+    }
+
+    @Test
     public void shouldAddComponentsToDocument() throws Exception {
         //Given
         HttpServletResponse response = null;
@@ -59,9 +72,9 @@ public class AddComponentsControllerTest {
         ModelAndView modelAndView = addController.handleRequestInternal(request, response);
 
         //Then
-//        assertThat("The list of components in the document is wrong",
-//                (Map<String, DocumentComponent>) modelAndView.getModel().get("documentComponents"),
-//                is(documentComponents));
+        assertThat("The list of components in the document is wrong",
+                (Map<String, DocumentComponent>) modelAndView.getModel().get("documentComponents"),
+                is(documentComponents));
     }
 
 }

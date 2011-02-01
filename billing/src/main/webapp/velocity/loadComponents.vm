@@ -1,12 +1,12 @@
 <html>
     <body>
-        <p>Lista de los componentes de la familia $!{familyName}</p>
+        <p>Lista de los componentes de la familia ${familyName}</p>
 
-        <form id="selectedComponents" action="#springUrl('/selectComponents.htm')" method="get">
+        <form id="selectedComponents" action="#springUrl('/selectComponents.htm')" method="post">
             #foreach ( $component in $components )
+                <input type="hidden" id="familyName" value="${familyName}"/>                
                 <label id="selectComponent$velocityCount">
-                    <input id="_$component.code" type="hidden">
-                    <input id="$component.code" type="checkbox" name="$component.description">${component.description}
+                    <input id="$component.code" type="checkbox" name="$component.code">${component.description}
                 </label><br/>
             #end
             <input id="selectComponents" type="submit" value="A&ntilde;adir"/>
