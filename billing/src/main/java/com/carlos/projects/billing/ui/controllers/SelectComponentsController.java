@@ -63,13 +63,14 @@ public class SelectComponentsController extends ParameterizableViewController {
         ModelAndView mav = super.handleRequestInternal(request, response);
         mav.getModelMap().addAttribute("components",
                 getComponents((Map<String, String[]>) request.getParameterMap()));
+        mav.getModelMap().addAttribute("familyName", request.getParameter("familyName"));
         return mav;
     }
 
     private List<Component> getComponents(Map<String, String[]> requestParameters) {
         List<Component> components = new ArrayList<Component>();
         for (String key : requestParameters.keySet()) {
-            components.add(componentDAO.getById(Component.class, key));
+            if(!"familyName".equalsIgnoreCase(key)) components.add(componentDAO.getById(Component.class, key));
         }
         return components;
     }

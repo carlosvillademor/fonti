@@ -19,7 +19,6 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
-import com.carlos.projects.billing.domain.DocumentComponent;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -28,53 +27,42 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 /**
  * @author: Carlos Fernandez
+ *
  * @date: 29 Jul 2010
- * <p/>
+ *
  * Unit tests for @link{AddComponentsController}
  */
 public class AddComponentsControllerTest {
 
-    @Mock
-    private HttpServletRequest request;
+    @Mock private HttpServletRequest request;
+    private HttpServletResponse response;
+    private AddComponentsController controller;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        controller = new AddComponentsController();
+        response = null;
     }
 
     @Test
-    public void shouldAddFamily() {
+    public void shouldAddFamilyNameToModel() throws Exception {
         //Given
+        String familyName = "familyName";
+        when(request.getParameter("familyName")).thenReturn(familyName);
 
         //When
+        ModelAndView modelAndView = controller.handleRequestInternal(request, response);
 
         //Then
-
-    }
-
-    @Test
-    public void shouldAddComponentsToDocument() throws Exception {
-        //Given
-        HttpServletResponse response = null;
-        AddComponentsController addController = new AddComponentsController();
-        Map<String, DocumentComponent> documentComponents = new HashMap<String, DocumentComponent>();
-        documentComponents.put("s", null);
-
-        //When
-        ModelAndView modelAndView = addController.handleRequestInternal(request, response);
-
-        //Then
-        assertThat("The list of components in the document is wrong",
-                (Map<String, DocumentComponent>) modelAndView.getModel().get("documentComponents"),
-                is(documentComponents));
+        assertThat("Family name value is wrong", (String) modelAndView.getModelMap().get("familyName"), is(familyName));
     }
 
 }

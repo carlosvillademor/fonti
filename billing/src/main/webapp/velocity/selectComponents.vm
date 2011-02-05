@@ -3,6 +3,7 @@
         <p>Lista de los componentes de la familia ${familyName} seleccionados</p>
 
         <form id="addComponentes" action="#springUrl('/addComponents.htm')" method="post">
+            <input type="hidden" id="familyName" name="familyName" value="${familyName}"/>
             #foreach ( $component in $components )
                 <fieldset>
                     <legend>${component.description}</legend>

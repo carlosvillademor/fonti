@@ -3,8 +3,8 @@
         <p>Lista de los componentes de la familia ${familyName}</p>
 
         <form id="selectedComponents" action="#springUrl('/selectComponents.htm')" method="post">
+            <input type="hidden" id="familyName" name="familyName" value="${familyName}"/>
             #foreach ( $component in $components )
-                <input type="hidden" id="familyName" value="${familyName}"/>                
                 <label id="selectComponent$velocityCount">
                     <input id="$component.code" type="checkbox" name="$component.code">${component.description}
                 </label><br/>

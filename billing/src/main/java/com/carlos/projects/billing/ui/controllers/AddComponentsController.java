@@ -36,7 +36,9 @@ public class AddComponentsController extends ParameterizableViewController {
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return super.handleRequestInternal(request, response);
+        ModelAndView modelAndView = super.handleRequestInternal(request, response);
+        modelAndView.getModelMap().addAttribute("familyName", request.getParameter("familyName"));
+        return modelAndView;
     }
 
 }
