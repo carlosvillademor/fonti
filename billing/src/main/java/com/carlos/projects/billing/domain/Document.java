@@ -21,16 +21,25 @@ package com.carlos.projects.billing.domain;
 
 /**
  * @author: Carlos Fernandez
- *
  * @date: 29-Jul-2010
- *
+ * <p/>
  * Representation for a document
  */
 public class Document {
 
+    private long id;
+
     private DocumentComponent documentComponents;
 
     public Document() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public DocumentComponent getDocumentComponents() {

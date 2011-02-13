@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.carlos.projects.billing.domain">
     <class name="DocumentComponent" table="DOCUMENT_COMPONENT">
-        <id column="DOCUMENT_COMPONENT_ID" type="long">
+        <id name="id" type="long" column="DOCUMENT_COMPONENT_ID">
             <generator class="native"/>
         </id>
         <property name="code" type="string" column="DOCUMENT_COMPONENT_CODE" not-null="true"/>

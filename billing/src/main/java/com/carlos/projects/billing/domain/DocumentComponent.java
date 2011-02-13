@@ -25,125 +25,172 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * @author Carlos Fernandez
- *
  * @date 20 Sep 2009
- *
+ * <p/>
  * Representation of a component that belongs to a document.
  */
 public class DocumentComponent {
 
-	private String code;
+    private long id;
 
-	private String description;
+    private String code;
 
-	private double price;
+    private String description;
 
-	private double discountApplied;
+    private double price;
 
-	public DocumentComponent() {
-		super();
-	}
+    private double discountApplied;
 
-	/**
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
-	}
+    private double quantity;
 
-	/**
-	 * @param code the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
-	}
+    private Document document;
 
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
+    public DocumentComponent() {
+        super();
+    }
 
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    /**
+     * @return the document component id
+     */
+    public long getId() {
+        return id;
+    }
 
-	/**
-	 * @return the price
-	 */
-	public double getPrice() {
-		return price;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param price the price to set
-	 */
-	public void setPrice(double price) {
-		this.price = price;
-	}
+    /**
+     * @return the code
+     */
+    public String getCode() {
+        return code;
+    }
 
-	/**
-	 * @return the discountApplied
-	 */
-	public double getDiscountApplied() {
-		return discountApplied;
-	}
+    /**
+     * @param code the code to set
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	/**
-	 * @param discountApplied the discountApplied to set
-	 */
-	public void setDiscountApplied(double discountApplied) {
-		this.discountApplied = discountApplied;
-	}
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this)
-			.append(code)
-			.append(description)
-			.append(price)
-			.append(discountApplied)
-			.toString();
-	}
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (!(obj instanceof DocumentComponent)) {
-			return false;
-		}
-		if (obj == this) {
-			return true;
-		}
-		DocumentComponent documentComponent = (DocumentComponent) obj;
-		return new EqualsBuilder()
-		.append(code, documentComponent.getCode())
-		.append(description, documentComponent.getDescription())
-		.append(price, documentComponent.getPrice())
-		.append(discountApplied, documentComponent.getDiscountApplied())
-		.isEquals();
-	}
+    /**
+     * @return the price
+     */
+    public double getPrice() {
+        return price;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder()
-		.append(code)
-		.append(description)
-		.append(price)
-		.append(discountApplied)
-		.toHashCode();
-	}
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    /**
+     * @return the discountApplied
+     */
+    public double getDiscountApplied() {
+        return discountApplied;
+    }
+
+    /**
+     * @param discountApplied the discountApplied to set
+     */
+    public void setDiscountApplied(double discountApplied) {
+        this.discountApplied = discountApplied;
+    }
+
+    /**
+     * @return the quantity of component
+     */
+    public double getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * @param quantity the quantity to set
+     */
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+
+    /**
+     * @return the document this documentComponent belongs to
+     */
+    public Document getDocument() {
+        return document;
+    }
+
+    /**
+     * @param document the document this documentComponent belongs to
+     */
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    /* (non-Javadoc)
+      * @see java.lang.Object#toString()
+      */
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(code)
+                .append(description)
+                .append(price)
+                .append(discountApplied)
+                .toString();
+    }
+
+    /* (non-Javadoc)
+      * @see java.lang.Object#equals(java.lang.Object)
+      */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof DocumentComponent)) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        DocumentComponent documentComponent = (DocumentComponent) obj;
+        return new EqualsBuilder()
+                .append(code, documentComponent.getCode())
+                .append(description, documentComponent.getDescription())
+                .append(price, documentComponent.getPrice())
+                .append(discountApplied, documentComponent.getDiscountApplied())
+                .isEquals();
+    }
+
+    /* (non-Javadoc)
+      * @see java.lang.Object#hashCode()
+      */
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(code)
+                .append(description)
+                .append(price)
+                .append(discountApplied)
+                .toHashCode();
+    }
 
 }
