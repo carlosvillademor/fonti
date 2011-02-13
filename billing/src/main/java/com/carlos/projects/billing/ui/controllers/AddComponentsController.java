@@ -19,17 +19,19 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import com.carlos.projects.billing.domain.DocumentComponent;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: Carlos Fernandez
- *
  * @date: 30 Jul 2010
- *
+ * <p/>
  * Controller to add selected components to a document
  */
 public class AddComponentsController extends ParameterizableViewController {
@@ -38,7 +40,32 @@ public class AddComponentsController extends ParameterizableViewController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView modelAndView = super.handleRequestInternal(request, response);
         modelAndView.getModelMap().addAttribute("familyName", request.getParameter("familyName"));
+        modelAndView.getModelMap().addAttribute("componentsAdded", getDocumentComponentsAdded(request.getParameterMap()));
         return modelAndView;
+    }
+
+    private Map<String, DocumentComponent> getDocumentComponentsAdded(Map<String, String[]> parameterMap) {
+        Map<String, DocumentComponent> documentComponents = new HashMap<String, DocumentComponent>();
+        for (String key : parameterMap.keySet()) {
+            if (key.startsWith("componentCode")) {
+                documentComponents.put(getComponentCode(key), createDocumentComponent(getComponentCode(key), parameterMap));
+            }
+        }
+        return documentComponents;
+    }
+
+    private String getComponentCode(String key) {
+        return key.substring(13);
+    }
+
+    private DocumentComponent createDocumentComponent(String componentCode, Map<String, String[]> parameterMap) {
+        DocumentComponent component = new DocumentComponent();
+        component.setDescription(parameterMap.get(componentCode + "Description")[0]);
+        component.setCode(componentCode);
+        component.setDiscountApplied(Double.valueOf(parameterMap.get(componentCode + "Discount")[0]));
+        component.setPrice(Double.valueOf(parameterMap.get(componentCode + "Price")[0]));
+        component.setQuantity(Double.valueOf(parameterMap.get(componentCode + "Quantity")[0]));
+        return component;
     }
 
 }
