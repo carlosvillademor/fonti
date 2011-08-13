@@ -57,6 +57,7 @@ public class SelectComponentsController extends ParameterizableViewController {
     /* (non-Javadoc)
      * @see org.springframework.web.servlet.mvc.ParameterizableViewController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
+
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
@@ -70,7 +71,9 @@ public class SelectComponentsController extends ParameterizableViewController {
     private List<Component> getComponents(Map<String, String[]> requestParameters) {
         List<Component> components = new ArrayList<Component>();
         for (String key : requestParameters.keySet()) {
-            if(!"familyName".equalsIgnoreCase(key)) components.add(componentDAO.getById(Component.class, key));
+            if (!"familyName".equalsIgnoreCase(key)) {
+                components.add(componentDAO.getById(Component.class, key));
+            }
         }
         return components;
     }

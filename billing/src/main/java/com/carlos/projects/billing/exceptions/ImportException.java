@@ -17,25 +17,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.carlos.projects.billing;
+package com.carlos.projects.billing.exceptions;
 
-import com.carlos.projects.billing.exceptions.ImportException;
-import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 
 /**
+ * Base exception class for Import problems
+ *
  * @author Carlos Fernandez
- * @date 6 Oct 2009
- * <p/>
- * Interface to import data from a file to a database
+ * @date Aug 11, 2011
  */
-public interface Importer {
+public class ImportException extends Exception {
 
-    /**
-     * @param file file where to import the data from
-     * @return number of elements imported
-     * @throws com.carlos.projects.billing.exceptions.ImportException
-     *          if there is a problem while importing data
-     */
-    Long importData(MultipartFile file) throws ImportException;
+    public ImportException(String message, IOException exception) {
+        super(message, exception);
+    }
 
 }

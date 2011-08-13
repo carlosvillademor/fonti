@@ -23,6 +23,7 @@ import com.carlos.projects.billing.dao.ComponentDAO;
 import com.carlos.projects.billing.dao.FamilyDAO;
 import com.carlos.projects.billing.domain.Component;
 import com.carlos.projects.billing.domain.Family;
+import com.carlos.projects.billing.exceptions.ImportException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -53,6 +54,14 @@ public class ExcelToMySQLImporter implements Importer {
 
     private Properties messages;
 
+    private static final int FAMILY_CODE = 4;
+    private static final int FAMILY_DESCRIPTION = 9;
+    private static final int COMPONENT_CODE = 2;
+    private static final int COMPONENT_DESCRIPTION = 3;
+    private static final int COMPONENT_DISCOUNT_1 = 6;
+    private static final int COMPONENT_DISCOUNT_2 = 7;
+    private static final int COMPONENT_PRICE = 8;
+
     public ExcelToMySQLImporter(FamilyDAO familyDAO, ComponentDAO componentDAO) {
         this.familyDAO = familyDAO;
         this.componentDAO = componentDAO;
@@ -63,7 +72,7 @@ public class ExcelToMySQLImporter implements Importer {
         this.messages = messages;
     }
 
-    public Long importData(MultipartFile excelFile) {
+    public Long importData(MultipartFile excelFile) throws ImportException {
         XSSFWorkbook workbook;
         File componentsFile;
         try {
@@ -71,7 +80,7 @@ public class ExcelToMySQLImporter implements Importer {
             excelFile.transferTo(componentsFile);
             workbook = new XSSFWorkbook(componentsFile.getAbsolutePath());
         } catch (IOException e) {
-            throw new RuntimeException(messages.getProperty("import.error"), e);
+            throw new ImportException(messages.getProperty("import.error"), e);
         }
         workbook.setMissingCellPolicy(Row.CREATE_NULL_AS_BLANK);
         Iterator<Row> rowIterator = workbook.getSheetAt(workbook.getActiveSheetIndex()).iterator();
@@ -79,7 +88,7 @@ public class ExcelToMySQLImporter implements Importer {
         log.info("Starting reading from file " + excelFile.getOriginalFilename() + " to import components to database");
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
-            String familyCode = row.getCell(4).getStringCellValue().trim();
+            String familyCode = row.getCell(FAMILY_CODE).getStringCellValue().trim();
             //The first row of the excel file is the one with the titles
             if (row.getRowNum() != 0 && StringUtils.isNotBlank(familyCode)) {
                 Family family = familyDAO.getById(Family.class, familyCode);
@@ -88,7 +97,7 @@ public class ExcelToMySQLImporter implements Importer {
                     family = createFamilyFromRow(row);
                     saveFamily = true;
                 }
-                String componentCode = row.getCell(2).getStringCellValue().trim();
+                String componentCode = row.getCell(COMPONENT_CODE).getStringCellValue().trim();
                 Component component = componentDAO.getById(Component.class, componentCode);
                 boolean addComponent = false;
                 if (component == null) {
@@ -114,25 +123,25 @@ public class ExcelToMySQLImporter implements Importer {
     }
 
     private void closeAndDeleteTemporaryFiles(File componentsFile) {
-        if ((componentsFile != null) && (!componentsFile.delete())){
-                componentsFile.deleteOnExit();
+        if ((componentsFile != null) && (!componentsFile.delete())) {
+            componentsFile.deleteOnExit();
         }
     }
 
     private Family createFamilyFromRow(Row row) {
         Family family = new Family();
-        family.setCode(StringUtils.trim(row.getCell(4).getStringCellValue()));
-        family.setDescription(StringUtils.trim(row.getCell(9).getStringCellValue()));
+        family.setCode(StringUtils.trim(row.getCell(FAMILY_CODE).getStringCellValue()));
+        family.setDescription(StringUtils.trim(row.getCell(FAMILY_DESCRIPTION).getStringCellValue()));
         return family;
     }
 
     private Component createComponent(Row row, Family family) {
         Component component = new Component();
-        component.setCode(StringUtils.trim(row.getCell(2).getStringCellValue()));
-        component.setDescription(StringUtils.trim(row.getCell(3).getStringCellValue()));
-        component.setDiscount1(row.getCell(6).getNumericCellValue());
-        component.setDiscount2(row.getCell(7).getNumericCellValue());
-        component.setPrice(row.getCell(8).getNumericCellValue());
+        component.setCode(StringUtils.trim(row.getCell(COMPONENT_CODE).getStringCellValue()));
+        component.setDescription(StringUtils.trim(row.getCell(COMPONENT_DESCRIPTION).getStringCellValue()));
+        component.setDiscount1(row.getCell(COMPONENT_DISCOUNT_1).getNumericCellValue());
+        component.setDiscount2(row.getCell(COMPONENT_DISCOUNT_2).getNumericCellValue());
+        component.setPrice(row.getCell(COMPONENT_PRICE).getNumericCellValue());
         component.setFamily(family);
         return component;
     }

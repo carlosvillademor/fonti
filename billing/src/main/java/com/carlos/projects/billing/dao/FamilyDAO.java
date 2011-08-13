@@ -32,6 +32,6 @@ import java.util.List;
  */
 public interface FamilyDAO extends DAO<Family, String> {
 
-    public List<Family> findAllOrderByDescription(String entityName);
+    List<Family> findAllOrderByDescription(String entityName);
 
 }
