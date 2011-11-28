@@ -37,10 +37,10 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 /**
+ * Unit tests for @link{AddComponentsController}
+ *
  * @author: Carlos Fernandez
  * @date: 29 Jul 2010
- * <p/>
- * Unit tests for @link{AddComponentsController}
  */
 public class AddComponentsControllerTest {
 
@@ -72,56 +72,9 @@ public class AddComponentsControllerTest {
     @Test
     public void shouldAddComponentsToModel() throws Exception {
         //Given
-        Map<String, DocumentComponent> expectedComponentsAdded = new HashMap<String, DocumentComponent>();
-        String code1 = "code1";
-        String quantity1 = "1.0";
-        String discounted1 = "25.0";
-        String price1 = "100.0";
-        String description1 = "description1";
-        DocumentComponent documentComponent1 = new DocumentComponentBuilder()
-                .withCode(code1)
-                .withQuantity(Double.valueOf(quantity1))
-                .withDiscountApplied(Double.valueOf(discounted1))
-                .withPrice(Double.valueOf(price1))
-                .withDescription(description1)
-                .build();
-        expectedComponentsAdded.put(code1, documentComponent1);
-        String code2 = "code2";
-        String quantity2 = "2.0";
-        String discounted2 = "50.0";
-        String price2 = "200.0";
-        String description2 = "description2";
-        DocumentComponent documentComponent2 = new DocumentComponentBuilder()
-                .withCode(code2)
-                .withQuantity(Double.valueOf(quantity2))
-                .withDiscountApplied(Double.valueOf(discounted2))
-                .withPrice(Double.valueOf(price2))
-                .withDescription(description2)
-                .build();
-        expectedComponentsAdded.put(code2, documentComponent2);
-
-        Map<String, String[]> parameters = new HashMap<String, String[]>();
+        Map<String, DocumentComponent> expectedComponentsAdded = givenExpectedComponentsAdded();
+        Map<String, String[]> parameters = givenRequestParameters();
         when(request.getParameterMap()).thenReturn(parameters);
-        String[] component1Code = {code1};
-        parameters.put("componentCodecode1", component1Code);
-        String[] component1Quantity = {quantity1};
-        parameters.put("code1Quantity", component1Quantity);
-        String[] component1Discount = {discounted1};
-        parameters.put("code1Discount", component1Discount);
-        String[] component1Price = {price1};
-        parameters.put("code1Price", component1Price);
-        String[] component1Description = {description1};
-        parameters.put("code1Description", component1Description);
-        String[] component2Code = {code1};
-        parameters.put("componentCodecode2", component2Code);
-        String[] component2Quantity = {quantity2};
-        parameters.put("code2Quantity", component2Quantity);
-        String[] component2Discount = {discounted2};
-        parameters.put("code2Discount", component2Discount);
-        String[] component2Price = {price2};
-        parameters.put("code2Price", component2Price);
-        String[] component2Description = {description2};
-        parameters.put("code2Description", component2Description);
 
         //When
         ModelAndView modelAndView = controller.handleRequestInternal(request, response);
@@ -129,6 +82,51 @@ public class AddComponentsControllerTest {
         //Then
         assertThat("Model does not contain components added", (Map<String, DocumentComponent>) modelAndView
                 .getModelMap().get("componentsAdded"), is(expectedComponentsAdded));
+    }
+
+    private Map<String, String[]> givenRequestParameters() {
+        Map<String, String[]> parameters = new HashMap<String, String[]>();
+        String[] component1Code = {"code1"};
+        parameters.put("componentCodecode1", component1Code);
+        String[] component1Quantity = {"1.0"};
+        parameters.put("code1Quantity", component1Quantity);
+        String[] component1Discount = {"25.0"};
+        parameters.put("code1Discount", component1Discount);
+        String[] component1Price = {"100.00"};
+        parameters.put("code1Price", component1Price);
+        String[] component1Description = {"description1"};
+        parameters.put("code1Description", component1Description);
+        String[] component2Code = {"code1"};
+        parameters.put("componentCodecode2", component2Code);
+        String[] component2Quantity = {"2.0"};
+        parameters.put("code2Quantity", component2Quantity);
+        String[] component2Discount = {"50.0"};
+        parameters.put("code2Discount", component2Discount);
+        String[] component2Price = {"200.0"};
+        parameters.put("code2Price", component2Price);
+        String[] component2Description = {"description2"};
+        parameters.put("code2Description", component2Description);
+        return parameters;
+    }
+
+    private Map<String, DocumentComponent> givenExpectedComponentsAdded() {
+        Map<String, DocumentComponent> expectedComponentsAdded = new HashMap<String, DocumentComponent>();
+        DocumentComponent documentComponent1 = createDocumentComponent("code1", "1.0", "25.0", "100.0", "description1");
+        expectedComponentsAdded.put(documentComponent1.getCode(), documentComponent1);
+        DocumentComponent documentComponent2 = createDocumentComponent("code2", "2.0", "50.0", "200.0", "description2");
+        expectedComponentsAdded.put(documentComponent2.getCode(), documentComponent2);
+        return expectedComponentsAdded;
+    }
+
+    private DocumentComponent createDocumentComponent(String code, String quantity, String discount, String price, String description) {
+        return new DocumentComponentBuilder()
+                .withCode(code)
+                .withQuantity(Double.valueOf(quantity))
+                .withDiscountApplied(Double.valueOf(discount))
+                .withPrice(Double.valueOf(price))
+                .withDescription(description)
+                .build();
+
     }
 
 }

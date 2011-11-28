@@ -29,12 +29,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Controller to add selected components to a document
+ * 
  * @author: Carlos Fernandez
  * @date: 30 Jul 2010
- * <p/>
- * Controller to add selected components to a document
  */
 public class AddComponentsController extends ParameterizableViewController {
+    private static final int COMPONENT_CODE = 13;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -55,7 +56,7 @@ public class AddComponentsController extends ParameterizableViewController {
     }
 
     private String getComponentCode(String key) {
-        return key.substring(13);
+        return key.substring(COMPONENT_CODE);
     }
 
     private DocumentComponent createDocumentComponent(String componentCode, Map<String, String[]> parameterMap) {
