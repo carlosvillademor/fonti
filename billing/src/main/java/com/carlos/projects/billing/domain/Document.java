@@ -19,6 +19,8 @@
  */
 package com.carlos.projects.billing.domain;
 
+import java.util.List;
+
 /**
  * @author: Carlos Fernandez
  * @date: 29-Jul-2010
@@ -29,7 +31,7 @@ public class Document {
 
     private long id;
 
-    private DocumentComponent documentComponents;
+    private List<DocumentComponent> documentComponents;
 
     public Document() {
     }
@@ -42,11 +44,11 @@ public class Document {
         this.id = id;
     }
 
-    public DocumentComponent getDocumentComponents() {
+    public List<DocumentComponent> getDocumentComponents() {
         return documentComponents;
     }
 
-    public void setDocumentComponents(DocumentComponent documentComponents) {
+    public void setDocumentComponents(List<DocumentComponent> documentComponents) {
         this.documentComponents = documentComponents;
     }
 

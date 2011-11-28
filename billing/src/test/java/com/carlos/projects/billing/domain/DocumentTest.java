@@ -41,7 +41,7 @@ public class DocumentTest {
         document = new Document();
 
         //Then
-        assertThat("The document is not null", document, is(notNullValue()));
+        assertThat("The document is null", document, is(notNullValue()));
     }
 
 }
