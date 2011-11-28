@@ -43,6 +43,6 @@ public class ComponentTest {
 	
 	@Test
 	public void shouldCreateNonNullComponent() {
-		assertThat(component, is(notNullValue()));
+		assertThat("The component is null", component, is(notNullValue()));
 	}
 }
