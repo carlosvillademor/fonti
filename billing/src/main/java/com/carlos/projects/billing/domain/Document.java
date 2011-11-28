@@ -19,6 +19,11 @@
  */
 package com.carlos.projects.billing.domain;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,7 +36,7 @@ public class Document {
 
     private long id;
 
-    private List<DocumentComponent> documentComponents;
+    private List<DocumentComponent> documentComponents = new ArrayList<DocumentComponent>();
 
     public Document() {
     }
@@ -48,8 +53,40 @@ public class Document {
         return documentComponents;
     }
 
+    public void setDocumentComponents(DocumentComponent... documentComponents) {
+        this.documentComponents = Arrays.asList(documentComponents);
+    }
+
     public void setDocumentComponents(List<DocumentComponent> documentComponents) {
         this.documentComponents = documentComponents;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Document)) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        Document document = (Document) obj;
+        return id == document.getId() && documentComponents.size() == document.getDocumentComponents().size() && documentComponents.containsAll(document.getDocumentComponents());
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(id)
+                .append(documentComponents)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(id)
+                .append(documentComponents)
+                .toString();
     }
 
 }
