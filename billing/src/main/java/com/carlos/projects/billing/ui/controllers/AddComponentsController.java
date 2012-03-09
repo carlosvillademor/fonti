@@ -19,40 +19,46 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import com.carlos.projects.billing.domain.Document;
 import com.carlos.projects.billing.domain.DocumentComponent;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Controller to add selected components to a document
- * 
+ *
  * @author: Carlos Fernandez
  * @date: 30 Jul 2010
  */
 public class AddComponentsController extends ParameterizableViewController {
+
     private static final int COMPONENT_CODE = 13;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView modelAndView = super.handleRequestInternal(request, response);
         modelAndView.getModelMap().addAttribute("familyName", request.getParameter("familyName"));
-        modelAndView.getModelMap().addAttribute("componentsAdded", getDocumentComponentsAdded(request.getParameterMap()));
+        modelAndView.getModelMap().addAttribute("document", getDocumentWithComponentsAdded(request.getParameterMap()));
         return modelAndView;
     }
 
-    private Map<String, DocumentComponent> getDocumentComponentsAdded(Map<String, String[]> parameterMap) {
-        Map<String, DocumentComponent> documentComponents = new HashMap<String, DocumentComponent>();
+    private Document getDocumentWithComponentsAdded(Map<String, String[]> parameterMap) {
+        Document document = new Document();
+        List<DocumentComponent> documentComponentsAdded = new ArrayList<DocumentComponent>();
         for (String key : parameterMap.keySet()) {
             if (key.startsWith("componentCode")) {
-                documentComponents.put(getComponentCode(key), createDocumentComponent(getComponentCode(key), parameterMap));
+                documentComponentsAdded.add(createDocumentComponent(getComponentCode(key), parameterMap));
             }
         }
-        return documentComponents;
+        document.setDocumentComponents(documentComponentsAdded);
+        return document;
     }
 
     private String getComponentCode(String key) {

@@ -19,6 +19,7 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import com.carlos.projects.billing.domain.Document;
 import com.carlos.projects.billing.domain.DocumentComponent;
 import com.carlos.projects.billing.domain.DocumentComponentBuilder;
 import org.junit.Before;
@@ -72,7 +73,7 @@ public class AddComponentsControllerTest {
     @Test
     public void shouldAddComponentsToModel() throws Exception {
         //Given
-        Map<String, DocumentComponent> expectedComponentsAdded = givenExpectedComponentsAdded();
+        Document expectedDocument = givenExpectedComponentsAdded();
         Map<String, String[]> parameters = givenRequestParameters();
         when(request.getParameterMap()).thenReturn(parameters);
 
@@ -80,8 +81,8 @@ public class AddComponentsControllerTest {
         ModelAndView modelAndView = controller.handleRequestInternal(request, response);
 
         //Then
-        assertThat("Model does not contain components added", (Map<String, DocumentComponent>) modelAndView
-                .getModelMap().get("componentsAdded"), is(expectedComponentsAdded));
+        assertThat("Model does not contain document with components added", (Document) modelAndView
+                .getModelMap().get("document"), is(expectedDocument));
     }
 
     private Map<String, String[]> givenRequestParameters() {
@@ -109,13 +110,12 @@ public class AddComponentsControllerTest {
         return parameters;
     }
 
-    private Map<String, DocumentComponent> givenExpectedComponentsAdded() {
-        Map<String, DocumentComponent> expectedComponentsAdded = new HashMap<String, DocumentComponent>();
+    private Document givenExpectedComponentsAdded() {
+        Document expectedDocument = new Document();
         DocumentComponent documentComponent1 = createDocumentComponent("code1", "1.0", "25.0", "100.0", "description1");
-        expectedComponentsAdded.put(documentComponent1.getCode(), documentComponent1);
         DocumentComponent documentComponent2 = createDocumentComponent("code2", "2.0", "50.0", "200.0", "description2");
-        expectedComponentsAdded.put(documentComponent2.getCode(), documentComponent2);
-        return expectedComponentsAdded;
+        expectedDocument.setDocumentComponents(documentComponent1, documentComponent2);
+        return expectedDocument;
     }
 
     private DocumentComponent createDocumentComponent(String code, String quantity, String discount, String price, String description) {
