@@ -19,6 +19,7 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import com.carlos.projects.billing.dao.DocumentDAO;
 import com.carlos.projects.billing.domain.Document;
 import com.carlos.projects.billing.domain.DocumentComponent;
 import com.carlos.projects.billing.domain.DocumentComponentBuilder;
@@ -47,13 +48,15 @@ public class AddComponentsControllerTest {
 
     @Mock
     private HttpServletRequest request;
+    @Mock
+    private DocumentDAO documentDAO;
     private HttpServletResponse response;
     private AddComponentsController controller;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        controller = new AddComponentsController();
+        controller = new AddComponentsController(documentDAO);
         response = null;
     }
 
@@ -62,16 +65,14 @@ public class AddComponentsControllerTest {
         //Given
         String familyName = "familyName";
         when(request.getParameter("familyName")).thenReturn(familyName);
-
         //When
         ModelAndView modelAndView = controller.handleRequestInternal(request, response);
-
         //Then
         assertThat("Family name value is wrong", (String) modelAndView.getModelMap().get("familyName"), is(familyName));
     }
 
     @Test
-    public void shouldAddComponentsToModel() throws Exception {
+    public void shouldAddDocumentToModel() throws Exception {
         //Given
         Document expectedDocument = givenExpectedComponentsAdded();
         Map<String, String[]> parameters = givenRequestParameters();

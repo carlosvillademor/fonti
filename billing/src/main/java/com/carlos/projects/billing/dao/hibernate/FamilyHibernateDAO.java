@@ -44,4 +44,5 @@ public class FamilyHibernateDAO extends HibernateDAO<Family, String> implements 
     public List<Family> findAllOrderByDescription(String entityName) {
         return (List<Family>) getSession().createQuery("from Family order by description").list();
     }
+
 }

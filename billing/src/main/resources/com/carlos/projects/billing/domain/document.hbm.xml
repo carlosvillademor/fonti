@@ -8,7 +8,7 @@
             <generator class="native"/>
         </id>
         <set name="documentComponents" inverse="true" cascade="save-update, delete" lazy="false">
-            <key column="DOCUMENT_COMPONENT_DOCUMENT_ID"></key>
+            <key column="DOCUMENT_COMPONENT_DOCUMENT_ID"/>
             <one-to-many class="DocumentComponent"/>
         </set>
     </class>

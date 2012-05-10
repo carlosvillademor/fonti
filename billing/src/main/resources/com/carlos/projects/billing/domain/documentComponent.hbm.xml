@@ -11,6 +11,6 @@
         <property name="description" type="string" column="DOCUMENT_COMPONENT_DESCRIPTION" not-null="true"/>
         <property name="price" type="double" column="DOCUMENT_COMPONENT_PRICE" not-null="true"/>
         <property name="discountApplied" type="double" column="DOCUMENT_COMPONENT_DISCOUNT_APPLIED" not-null="true"/>
-        <many-to-one name="document" column="DOCUMENT_COMPONENT_DOCUMENT_ID" class="DocumentComponent" not-null="true"/>
+        <many-to-one name="document" column="DOCUMENT_COMPONENT_DOCUMENT_ID" class="Document" not-null="true"/>
     </class>
 </hibernate-mapping>

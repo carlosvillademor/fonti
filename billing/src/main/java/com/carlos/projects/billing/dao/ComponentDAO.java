@@ -29,5 +29,4 @@ import com.carlos.projects.billing.domain.Component;
  * @date 08-Nov-2009
  */
 public interface ComponentDAO extends DAO<Component, String> {
-
 }

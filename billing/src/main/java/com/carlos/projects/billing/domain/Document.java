@@ -22,9 +22,10 @@ package com.carlos.projects.billing.domain;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.Collections.addAll;
 
 /**
  * @author: Carlos Fernandez
@@ -36,28 +37,28 @@ public class Document {
 
     private long id;
 
-    private List<DocumentComponent> documentComponents = new ArrayList<DocumentComponent>();
+    private Set<DocumentComponent> documentComponents = new HashSet<DocumentComponent>();
 
     public Document() {
     }
 
     public long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public List<DocumentComponent> getDocumentComponents() {
+    public Set<DocumentComponent> getDocumentComponents() {
         return documentComponents;
     }
 
     public void setDocumentComponents(DocumentComponent... documentComponents) {
-        this.documentComponents = Arrays.asList(documentComponents);
+        addAll(this.documentComponents, documentComponents);
     }
 
-    public void setDocumentComponents(List<DocumentComponent> documentComponents) {
+    public void setDocumentComponents(Set<DocumentComponent> documentComponents) {
         this.documentComponents = documentComponents;
     }
 

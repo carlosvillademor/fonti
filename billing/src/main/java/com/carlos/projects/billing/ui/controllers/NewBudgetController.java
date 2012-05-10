@@ -39,6 +39,7 @@ public class NewBudgetController extends ParameterizableViewController {
     private NewBudgetViewHelper newBudgetViewHelper;
 
     public NewBudgetController() {
+        super();
     }
 
     public NewBudgetController(NewBudgetViewHelper newBudgetViewHelper) {

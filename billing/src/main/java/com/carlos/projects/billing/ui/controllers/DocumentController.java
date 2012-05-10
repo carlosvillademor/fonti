@@ -17,11 +17,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.carlos.projects.billing.ui.controllers;
 
-import com.carlos.projects.billing.dao.FamilyDAO;
-import com.carlos.projects.billing.domain.Family;
+import com.carlos.projects.billing.dao.DocumentDAO;
+import com.carlos.projects.billing.domain.Document;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
@@ -31,34 +30,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Controller to load the components for a given family code
+ * Controller to show the document with all the components belonging to it
  *
  * @author Carlos Fernandez
- * @date 25 May 2010
+ * @date 04-Apr-2012
  */
-public class LoadComponentsController extends ParameterizableViewController {
+public class DocumentController extends ParameterizableViewController {
 
-    private FamilyDAO familyDao;
+    private DocumentDAO documentDAO;
 
-    public LoadComponentsController() {
+    public DocumentController(DocumentDAO documentDAO) {
         super();
+        this.documentDAO = documentDAO;
     }
 
-    public LoadComponentsController(FamilyDAO familyDao) {
-        this.familyDao = familyDao;
-    }
-
-    /* (non-Javadoc)
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequest(
-	 * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
     @Override
-    public ModelAndView handleRequestInternal(HttpServletRequest request,
-                                              HttpServletResponse response) throws Exception {
-        Family family = familyDao.getById(Family.class, request.getParameter("familyCode"));
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("familyName", family.getDescription());
-        model.put("components", family.getComponents());
+        model.put("document", documentDAO.getById(Document.class,
+                Long.parseLong(request.getParameter("documentId"))));
         return new ModelAndView(getViewName(), model);
     }
 

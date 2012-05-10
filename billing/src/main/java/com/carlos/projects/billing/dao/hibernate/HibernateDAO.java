@@ -76,4 +76,5 @@ public abstract class HibernateDAO<T, ID extends Serializable> implements DAO<T,
     public List<T> findAll(String entityName) {
         return (List<T>) getSession().createQuery("from " + entityName).list();
     }
+
 }

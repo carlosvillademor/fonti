@@ -36,19 +36,22 @@
         <property name="dataSource" ref="myDataSource"/>
         <property name="mappingResources">
             <list>
+                <value>com/carlos/projects/billing/domain/client.hbm.xml</value>
                 <value>com/carlos/projects/billing/domain/company.hbm.xml</value>
+                <value>com/carlos/projects/billing/domain/component.hbm.xml</value>
+                <value>com/carlos/projects/billing/domain/document.hbm.xml</value>
+                <value>com/carlos/projects/billing/domain/documentComponent.hbm.xml</value>
                 <value>com/carlos/projects/billing/domain/family.hbm.xml</value>
                 <value>com/carlos/projects/billing/domain/user.hbm.xml</value>
-                <value>com/carlos/projects/billing/domain/client.hbm.xml</value>
-                <value>com/carlos/projects/billing/domain/component.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
             <value>
                 hibernate.dialect=${dialect}
-                show_sql=${show.sql}
+                hibernate.show_sql=${show.sql}
                 hibernate.format_sql=${format.sql}
                 hibernate.hbm2ddl.auto=${hbm2ddl.auto}
+                hibernate.generate_statistics=${generate_statistics}
             </value>
         </property>
     </bean>
@@ -79,6 +82,7 @@
     <!-- CONTROLLERS -->
     <bean name="/addComponents.htm"
           class="com.carlos.projects.billing.ui.controllers.AddComponentsController">
+        <constructor-arg ref="documentDAO"/>
         <property name="viewName" value="addComponents"/>
     </bean>
 
@@ -109,6 +113,11 @@
         <property name="viewName" value="newDocument"/>
     </bean>
 
+    <bean name="/document.htm" class="com.carlos.projects.billing.ui.controllers.DocumentController">
+        <constructor-arg ref="documentDAO"/>
+        <property name="viewName" value="document"/>
+    </bean>
+
     <bean name="/selectComponents.htm"
           class="com.carlos.projects.billing.ui.controllers.SelectComponentsController">
         <constructor-arg ref="componentDAO"/>
@@ -126,11 +135,15 @@
     </bean>
 
     <!-- DAOs -->
-    <bean id="familyDAO" class="com.carlos.projects.billing.dao.hibernate.FamilyHibernateDAO">
+    <bean id="componentDAO" class="com.carlos.projects.billing.dao.hibernate.ComponentHibernateDAO">
         <constructor-arg ref="mySessionFactory"/>
     </bean>
 
-    <bean id="componentDAO" class="com.carlos.projects.billing.dao.hibernate.ComponentHibernateDAO">
+    <bean id="documentDAO" class="com.carlos.projects.billing.dao.hibernate.DocumentHibernateDAO">
+        <constructor-arg ref="mySessionFactory"/>
+    </bean>
+
+    <bean id="familyDAO" class="com.carlos.projects.billing.dao.hibernate.FamilyHibernateDAO">
         <constructor-arg ref="mySessionFactory"/>
     </bean>
 

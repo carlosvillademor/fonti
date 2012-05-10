@@ -19,6 +19,7 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import com.carlos.projects.billing.dao.DocumentDAO;
 import com.carlos.projects.billing.domain.Document;
 import com.carlos.projects.billing.domain.DocumentComponent;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,10 +27,9 @@ import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Controller to add selected components to a document
@@ -40,6 +40,15 @@ import java.util.Map;
 public class AddComponentsController extends ParameterizableViewController {
 
     private static final int COMPONENT_CODE = 13;
+    private DocumentDAO documentDAO;
+
+    public AddComponentsController() {
+        super();
+    }
+
+    public AddComponentsController(DocumentDAO documentDAO) {
+        this.documentDAO = documentDAO;
+    }
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -51,13 +60,14 @@ public class AddComponentsController extends ParameterizableViewController {
 
     private Document getDocumentWithComponentsAdded(Map<String, String[]> parameterMap) {
         Document document = new Document();
-        List<DocumentComponent> documentComponentsAdded = new ArrayList<DocumentComponent>();
+        Set<DocumentComponent> documentComponentsAdded = new HashSet<DocumentComponent>();
         for (String key : parameterMap.keySet()) {
             if (key.startsWith("componentCode")) {
-                documentComponentsAdded.add(createDocumentComponent(getComponentCode(key), parameterMap));
+                documentComponentsAdded.add(createDocumentComponent(getComponentCode(key), parameterMap, document));
             }
         }
         document.setDocumentComponents(documentComponentsAdded);
+        documentDAO.save(document);
         return document;
     }
 
@@ -65,13 +75,14 @@ public class AddComponentsController extends ParameterizableViewController {
         return key.substring(COMPONENT_CODE);
     }
 
-    private DocumentComponent createDocumentComponent(String componentCode, Map<String, String[]> parameterMap) {
+    private DocumentComponent createDocumentComponent(String componentCode, Map<String, String[]> parameterMap, Document document) {
         DocumentComponent component = new DocumentComponent();
         component.setDescription(parameterMap.get(componentCode + "Description")[0]);
         component.setCode(componentCode);
         component.setDiscountApplied(Double.valueOf(parameterMap.get(componentCode + "Discount")[0]));
         component.setPrice(Double.valueOf(parameterMap.get(componentCode + "Price")[0]));
         component.setQuantity(Double.valueOf(parameterMap.get(componentCode + "Quantity")[0]));
+        component.setDocument(document);
         return component;
     }
 

@@ -38,4 +38,5 @@ public class ComponentHibernateDAO extends HibernateDAO<Component, String> imple
     public ComponentHibernateDAO(SessionFactory hibernateSessionFactory) {
         super(hibernateSessionFactory);
     }
+
 }

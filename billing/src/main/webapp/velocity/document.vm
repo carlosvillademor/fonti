@@ -1,19 +1,17 @@
 <html>
 <head>
-    <title>Componentes de la familia ${familyName} a&ntilde;adidos al documento</title>
+    <title>Documento</title>
 </head>
 <body>
-<p>Lista de los componentes de la familia ${familyName} a&ntilde;adidos al documento</p>
+<p>Lista de los componentes del documento</p>
 
 <form action="#springUrl('/document.htm')" method="post">
-    <input type="hidden" name="documentId" value="$document.id"/>
     #foreach ( $component in $document.documentComponents )
         <label>
             <input type="text" name="$component.code"
                    value="$component.code">${component.description}/><br/>
         </label>
     #end
-    <input type="submit" value="Continuar"/>
 </form>
 </body>
 </html>
