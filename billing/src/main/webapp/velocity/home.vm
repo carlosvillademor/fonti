@@ -3,9 +3,10 @@
         <title>Inicio</title>
     </head>
     <body>
-        <h1>Programa de facturacion y presupuestos</h1>
+        <h1>Programa de facturaci&oacute;n y presupuestos</h1>
         <a href="importComponents.htm" title="Importar el listado de componentes">
-            Haga click aqui para importar el listado de componentes</a>
-        <a href="newDocument.htm" title="Crear nuevo documento">Haga click aqui para crear un nuevo documento</a>
+            Haga click aqu&iacute; para importar el listado de componentes</a>
+        <a href="newDocument.htm" title="Crear nuevo documento">Haga click aqu&iacute; para crear un nuevo documento</a>
+        <a href="documents.htm" title="Lista de documentos">Haga click aqu&iacute; para ver la lista de documentos</a>
     </body>
 </html>

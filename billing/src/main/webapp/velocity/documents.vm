@@ -1,0 +1,13 @@
+<html>
+<head>
+    <title>Documentos</title>
+</head>
+<body>
+    <form action="#springUrl('/document.htm')" method="post">
+        <p>Lista de documentos</p>
+        #foreach($document in $documents)
+            <input type="submit" name="documentId" value="$!{document.id}" title="Document $!{document.id}">Document $!{document.id}</input>
+        #end
+    </form>
+</body>
+</html>

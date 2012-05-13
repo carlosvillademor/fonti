@@ -118,6 +118,11 @@
         <property name="viewName" value="document"/>
     </bean>
 
+    <bean name="/documents.htm" class="com.carlos.projects.billing.ui.controllers.DocumentsController">
+        <constructor-arg ref="documentDAO"/>
+        <property name="viewName" value="documents"/>
+    </bean>
+
     <bean name="/selectComponents.htm"
           class="com.carlos.projects.billing.ui.controllers.SelectComponentsController">
         <constructor-arg ref="componentDAO"/>
