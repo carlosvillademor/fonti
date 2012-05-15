@@ -28,6 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.apache.commons.lang.StringUtils.isEmpty;
+import static org.apache.commons.lang.StringUtils.isNumeric;
+
 /**
  * Controller to show the families and components to create a new budget document
  *
@@ -38,10 +41,6 @@ public class NewBudgetController extends ParameterizableViewController {
 
     private NewBudgetViewHelper newBudgetViewHelper;
 
-    public NewBudgetController() {
-        super();
-    }
-
     public NewBudgetController(NewBudgetViewHelper newBudgetViewHelper) {
         this.newBudgetViewHelper = newBudgetViewHelper;
     }
@@ -50,11 +49,11 @@ public class NewBudgetController extends ParameterizableViewController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("newBudgetViewHelper", newBudgetViewHelper);
+        String documentId = request.getParameter("documentId");
+        if (!isEmpty(documentId) && isNumeric(documentId)) {
+            model.put("documentId", Long.parseLong(documentId));
+        }
         return new ModelAndView(getViewName(), model);
-    }
-
-    public void setNewBudgetViewHelper(NewBudgetViewHelper newBudgetViewHelper) {
-        this.newBudgetViewHelper = newBudgetViewHelper;
     }
 
 }

@@ -4,14 +4,15 @@
 </head>
 <body>
 <p>Lista de los componentes del documento</p>
-
-<form action="#springUrl('/document.htm')" method="post">
+<form action="#springUrl('/newBudget.htm')" method="post">
+    <input type="hidden" name="documentId" value="$!{document.id}"/>
     #foreach ( $component in $document.documentComponents )
         <label>
             <input type="text" name="$component.code"
                    value="$component.code">${component.description}/><br/>
         </label>
     #end
+    <input type="submit" value="A&ntilde;adir m&aacute;s componentes al documento" title="A&ntilde;adir m&aacute;s componentes al documento" />
 </form>
 </body>
 </html>

@@ -1,4 +1,5 @@
 #* @implicitly included *#
+#* @vtlvariable name="documentId" type="java.lang.String" *#
 #* @vtlvariable name="document" type="com.carlos.projects.billing.domain.Document" *#
 #* @vtlvariable name="componentsAdded" type="java.util.Map<java.lang.String,com.carlos.projects.billing.domain.DocumentComponent>" *#
 #* @vtlvariable name="importedComponents" type="com.carlos.projects.billing.domain.Component[]" *#

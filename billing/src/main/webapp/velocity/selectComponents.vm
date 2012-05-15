@@ -3,19 +3,20 @@
 <p>Lista de los componentes de la familia ${familyName} seleccionados</p>
 
 <form id="addComponentes" action="#springUrl('/addComponents.htm')" method="post">
-    <input type="hidden" id="familyName" name="familyName" value="${familyName}"/>
+    <input type="hidden" id="familyName" name="familyName" value="$!{familyName}"/>
+    <input type="hidden" id="documentId" name="documentId" value="$!{documentId}"/>
     #foreach ( $component in $components )
-        <input type="hidden" id="componentCode${component.code}" name="componentCode${component.code}"
-               value="componentCode${component.code}"/>
+        <input type="hidden" id="componentCode$!{component.code}" name="componentCode$!{component.code}"
+               value="componentCode$!{component.code}"/>
         <fieldset>
-            <legend>${component.description}</legend>
-            <input type="hidden" id="${component.code}Description" name="${component.code}Description"
-                   value="${component.description}"/>
-            <label>Cantidad: <input type="text" id="${component.code}Quantity"
-                                    name="${component.code}Quantity"/></label>
-            <label>Descuento: <input type="text" id="${component.code}Discount"
-                                     name="${component.code}Discount"/></label>
-            <label>Precio: <input type="text" id="${component.code}Price" name="${component.code}Price"/></label>
+            <legend>$!{component.description}</legend>
+            <input type="hidden" id="$!{component.code}Description" name="$!{component.code}Description"
+                   value="$!{component.description}"/>
+            <label>Cantidad: <input type="text" id="$!{component.code}Quantity"
+                                    name="$!{component.code}Quantity"/></label>
+            <label>Descuento: <input type="text" id="$!{component.code}Discount"
+                                     name="$!{component.code}Discount"/></label>
+            <label>Precio: <input type="text" id="$!{component.code}Price" name="$!{component.code}Price"/></label>
         </fieldset>
     #end
     <input type="submit" value="A&ntilde;adir"/>

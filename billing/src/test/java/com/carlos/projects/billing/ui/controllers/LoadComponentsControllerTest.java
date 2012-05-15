@@ -25,16 +25,18 @@ import com.carlos.projects.billing.domain.Component;
 import com.carlos.projects.billing.domain.Family;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.mock.web.MockHttpServletResponse;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -45,32 +47,40 @@ import static org.mockito.Mockito.when;
  * @author Carlos Fernandez
  * @date 25 May 2010
  */
+
+@RunWith(MockitoJUnitRunner.class)
 public class LoadComponentsControllerTest {
 
-	@Mock FamilyDAO familyDao;
-	@Mock Family family;
-    @Mock HttpServletRequest request;
+    LoadComponentsController controller;
+    String familyCode;
 
-	@Before
-	public void setup() {
-		MockitoAnnotations.initMocks(this);
-	}
+    @Mock
+    FamilyDAO familyDao;
+    @Mock
+    Family family;
+    @Mock
+    HttpServletRequest request;
+    @Mock
+    HttpServletResponse response;
 
-	@SuppressWarnings({"unchecked"})
-    @Test
-	public void shouldLoadComponentsAndFamilyNameForAGivenFamilyCode() throws Exception {
-		// Given
-		LoadComponentsController controller = new LoadComponentsController(familyDao);
+    @Before
+    public void setup() {
+        controller = new LoadComponentsController(familyDao);
         controller.setViewName("loadComponents");
-		String familyCode = "familyCode";
-		Set<Component> components = mockComponents();
-        String familyName = "Family name";
-        when(request.getParameter("familyCode")).thenReturn(familyCode);
         when(request.getMethod()).thenReturn("POST");
+        familyCode = "familyCode";
+        when(request.getParameter("familyCode")).thenReturn(familyCode);
         when(familyDao.getById(Family.class, familyCode)).thenReturn(family);
+    }
+
+    @SuppressWarnings({"unchecked"})
+    @Test
+    public void shouldLoadComponentsAndFamilyNameForAGivenFamilyCode() throws Exception {
+        // Given
+        Set<Component> components = mockComponents();
+        String familyName = "Family name";
         when(family.getComponents()).thenReturn(components);
         when(family.getDescription()).thenReturn(familyName);
-        MockHttpServletResponse response = null;
 
         // When
         ModelAndView modelAndView = controller.handleRequest(request, response);
@@ -79,18 +89,44 @@ public class LoadComponentsControllerTest {
         verify(familyDao).getById(Family.class, familyCode);
         verify(family).getComponents();
         verify(request).getParameter("familyCode");
-        assertThat((Set<Component>)modelAndView.getModel().get("components"), is(components));
+        assertThat((Set<Component>) modelAndView.getModel().get("components"), is(components));
         assertThat((String) modelAndView.getModel().get("familyName"), is(familyName));
         assertThat(modelAndView.getViewName(), is(controller.getViewName()));
-	}
+    }
 
-	private Set<Component> mockComponents() {
-		Set<Component> components = new HashSet<Component>();
-		Component component1 = new Component();
-		components.add(component1);
-		Component component2 = new Component();
-		components.add(component2);
-		return components;
-	}
-	
+    @Test
+    public void shouldAddDocumentIdToModelIfItIsPresentOnRequest() throws Exception {
+        //Given
+        Long documentId = 123L;
+        when(request.getParameter("documentId")).thenReturn(documentId.toString());
+
+        //When
+        ModelAndView modelAndView = controller.handleRequest(request, response);
+
+        //Then
+        assertThat("The document id is wrong", (Long) modelAndView.getModel().get("documentId"), is(documentId));
+    }
+
+    @Test
+    public void shouldNotAddDocumentIdToModelIfItIsPresentOnRequestButItIsNotNumeric() throws Exception {
+        //Given
+        String documentId = "123a";
+        when(request.getParameter("documentId")).thenReturn(documentId);
+
+        //When
+        ModelAndView modelAndView = controller.handleRequest(request, response);
+
+        //Then
+        assertThat("The document id is wrong", modelAndView.getModel().get("documentId"), is(nullValue()));
+    }
+
+    private Set<Component> mockComponents() {
+        Set<Component> components = new HashSet<Component>();
+        Component component1 = new Component();
+        components.add(component1);
+        Component component2 = new Component();
+        components.add(component2);
+        return components;
+    }
+
 }

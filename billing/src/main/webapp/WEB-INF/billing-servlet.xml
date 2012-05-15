@@ -106,7 +106,7 @@
 
     <bean name="/newBudget.htm" class="com.carlos.projects.billing.ui.controllers.NewBudgetController">
         <property name="viewName" value="newBudget"/>
-        <property name="newBudgetViewHelper" ref="newBudgetViewHelper"/>
+        <constructor-arg ref="newBudgetViewHelper"/>
     </bean>
 
     <bean name="/newDocument.htm" class="com.carlos.projects.billing.ui.controllers.NewDocumentController">

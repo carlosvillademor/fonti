@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.apache.commons.lang.StringUtils.isEmpty;
+import static org.apache.commons.lang.StringUtils.isNumeric;
+
 /**
  * @author: Carlos Fernandez
  * @date: 02 Aug 2010
@@ -54,10 +57,6 @@ public class SelectComponentsController extends ParameterizableViewController {
         this.componentDAO = componentDAO;
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.web.servlet.mvc.ParameterizableViewController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
@@ -65,6 +64,11 @@ public class SelectComponentsController extends ParameterizableViewController {
         mav.getModelMap().addAttribute("components",
                 getComponents((Map<String, String[]>) request.getParameterMap()));
         mav.getModelMap().addAttribute("familyName", request.getParameter("familyName"));
+
+        String documentId = request.getParameter("documentId");
+        if (!isEmpty(documentId) && isNumeric(documentId)) {
+            mav.getModelMap().addAttribute("documentId", Long.parseLong(documentId));
+        }
         return mav;
     }
 

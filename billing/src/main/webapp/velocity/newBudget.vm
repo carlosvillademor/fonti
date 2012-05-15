@@ -6,7 +6,7 @@
     </head>
     <body>
         <h1>Seleccione los componentes que forman parte del presupuesto</h1>
-
+        <input type="hidden" id="documentId" name= "documentId" value="$!{documentId}"/>
         <div id="familiesSelection">
             <label>Familia
                 <select id="families">

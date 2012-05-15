@@ -21,20 +21,25 @@ package com.carlos.projects.billing.ui.controllers;
 
 import com.carlos.projects.billing.dao.ComponentDAO;
 import com.carlos.projects.billing.domain.Component;
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * @author: Carlos Fernandez
@@ -43,30 +48,42 @@ import static org.mockito.MockitoAnnotations.initMocks;
  *
  * Unit tests for @link{SelectComponentsController}
  */
+
+@RunWith(MockitoJUnitRunner.class)
 public class SelectComponentsControllerTest {
 
-    @Mock private ComponentDAO componentDAO;
+    SelectComponentsController controller;
+
+    @Mock
+    HttpServletRequest request;
+    @Mock
+    HttpServletResponse response;
+    @Mock
+    private ComponentDAO componentDAO;
 
     @Before
     public void setUp() {
-        initMocks(this);
+        controller = new SelectComponentsController(componentDAO);
+        when(request.getMethod()).thenReturn("POST");
     }
 
     @Test
     public void shouldForwardToNewDocumentPageWithComponentsAndFamilyInModel() throws Exception {
         //Given
-        SelectComponentsController controller = new SelectComponentsController(componentDAO);
         controller.setViewName("selectComponents");
-
-        MockHttpServletRequest request = createMockRequest();
-        MockHttpServletResponse response = new MockHttpServletResponse();
 
         String componentId1 = "componentId1";
         Component component1 = createComponent(componentId1);
         String componentId2 = "componentId2";
         Component component2 = createComponent(componentId2);
-        List<Component> expectedComponents = createExpectedComponents(component1, component2);
 
+        Map<String, String[]> parameters = new HashMap<String, String[]>();
+        parameters.put("componentId1", new String[]{"valueComponentId1"});
+        parameters.put("componentId2", new String[]{"valueComponentId2"});
+        parameters.put("familyName", new String[]{"familyNameValue"});
+
+        when(request.getParameterMap()).thenReturn(parameters);
+        when(request.getParameter("familyName")).thenReturn("familyNameValue");
         when(componentDAO.getById(Component.class, componentId1)).thenReturn(component1);
         when(componentDAO.getById(Component.class, componentId2)).thenReturn(component2);
 
@@ -74,32 +91,43 @@ public class SelectComponentsControllerTest {
         ModelAndView modelAndView = controller.handleRequest(request, response);
 
         //Then
-        assertThat(modelAndView.getViewName(), is("selectComponents"));
-        assertThat((List<Component>) modelAndView.getModelMap().get("components"),
-                is(expectedComponents));
-        assertThat((String) modelAndView.getModelMap().get("familyName"), is("familyNameValue"));
+        assertThat("The view name is wrong", modelAndView.getViewName(), is("selectComponents"));
+        assertThat("The size of the list is wrong", ((List<Component>) modelAndView.getModelMap().get("components")).size(), is(2));
+        assertThat("The list of components is wrong", (List<Component>) modelAndView.getModelMap().get("components"),
+                hasItems(component1, component2));
+        assertThat("The family name is wrong", (String) modelAndView.getModelMap().get("familyName"), is("familyNameValue"));
     }
 
-    private Component createComponent(String compoonentId) {
+    @Test
+    public void shouldAddDocumentIdToModelIfItIsPresentInRequest() throws Exception {
+        //Given
+        Long documentId = 123L;
+        when(request.getParameter("documentId")).thenReturn(documentId.toString());
+
+        //When
+        ModelAndView modelAndView = controller.handleRequest(request, response);
+
+        //Then
+        assertThat("The document id is wrong", (Long) modelAndView.getModel().get("documentId"), is(documentId));
+    }
+
+    @Test
+    public void shouldNotAddDocumentIdToModelIfItIsPresentInRequestButItIsNotNumeric() throws Exception {
+        //Given
+        String documentId = "123a";
+        when(request.getParameter("documentId")).thenReturn(documentId);
+
+        //When
+        ModelAndView modelAndView = controller.handleRequest(request, response);
+
+        //Then
+        assertThat("The document id is wrong", modelAndView.getModel().get("documentId"), is(nullValue()));
+    }
+
+    private Component createComponent(String componentId) {
         Component component1 = new Component();
-        component1.setCode(compoonentId);
+        component1.setCode(componentId);
         return component1;
-    }
-
-    private List<Component> createExpectedComponents(Component component1, Component component2) {
-        List<Component> expectedComponents = new ArrayList<Component>();
-        expectedComponents.add(component1);
-        expectedComponents.add(component2);
-        return expectedComponents;
-    }
-
-    private MockHttpServletRequest createMockRequest() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setMethod("POST");
-        request.setParameter("componentId1", "valueComponentId1");
-        request.setParameter("componentId2", "valueComponentId2");
-        request.setParameter("familyName", "familyNameValue");
-        return request;
     }
 
 }

@@ -30,6 +30,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.apache.commons.lang.StringUtils.isEmpty;
+import static org.apache.commons.lang.StringUtils.isNumeric;
+
 /**
  * Controller to load the components for a given family code
  *
@@ -59,6 +62,10 @@ public class LoadComponentsController extends ParameterizableViewController {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("familyName", family.getDescription());
         model.put("components", family.getComponents());
+        String documentId = request.getParameter("documentId");
+        if (!isEmpty(documentId) && isNumeric(documentId)) {
+            model.put("documentId", Long.parseLong(documentId));
+        }
         return new ModelAndView(getViewName(), model);
     }
 
