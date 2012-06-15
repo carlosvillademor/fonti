@@ -32,15 +32,15 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.0.2</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
     <properties>
-        <springframework.version>3.0.5.RELEASE</springframework.version>
+        <springframework.version>3.1.1.RELEASE</springframework.version>
     </properties>
 
     <!-- Dependencies -->
@@ -96,7 +96,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>3.3.2.GA</version>
+            <version>4.1.3.Final</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -118,7 +118,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.10</version>
+            <version>5.1.20</version>
         </dependency>
 
         <!-- Logging -->
@@ -161,14 +161,14 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>3.5-beta6</version>
+            <version>3.8</version>
         </dependency>
 
         <!-- Velocity -->
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
-            <version>1.6.2</version>
+            <version>1.7</version>
         </dependency>
 
         <!-- Test scope -->
@@ -177,7 +177,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
+            <version>4.10</version>
             <scope>test</scope>
         </dependency>
 
@@ -193,7 +193,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.8.0</version>
+            <version>1.9.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
