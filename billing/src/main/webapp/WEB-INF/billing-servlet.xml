@@ -31,7 +31,7 @@
     </bean>
 
     <!-- SESSION FACTORY -->
-    <bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+    <bean id="mySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
           destroy-method="destroy">
         <property name="dataSource" ref="myDataSource"/>
         <property name="mappingResources">
@@ -57,7 +57,7 @@
     </bean>
 
     <!-- TRANSACTION MANAGER -->
-    <bean id="myTransactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <bean id="myTransactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="mySessionFactory"/>
     </bean>
 
