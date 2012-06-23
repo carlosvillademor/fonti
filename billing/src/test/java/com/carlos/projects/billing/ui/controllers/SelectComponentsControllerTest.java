@@ -68,9 +68,12 @@ public class SelectComponentsControllerTest {
     }
 
     @Test
-    public void shouldForwardToNewDocumentPageWithComponentsAndFamilyInModel() throws Exception {
+    public void shouldForwardToNewDocumentPageWithComponentsDocumentIdAndFamilyInModel() throws Exception {
         //Given
         controller.setViewName("selectComponents");
+
+        String familyNameValue = "familyNameValue";
+        Long documentIdValue = 12345L;
 
         String componentId1 = "componentId1";
         Component component1 = createComponent(componentId1);
@@ -80,10 +83,12 @@ public class SelectComponentsControllerTest {
         Map<String, String[]> parameters = new HashMap<String, String[]>();
         parameters.put("componentId1", new String[]{"valueComponentId1"});
         parameters.put("componentId2", new String[]{"valueComponentId2"});
-        parameters.put("familyName", new String[]{"familyNameValue"});
+		parameters.put("familyName", new String[]{familyNameValue});
+		parameters.put("documentId", new String[]{documentIdValue.toString()});
 
         when(request.getParameterMap()).thenReturn(parameters);
-        when(request.getParameter("familyName")).thenReturn("familyNameValue");
+        when(request.getParameter("familyName")).thenReturn(familyNameValue);
+        when(request.getParameter("documentId")).thenReturn(documentIdValue.toString());
         when(componentDAO.getById(Component.class, componentId1)).thenReturn(component1);
         when(componentDAO.getById(Component.class, componentId2)).thenReturn(component2);
 
@@ -95,7 +100,8 @@ public class SelectComponentsControllerTest {
         assertThat("The size of the list is wrong", ((List<Component>) modelAndView.getModelMap().get("components")).size(), is(2));
         assertThat("The list of components is wrong", (List<Component>) modelAndView.getModelMap().get("components"),
                 hasItems(component1, component2));
-        assertThat("The family name is wrong", (String) modelAndView.getModelMap().get("familyName"), is("familyNameValue"));
+        assertThat("The family name is wrong", (String) modelAndView.getModelMap().get("familyName"), is(familyNameValue));
+        assertThat("The document id is wrong", (Long) modelAndView.getModelMap().get("documentId"), is(documentIdValue));
     }
 
     @Test

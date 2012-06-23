@@ -75,7 +75,7 @@ public class SelectComponentsController extends ParameterizableViewController {
     private List<Component> getComponents(Map<String, String[]> requestParameters) {
         List<Component> components = new ArrayList<Component>();
         for (String key : requestParameters.keySet()) {
-            if (!"familyName".equalsIgnoreCase(key)) {
+            if (!"familyName".equalsIgnoreCase(key) && !"documentId".equalsIgnoreCase(key)) {
                 components.add(componentDAO.getById(Component.class, key));
             }
         }
