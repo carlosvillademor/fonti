@@ -19,24 +19,22 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
-import com.carlos.projects.billing.ui.helpers.NewBudgetViewHelper;
-import org.hamcrest.Matcher;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
+import com.carlos.projects.billing.ui.helpers.NewBudgetViewHelper;
 
 /**
  * Unit tests for {@link com.carlos.projects.billing.ui.controllers.NewBudgetController}

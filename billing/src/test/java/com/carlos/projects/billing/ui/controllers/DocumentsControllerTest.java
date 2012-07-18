@@ -19,9 +19,16 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
-import com.carlos.projects.billing.dao.DocumentDAO;
-import com.carlos.projects.billing.domain.Document;
-import org.hamcrest.Matcher;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,15 +36,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
+import com.carlos.projects.billing.dao.DocumentDAO;
+import com.carlos.projects.billing.domain.Document;
 
 /**
  * @author Carlos Fernandez
@@ -47,42 +47,47 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class DocumentsControllerTest {
 
-    private static final String DOCUMENTS_VIEW_NAME = "documents";
-    private DocumentsController controller;
+	private static final String DOCUMENTS_VIEW_NAME = "documents";
+	private DocumentsController controller;
 
-    @Mock
-    private DocumentDAO documentDAO;
-    @Mock
-    private HttpServletRequest request;
-    @Mock
-    private HttpServletResponse response;
+	@Mock
+	private DocumentDAO documentDAO;
+	@Mock
+	private HttpServletRequest request;
+	@Mock
+	private HttpServletResponse response;
 
-    @Before
-    public void setUp() {
-        controller = new DocumentsController(documentDAO);
-    }
+	@Before
+	public void setUp() {
+		controller = new DocumentsController(documentDAO);
+	}
 
-    @Test
-    public void shouldRenderTheCorrectView() throws Exception {
-        //Given
-        controller.setViewName(DOCUMENTS_VIEW_NAME);
-        //When
-        ModelAndView modelAndView = controller.handleRequestInternal(request, response);
-        //Then
-        assertThat("The view name is wrong", modelAndView.getViewName(), is(DOCUMENTS_VIEW_NAME));
-    }
+	@Test
+	public void shouldRenderTheCorrectView() throws Exception {
+		// Given
+		controller.setViewName(DOCUMENTS_VIEW_NAME);
+		// When
+		ModelAndView modelAndView = controller.handleRequestInternal(request,
+				response);
+		// Then
+		assertThat("The view name is wrong", modelAndView.getViewName(),
+				is(DOCUMENTS_VIEW_NAME));
+	}
 
-    @Test
-    public void shouldListAllTheDocuments() throws Exception {
-        //Given
-        controller.setViewName(DOCUMENTS_VIEW_NAME);
-        List<Document> documents = new ArrayList<Document>();
-        documents.add(new Document());
-        when(documentDAO.findAll("Document")).thenReturn(documents);
-        //When
-        ModelAndView modelAndView = controller.handleRequestInternal(request, response);
-        //Then
-        assertThat("Not all the documents are listed", (List<Document>) modelAndView.getModel().get("documents"), is(documents));
-    }
+	@Test
+	public void shouldListAllTheDocuments() throws Exception {
+		// Given
+		controller.setViewName(DOCUMENTS_VIEW_NAME);
+		List<Document> documents = new ArrayList<Document>();
+		documents.add(new Document());
+		when(documentDAO.findAll("Document")).thenReturn(documents);
+		// When
+		ModelAndView modelAndView = controller.handleRequestInternal(request,
+				response);
+		// Then
+		assertThat("Not all the documents are listed",
+				(List<Document>) modelAndView.getModel().get("documents"),
+				is(documents));
+	}
 
 }

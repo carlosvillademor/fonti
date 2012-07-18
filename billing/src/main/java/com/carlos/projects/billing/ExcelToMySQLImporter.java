@@ -67,7 +67,6 @@ public class ExcelToMySQLImporter implements Importer {
         this.componentDAO = componentDAO;
     }
 
-    @SuppressWarnings({"UnusedDeclaration"})
     public void setMessages(Properties messages) {
         this.messages = messages;
     }

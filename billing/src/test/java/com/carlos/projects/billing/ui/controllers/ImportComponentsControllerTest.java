@@ -59,7 +59,6 @@ public class ImportComponentsControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void shouldImportDataAndPutNumberOfImportedItemsInTheModelWhenOnSubmit()
             throws Exception {

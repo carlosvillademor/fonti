@@ -29,7 +29,9 @@ import java.io.IOException;
  */
 public class ImportException extends Exception {
 
-    public ImportException(String message, IOException exception) {
+	private static final long serialVersionUID = 1L;
+
+	public ImportException(String message, IOException exception) {
         super(message, exception);
     }
 

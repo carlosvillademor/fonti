@@ -19,15 +19,16 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
-import com.carlos.projects.billing.dao.DocumentDAO;
-import com.carlos.projects.billing.domain.Document;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.ParameterizableViewController;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.ParameterizableViewController;
+
+import com.carlos.projects.billing.dao.DocumentDAO;
 
 /**
  * Controller to show all the existing documents
