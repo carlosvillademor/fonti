@@ -9,7 +9,7 @@
     #foreach ( $component in $document.documentComponents )
         <label>
             <input type="text" name="$component.code"
-                   value="$component.code">${component.description}/><br/>
+                   value="$component.code">${component.description}<br/>
         </label>
     #end
     <input type="submit" value="A&ntilde;adir m&aacute;s componentes al documento" title="A&ntilde;adir m&aacute;s componentes al documento" />
