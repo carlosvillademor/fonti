@@ -19,24 +19,28 @@
  */
 package com.carlos.projects.billing.ui.controllers;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.carlos.projects.billing.dao.DocumentDAO;
 import com.carlos.projects.billing.domain.Document;
 import com.carlos.projects.billing.domain.DocumentComponent;
 import com.carlos.projects.billing.domain.DocumentComponentBuilder;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
 
 /**
  * Unit tests for @link{AddComponentsController}
@@ -77,15 +81,34 @@ public class AddComponentsControllerTest {
         Document expectedDocument = givenExpectedComponentsAdded();
         Map<String, String[]> parameters = givenRequestParameters();
         when(request.getParameterMap()).thenReturn(parameters);
-
         //When
         ModelAndView modelAndView = controller.handleRequestInternal(request, response);
-
         //Then
         assertThat("Model does not contain document with components added", (Document) modelAndView
                 .getModelMap().get("document"), is(expectedDocument));
     }
 
+    @Test
+	public void shouldUseExistingDocumentIfRequestHasAValidaDocumentId() throws Exception {
+		//Given
+    	Document document = new Document();
+    	document.setId(1L);
+        Map<String, String[]> parameters = givenRequestParameters();
+        String[] documentId = {"1"};
+        parameters.put("documentId", documentId);
+        when(request.getParameterMap()).thenReturn(parameters);
+		when(documentDAO.getById(Document.class, 1L)).thenReturn(document);
+		//When
+        ModelAndView modelAndView = controller.handleRequestInternal(request, response);
+		//Then
+        assertThat("A new document has been created when document with id 1 should have been used", 
+        		((Document) modelAndView.getModelMap().get("document")).getId(), is(1L));
+        ArgumentCaptor<Document> documentCaptor = ArgumentCaptor.forClass(Document.class);
+        Mockito.verify(documentDAO).saveOrUpdate(documentCaptor.capture());
+        assertThat("The document saved does not have the same id than came on the request", 
+        		documentCaptor.getValue().getId(), is(1L));
+	}
+    
     private Map<String, String[]> givenRequestParameters() {
         Map<String, String[]> parameters = new HashMap<String, String[]>();
         String[] component1Code = {"code1"};

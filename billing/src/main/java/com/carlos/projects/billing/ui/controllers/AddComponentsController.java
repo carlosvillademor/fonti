@@ -22,6 +22,8 @@ package com.carlos.projects.billing.ui.controllers;
 import com.carlos.projects.billing.dao.DocumentDAO;
 import com.carlos.projects.billing.domain.Document;
 import com.carlos.projects.billing.domain.DocumentComponent;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
@@ -59,7 +61,13 @@ public class AddComponentsController extends ParameterizableViewController {
     }
 
     private Document getDocumentWithComponentsAdded(Map<String, String[]> parameterMap) {
-        Document document = new Document();
+    	Document document;
+    	String[] documentId = parameterMap.get("documentId");
+		if(documentId != null && (!StringUtils.isEmpty(documentId[0]) && (StringUtils.isNumeric(documentId[0])))){
+    		document = documentDAO.getById(Document.class, Long.parseLong(documentId[0]));
+    	} else {
+    		document = new Document();
+    	}
         Set<DocumentComponent> documentComponentsAdded = new HashSet<DocumentComponent>();
         for (String key : parameterMap.keySet()) {
             if (key.startsWith("componentCode")) {
@@ -67,7 +75,7 @@ public class AddComponentsController extends ParameterizableViewController {
             }
         }
         document.setDocumentComponents(documentComponentsAdded);
-        documentDAO.save(document);
+        documentDAO.saveOrUpdate(document);
         return document;
     }
 
